@@ -1,5 +1,4 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import realEstateImg from "@/assets/service-real-estate.jpg";
 import financialImg from "@/assets/service-financial.jpg";
 import consultingImg from "@/assets/service-consulting-premium.jpg";
@@ -40,7 +39,10 @@ const Services = () => {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <Card key={index} className="border-0 shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-300">
+            <Card 
+              key={index} 
+              className="border-0 shadow-lg overflow-hidden group hover:shadow-xl transition-all duration-500 hover:bg-solara-vinho"
+            >
               <div className="aspect-[3/2] overflow-hidden">
                 <img 
                   src={service.image} 
@@ -49,13 +51,12 @@ const Services = () => {
                 />
               </div>
               <CardContent className="p-8">
-                <h3 className="text-2xl font-light mb-4">{service.title}</h3>
-                <p className="text-muted-foreground font-light leading-relaxed mb-6">
+                <h3 className="text-2xl font-light mb-4 group-hover:text-white transition-colors duration-300">
+                  {service.title}
+                </h3>
+                <p className="text-muted-foreground font-light leading-relaxed group-hover:text-white/90 transition-colors duration-300">
                   {service.description}
                 </p>
-                <Button variant="ghost" className="p-0 h-auto font-light hover:text-primary">
-                  Learn More →
-                </Button>
               </CardContent>
             </Card>
           ))}

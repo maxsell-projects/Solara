@@ -59,6 +59,7 @@ export default {
         },
         solara: {
           vinho: "#722F37",
+          salmon: "#E67E73",
         },
         vision: {
           green: "#064E3B", 
