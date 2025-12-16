@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import logoSolara from "@/assets/logo-solara-full.jpg";
@@ -6,6 +7,18 @@ import HamburgerMenu from "@/components/HamburgerMenu";
 const Header = () => {
   const location = useLocation();
   const isVisionSection = location.pathname.startsWith('/vision');
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Efeito para detectar o scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      // Ativa o fundo se rolar mais de 20px
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Define a classe de hover baseada na secção atual
   const navLinkHoverClass = isVisionSection 
@@ -13,11 +26,19 @@ const Header = () => {
     : "hover:text-solara-vinho";
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border transition-all duration-300">
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? "bg-background/95 backdrop-blur-sm border-b border-border shadow-sm py-2" 
+          : "bg-transparent border-transparent py-4"
+      }`}
+    >
       <div className="container mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-28">
+        <div className="flex items-center justify-between h-20 transition-all duration-300">
           <Link to="/" className="flex items-center group">
-            <div className="h-20 w-20 rounded-full border-2 border-solara-vinho p-1.5 bg-white overflow-hidden flex items-center justify-center transition-transform group-hover:scale-105">
+            {/* O container do logo pode encolher levemente no scroll se quiser, 
+                aqui mantive a lógica original mas adicionei shadow condicional */}
+            <div className={`h-16 w-16 md:h-20 md:w-20 rounded-full border-2 border-solara-vinho p-1.5 bg-white overflow-hidden flex items-center justify-center transition-transform group-hover:scale-105 ${!isScrolled ? "shadow-lg" : ""}`}>
               <img 
                 src={logoSolara} 
                 alt="Solara Project" 
