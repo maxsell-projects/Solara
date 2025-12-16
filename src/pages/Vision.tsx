@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import logoVision from "@/assets/logo-vision.png";
 import visionImg from "@/assets/vision-editorial.jpg";
+import signatureCamila from "@/assets/signature-camila.png";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, User } from "lucide-react";
 
@@ -41,7 +42,7 @@ const Vision = () => {
   ];
 
   return (
-    <div className="min-h-screen font-sans">
+    <div className="min-h-screen font-sans selection:bg-vision-light/30">
       <Header />
       
       {/* Hero Section */}
@@ -161,8 +162,78 @@ const Vision = () => {
         </div>
       </section>
 
+      {/* NOVO: Secção Sobre Mim / Estampa */}
+      <section className="py-24 bg-neutral-50 overflow-hidden">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            
+            {/* Lado da Imagem (Placeholder para Foto da Camila) */}
+            <div className="relative order-2 lg:order-1">
+              <div className="relative aspect-[3/4] rounded-sm overflow-hidden shadow-2xl max-w-md mx-auto">
+                 {/* Substituir 'visionImg' pela foto real da Camila */}
+                <img 
+                  src={visionImg} 
+                  alt="Camila Montenegro" 
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                />
+                <div className="absolute inset-0 border-[1px] border-white/20 m-4 pointer-events-none"></div>
+              </div>
+              {/* Elemento decorativo de fundo */}
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-vision-green/10 rounded-full blur-3xl -z-10"></div>
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-vision-light/20 rounded-full blur-3xl -z-10"></div>
+            </div>
+
+            {/* Lado do Texto e Estampa */}
+            <div className="order-1 lg:order-2 space-y-8">
+              <div>
+                <p className="text-sm uppercase tracking-[0.3em] text-vision-green font-medium mb-4">
+                  Sobre Mim
+                </p>
+                <h2 className="text-4xl md:text-5xl font-light mb-6 text-foreground">
+                  Camila <span className="font-serif italic text-vision-green">Montenegro</span>
+                </h2>
+              </div>
+
+              <div className="prose prose-lg text-muted-foreground font-light leading-relaxed">
+                <p>
+                  {/* COLOQUE AQUI O TEXTO DO WORD SOBRE A ESTAMPA */}
+                  A Vision Press nasce da convicção de que a comunicação é a ponte mais forte entre o valor financeiro e o valor humano. Esta estampa, que carrega o nosso símbolo, representa o selo de autenticidade que aplicamos em cada narrativa.
+                </p>
+                <p>
+                  Ela simboliza a transparência, o crescimento orgânico e a conexão profunda com o propósito. Não é apenas uma marca gráfica; é o compromisso de que cada palavra escrita e cada estratégia desenhada carrega a intenção de construir um futuro mais consciente.
+                </p>
+              </div>
+
+              {/* Área da Assinatura e Estampa */}
+              <div className="pt-8 flex flex-col sm:flex-row items-center sm:items-end gap-8 border-t border-vision-green/20 mt-8">
+                <div className="flex-1">
+                  <img 
+                    src={signatureCamila} 
+                    alt="Assinatura Camila Montenegro" 
+                    className="h-20 w-auto object-contain opacity-90"
+                  />
+                  <p className="text-xs text-muted-foreground mt-2 tracking-widest uppercase">Founding Partner & Editor-in-Chief</p>
+                </div>
+                
+                {/* A Estampa (Logo como carimbo) */}
+                <div className="relative group cursor-help">
+                  <div className="absolute inset-0 bg-vision-green/5 rounded-full blur-xl group-hover:bg-vision-green/10 transition-colors"></div>
+                  <img 
+                    src={logoVision} 
+                    alt="Estampa Vision Press" 
+                    className="relative h-24 w-24 object-contain opacity-40 mix-blend-multiply rotate-12 group-hover:rotate-0 group-hover:opacity-100 transition-all duration-500 grayscale group-hover:grayscale-0"
+                    title="Selo de Autenticidade Vision Press"
+                  />
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Collaboration with Solara */}
-      <section className="py-24 bg-neutral-50">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="border-l-4 pl-8 border-vision-green">
