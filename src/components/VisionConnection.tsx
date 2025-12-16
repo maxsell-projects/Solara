@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import logoVision from "@/assets/logo-vision.png";
 import visionImg from "@/assets/vision-editorial.jpg";
 
@@ -12,7 +13,7 @@ const VisionConnection = () => {
               <img 
                 src={visionImg} 
                 alt="Vision Press workspace" 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
           </div>
@@ -22,9 +23,9 @@ const VisionConnection = () => {
               <img 
                 src={logoVision} 
                 alt="Vision Press" 
-                className="h-16 w-auto mb-6 opacity-90"
+                className="h-20 w-auto mb-6 opacity-100"
               />
-              <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground font-light">
+              <p className="text-sm uppercase tracking-[0.2em] text-vision-green font-medium">
                 Creative Communication
               </p>
             </div>
@@ -32,7 +33,7 @@ const VisionConnection = () => {
             <h2 className="text-4xl md:text-5xl font-light leading-tight">
               Amplifying Impact
               <br />
-              Through <span className="italic" style={{ color: 'hsl(100, 19%, 64%)' }}>Vision Press</span>
+              Through <span className="italic text-vision-green">Vision Press</span>
             </h2>
             
             <p className="text-lg font-light text-muted-foreground leading-relaxed">
@@ -42,7 +43,7 @@ const VisionConnection = () => {
             </p>
             
             <div className="space-y-4 pt-4">
-              <div className="flex items-start gap-4 border-l-4 pl-6" style={{ borderColor: 'hsl(100, 19%, 74%)' }}>
+              <div className="flex items-start gap-4 border-l-4 pl-6 border-vision-green/30">
                 <div className="flex-1">
                   <h4 className="font-light text-lg mb-2">Editorial Excellence</h4>
                   <p className="text-sm font-light text-muted-foreground">
@@ -51,7 +52,7 @@ const VisionConnection = () => {
                 </div>
               </div>
               
-              <div className="flex items-start gap-4 border-l-4 pl-6" style={{ borderColor: 'hsl(100, 19%, 74%)' }}>
+              <div className="flex items-start gap-4 border-l-4 pl-6 border-vision-green/30">
                 <div className="flex-1">
                   <h4 className="font-light text-lg mb-2">Strategic Communication</h4>
                   <p className="text-sm font-light text-muted-foreground">
@@ -61,14 +62,15 @@ const VisionConnection = () => {
               </div>
             </div>
             
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-2"
-              style={{ borderColor: 'hsl(100, 19%, 74%)', color: 'hsl(100, 22%, 13%)' }}
-            >
-              Explore Vision Press
-            </Button>
+            <Link to="/vision">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-2 border-vision-green text-vision-green hover:bg-vision-green/10 transition-colors"
+              >
+                Explore Vision Press
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
