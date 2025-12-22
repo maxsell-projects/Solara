@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import logoSolara from "@/assets/logo-solara-full.jpg";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,8 +19,7 @@ const AdminLogin = () => {
     setIsLoading(true);
     
     try {
-      // Faz o POST para o teu backend NestJS
-      const response = await fetch('http://localhost:3001/auth/login', {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -27,7 +28,6 @@ const AdminLogin = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Guarda o token para usar nas outras requisições
         localStorage.setItem("solara_token", data.access_token);
         toast.success("Bem-vindo de volta!");
         navigate("/admin/dashboard");

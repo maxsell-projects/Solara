@@ -20,10 +20,12 @@ interface Post {
   excerpt: string;
   image: string;
   createdAt: string;
-  // Campos opcionais ou hardcoded por enquanto
   author?: string;
   readTime?: string;
 }
+
+const API_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = API_URL ? API_URL.replace('/api', '') : 'http://localhost:3001';
 
 const VisionArticles = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,7 +38,7 @@ const VisionArticles = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('http://localhost:3001/posts');
+        const response = await fetch(`${API_URL}/posts`);
         if (response.ok) {
           const data = await response.json();
           setPosts(data);
@@ -52,7 +54,6 @@ const VisionArticles = () => {
     fetchPosts();
   }, []);
 
-  // Filtragem (agora feita no frontend sobre a lista recebida)
   const filteredArticles = posts.filter(article => {
     const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          (article.excerpt && article.excerpt.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -60,18 +61,16 @@ const VisionArticles = () => {
     return matchesSearch && matchesCategory;
   });
 
-  // Função auxiliar para montar URL da imagem
   const getImageUrl = (imagePath: string) => {
-    if (!imagePath) return visionImg; // Fallback se não tiver imagem
-    if (imagePath.startsWith('http')) return imagePath; // Se for link externo
-    return `http://localhost:3001${imagePath}`; // Se for upload local
+    if (!imagePath) return visionImg;
+    if (imagePath.startsWith('http')) return imagePath;
+    return `${BASE_URL}${imagePath}`;
   };
 
   return (
     <div className="min-h-screen font-sans">
       <Header />
       
-      {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-to-b from-neutral-50 to-background">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
@@ -86,7 +85,6 @@ const VisionArticles = () => {
             </p>
           </div>
 
-          {/* Search Bar */}
           <div className="max-w-2xl mx-auto mb-8">
             <div className="relative group">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-vision-green transition-colors" />
@@ -100,7 +98,6 @@ const VisionArticles = () => {
             </div>
           </div>
 
-          {/* Category Filters */}
           <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <button
@@ -119,7 +116,6 @@ const VisionArticles = () => {
         </div>
       </section>
 
-      {/* Articles Grid */}
       <section className="py-16 pb-24">
         <div className="container mx-auto px-6 lg:px-8">
           {isLoading ? (
@@ -135,7 +131,6 @@ const VisionArticles = () => {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredArticles.map((article) => (
-                // Usamos o slug real do banco para o link
                 <Link to={`/vision/articles/${article.slug}`} key={article.id} className="block h-full">
                   <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-xl hover:shadow-vision-green/10 transition-all duration-300 cursor-pointer h-full flex flex-col">
                     <div className="aspect-[3/2] overflow-hidden relative">

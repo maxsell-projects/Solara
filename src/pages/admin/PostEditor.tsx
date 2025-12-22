@@ -3,9 +3,8 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-// Importamos os componentes de Select
 import {
   Select,
   SelectContent,
@@ -16,7 +15,6 @@ import {
 import { ArrowLeft, Save, Loader2, UploadCloud } from "lucide-react";
 import { toast } from "sonner";
 
-// Lista de categorias pré-definidas
 const CATEGORIES = [
   "Negócios",
   "Imobiliário",
@@ -24,6 +22,9 @@ const CATEGORIES = [
   "Sociedade",
   "Tendências"
 ];
+
+const API_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = API_URL ? API_URL.replace('/api', '') : 'http://localhost:3001';
 
 const AdminPostEditor = () => {
   const { id } = useParams();
@@ -47,7 +48,7 @@ const AdminPostEditor = () => {
     if (isEditing) {
       const fetchPost = async () => {
         try {
-          const response = await fetch(`http://localhost:3001/posts/${id}`);
+          const response = await fetch(`${API_URL}/posts/${id}`);
           if (response.ok) {
             const data = await response.json();
             setFormData({
@@ -58,7 +59,7 @@ const AdminPostEditor = () => {
               content: data.content,
             });
             if (data.image) {
-              setPreviewUrl(`http://localhost:3001${data.image}`);
+              setPreviewUrl(`${BASE_URL}${data.image}`);
             }
           } else {
             toast.error("Erro ao carregar dados do artigo.");
@@ -83,7 +84,6 @@ const AdminPostEditor = () => {
     }
   };
 
-  // Função auxiliar para gerar Slug automaticamente a partir do Título
   const generateSlug = (title: string) => {
     return title
       .toLowerCase()
@@ -93,7 +93,6 @@ const AdminPostEditor = () => {
       .replace(/\s+/g, "-");
   };
 
-  // Atualiza o slug quando o título muda (apenas se estiver criando novo)
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
     if (!isEditing) {
@@ -132,8 +131,8 @@ const AdminPostEditor = () => {
 
     try {
       const url = isEditing 
-        ? `http://localhost:3001/posts/${id}`
-        : 'http://localhost:3001/posts';
+        ? `${API_URL}/posts/${id}`
+        : `${API_URL}/posts`;
         
       const method = isEditing ? 'PUT' : 'POST';
 
@@ -186,7 +185,6 @@ const AdminPostEditor = () => {
           <CardContent className="pt-6">
             <form onSubmit={handleSubmit} className="space-y-6">
               
-              {/* Upload de Imagem */}
               <div className="space-y-2">
                 <Label>Imagem de Capa</Label>
                 <div className="border-2 border-dashed border-gray-200 rounded-lg p-6 text-center hover:bg-gray-50 transition-colors cursor-pointer relative">
@@ -221,7 +219,6 @@ const AdminPostEditor = () => {
                   />
                 </div>
                 
-                {/* ALTERAÇÃO: Select de Categoria */}
                 <div className="space-y-2">
                   <Label>Categoria</Label>
                   <Select 
@@ -280,7 +277,7 @@ const AdminPostEditor = () => {
                 </Link>
                 <Button 
                   type="submit" 
-                  className="bg-vision-green hover:bg-vision-green/90 text-white min-w-[150px]"
+                  className="w-full h-12 bg-solara-vinho hover:bg-solara-vinho/90 text-white text-lg font-light"
                   disabled={isLoading}
                 >
                   {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}

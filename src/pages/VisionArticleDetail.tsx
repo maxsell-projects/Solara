@@ -17,11 +17,14 @@ interface PostDetail {
   title: string;
   slug: string;
   category: string;
-  content: string; // HTML content
+  content: string;
   image: string;
   excerpt: string;
   createdAt: string;
 }
+
+const API_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = API_URL ? API_URL.replace('/api', '') : 'http://localhost:3001';
 
 const VisionArticleDetail = () => {
   const { slug } = useParams();
@@ -33,8 +36,7 @@ const VisionArticleDetail = () => {
       if (!slug) return;
       
       try {
-        // Busca pelo Slug usando o endpoint que criámos (:idOrSlug)
-        const response = await fetch(`http://localhost:3001/posts/${slug}`);
+        const response = await fetch(`${API_URL}/posts/${slug}`);
         
         if (response.ok) {
           const data = await response.json();
@@ -57,7 +59,7 @@ const VisionArticleDetail = () => {
   const getImageUrl = (imagePath: string) => {
     if (!imagePath) return visionImg;
     if (imagePath.startsWith('http')) return imagePath;
-    return `http://localhost:3001${imagePath}`;
+    return `${BASE_URL}${imagePath}`;
   };
 
   if (isLoading) {
@@ -89,7 +91,6 @@ const VisionArticleDetail = () => {
       <Header />
 
       <main className="pt-32 pb-24">
-        {/* Article Header */}
         <div className="container mx-auto px-6 lg:px-8 max-w-4xl text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-6">
             <Badge className="bg-vision-green/10 text-vision-green hover:bg-vision-green hover:text-white transition-colors font-normal px-4 py-1 pointer-events-none">
@@ -129,7 +130,6 @@ const VisionArticleDetail = () => {
           </div>
         </div>
 
-        {/* Hero Image */}
         <div className="container mx-auto px-6 lg:px-8 mb-16">
           <div className="aspect-[21/9] overflow-hidden rounded-sm shadow-xl max-w-6xl mx-auto group">
             <img 
@@ -140,10 +140,8 @@ const VisionArticleDetail = () => {
           </div>
         </div>
 
-        {/* Content Area */}
         <div className="container mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl">
           
-          {/* Sidebar - Actions */}
           <div className="lg:col-span-2 hidden lg:flex flex-col items-end gap-4 sticky top-32 h-fit">
             <Link to="/vision/articles">
               <Button variant="ghost" size="icon" className="rounded-full hover:bg-vision-green/10 hover:text-vision-green mb-8 transition-colors">
@@ -160,9 +158,7 @@ const VisionArticleDetail = () => {
             </div>
           </div>
 
-          {/* Main Article Content */}
           <div className="lg:col-span-8 relative">
-            {/* A "Estampa" / Marca d'água de fundo */}
             <div className="absolute top-1/4 -right-20 w-96 h-96 opacity-[0.03] pointer-events-none rotate-12 z-0">
               <img src={logoVision} alt="" className="w-full h-full object-contain" />
             </div>
@@ -173,18 +169,16 @@ const VisionArticleDetail = () => {
               prose-blockquote:border-l-4 prose-blockquote:border-vision-green prose-blockquote:text-vision-green prose-blockquote:bg-vision-green/5 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:rounded-r-lg
               prose-strong:text-foreground prose-strong:font-medium">
               
-              {/* RENDERIZA O CONTEÚDO HTML DO BANCO */}
               <div dangerouslySetInnerHTML={{ __html: article.content }} />
               
             </article>
 
-            {/* Signature Section */}
             <div className="mt-16 pt-12 border-t border-vision-green/20">
               <div className="flex flex-col gap-6">
                 <img 
                   src={signatureCamila} 
                   alt="Assinatura Camila Montenegro" 
-                  className="h-24 w-auto object-contain self-start opacity-80"
+                  className="h-24 w-auto object-contain opacity-90"
                 />
                 <div>
                   <h4 className="font-serif text-xl mb-2 text-foreground">Camila Montenegro</h4>
@@ -196,13 +190,11 @@ const VisionArticleDetail = () => {
               </div>
             </div>
           </div>
-           
-          {/* Empty right column for balance */}
+            
           <div className="lg:col-span-2"></div>
         </div>
       </main>
 
-      {/* Next Read / Footer CTA */}
       <section className="bg-neutral-50 py-16 border-t border-border">
         <div className="container mx-auto px-6 text-center">
           <h3 className="font-serif text-2xl mb-6 text-muted-foreground italic">Continue a ler</h3>

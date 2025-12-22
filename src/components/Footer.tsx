@@ -9,11 +9,12 @@ const Footer = () => {
       <div className="container mx-auto px-6 lg:px-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="space-y-6">
-            <div className="h-12 w-12 rounded-full bg-white overflow-hidden flex items-center justify-center p-1">
+            {/* LOGO ALTERADO: Removida moldura e aumentado o tamanho */}
+            <div className="flex items-start">
               <img 
                 src={logoSolara} 
                 alt="Solara Project" 
-                className="w-full h-full object-contain"
+                className="h-20 w-auto object-contain" // Aumentado para h-20
               />
             </div>
             <p className="text-sm font-light opacity-80 leading-relaxed">

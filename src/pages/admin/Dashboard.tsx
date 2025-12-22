@@ -13,19 +13,20 @@ interface Post {
   createdAt: string;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Buscar posts ao carregar
   useEffect(() => {
     fetchPosts();
   }, []);
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('http://localhost:3001/posts');
+      const response = await fetch(`${API_URL}/posts`);
       if (response.ok) {
         const data = await response.json();
         setPosts(data);
@@ -50,16 +51,16 @@ const AdminDashboard = () => {
 
     const token = localStorage.getItem("solara_token");
     try {
-      const response = await fetch(`http://localhost:3001/posts/${id}`, {
+      const response = await fetch(`${API_URL}/posts/${id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${token}` // Envia o token para permitir apagar
+          'Authorization': `Bearer ${token}`
         }
       });
 
       if (response.ok) {
         toast.success("Artigo removido com sucesso!");
-        fetchPosts(); // Recarrega a lista
+        fetchPosts();
       } else {
         toast.error("Erro ao remover artigo.");
       }

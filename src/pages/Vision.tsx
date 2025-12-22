@@ -23,8 +23,11 @@ interface Post {
   excerpt: string;
   image: string;
   createdAt: string;
-  author?: string; // Opcional, caso queiras adicionar no backend depois
+  author?: string;
 }
+
+const API_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = API_URL ? API_URL.replace('/api', '') : 'http://localhost:3001';
 
 const Vision = () => {
   const [recentPosts, setRecentPosts] = useState<Post[]>([]);
@@ -33,11 +36,9 @@ const Vision = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // Busca todos os posts (o backend já ordena por mais recente)
-        const response = await fetch('http://localhost:3001/posts');
+        const response = await fetch(`${API_URL}/posts`);
         if (response.ok) {
           const data = await response.json();
-          // Pega apenas os 3 primeiros para os destaques
           setRecentPosts(data.slice(0, 3));
         }
       } catch (error) {
@@ -52,16 +53,15 @@ const Vision = () => {
   }, []);
 
   const getImageUrl = (imagePath: string) => {
-    if (!imagePath) return visionImg; // Fallback
+    if (!imagePath) return visionImg;
     if (imagePath.startsWith('http')) return imagePath;
-    return `http://localhost:3001${imagePath}`; // Caminho local do backend
+    return `${BASE_URL}${imagePath}`;
   };
 
   return (
     <div className="min-h-screen font-sans selection:bg-vision-light/30">
       <Header />
       
-      {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-b from-neutral-50 to-background">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -111,7 +111,6 @@ const Vision = () => {
         </div>
       </section>
 
-      {/* Featured Articles (Agora Dinâmico) */}
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -193,7 +192,6 @@ const Vision = () => {
         </div>
       </section>
 
-      {/* Secção Sobre Mim / Estampa */}
       <section className="py-24 bg-neutral-50 overflow-hidden">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -256,7 +254,6 @@ const Vision = () => {
         </div>
       </section>
 
-      {/* Collaboration with Solara */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
@@ -286,7 +283,6 @@ const Vision = () => {
         </div>
       </section>
 
-      {/* Newsletter CTA */}
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-8">
           <Card className="border-0 shadow-2xl overflow-hidden ring-1 ring-vision-green/10">

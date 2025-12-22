@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
-import logoSolara from "@/assets/logo-solara-full.jpg";
+import logoSolara from "@/assets/logo-solara-full.png";
 import HamburgerMenu from "@/components/HamburgerMenu";
 
 const Header = () => {
@@ -36,13 +36,12 @@ const Header = () => {
       <div className="container mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 transition-all duration-300">
           <Link to="/" className="flex items-center group">
-            {/* O container do logo pode encolher levemente no scroll se quiser, 
-                aqui mantive a lógica original mas adicionei shadow condicional */}
-            <div className={`h-16 w-16 md:h-20 md:w-20 rounded-full border-2 border-solara-vinho p-1.5 bg-white overflow-hidden flex items-center justify-center transition-transform group-hover:scale-105 ${!isScrolled ? "shadow-lg" : ""}`}>
+            {/* LOGO ALTERADO: Removida a moldura circular e aumentado o tamanho */}
+            <div className="flex items-center justify-center transition-transform group-hover:scale-105">
               <img 
                 src={logoSolara} 
                 alt="Solara Project" 
-                className="w-full h-full object-contain"
+                className="h-24 w-auto object-contain" // Aumentado para h-24 e largura automática
               />
             </div>
           </Link>
