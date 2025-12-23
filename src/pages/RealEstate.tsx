@@ -29,15 +29,24 @@ const RealEstate = () => {
 
   useEffect(() => {
     fetch(`${API_URL}/markets`)
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error("Erro na API");
+        return res.json();
+      })
       .then(data => {
-        setMarkets(data);
-        setIsLoading(false);
+        // BLINDAGEM: Só atualiza se for um Array. Se não, array vazio.
+        if (Array.isArray(data)) {
+          setMarkets(data);
+        } else {
+          console.error("Formato inválido recebido:", data);
+          setMarkets([]); 
+        }
       })
       .catch(err => {
         console.error(err);
-        setIsLoading(false);
-      });
+        setMarkets([]); // Garante que não quebra o .map
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -84,48 +93,55 @@ const RealEstate = () => {
             <div className="flex justify-center"><Loader2 className="animate-spin text-solara-vinho" /></div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {markets.map((market) => (
-                <Link to={`/services/real-estate/${market.slug}`} key={market.id} className="block h-full">
-                  <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full cursor-pointer bg-white">
-                    <div className="aspect-[4/3] overflow-hidden relative">
-                      <div className="absolute top-4 right-4 z-10">
-                        <Badge className="bg-white/90 text-solara-vinho hover:bg-white border-0 backdrop-blur-sm shadow-sm">
-                          {market.tag}
-                        </Badge>
-                      </div>
-                      <img 
-                        src={market.imageUrl || heroImage} 
-                        alt={market.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
-                      <h3 className="absolute bottom-6 left-6 text-4xl font-extralight text-white tracking-wide">
-                        {market.name}
-                      </h3>
-                    </div>
-                    <CardContent className="p-8 flex flex-col flex-grow">
-                      <p className="text-muted-foreground font-light leading-relaxed mb-6 flex-grow">
-                        {market.shortDescription}
-                      </p>
-                      
-                      <div className="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100 mb-6">
-                        <div>
-                          <p className="text-xs uppercase text-gray-400 font-semibold tracking-wider mb-1">Yield Médio</p>
-                          <p className="text-lg font-medium text-solara-vinho">{market.yieldRate}</p>
+              {/* O erro acontecia aqui. Agora markets é sempre array. */}
+              {markets.length > 0 ? (
+                markets.map((market) => (
+                  <Link to={`/services/real-estate/${market.slug}`} key={market.id} className="block h-full">
+                    <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col h-full cursor-pointer bg-white">
+                      <div className="aspect-[4/3] overflow-hidden relative">
+                        <div className="absolute top-4 right-4 z-10">
+                          <Badge className="bg-white/90 text-solara-vinho hover:bg-white border-0 backdrop-blur-sm shadow-sm">
+                            {market.tag}
+                          </Badge>
                         </div>
-                        <div>
-                          <p className="text-xs uppercase text-gray-400 font-semibold tracking-wider mb-1">Apreciação</p>
-                          <p className="text-lg font-medium text-gray-700">{market.appreciationRate}</p>
-                        </div>
+                        <img 
+                          src={market.imageUrl || heroImage} 
+                          alt={market.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80 group-hover:opacity-60 transition-opacity" />
+                        <h3 className="absolute bottom-6 left-6 text-4xl font-extralight text-white tracking-wide">
+                          {market.name}
+                        </h3>
                       </div>
-                      
-                      <Button variant="ghost" className="w-full border border-solara-vinho text-solara-vinho hover:bg-solara-vinho hover:text-white group-hover:bg-solara-vinho group-hover:text-white transition-all">
-                        Explorar Oportunidades <ArrowRight className="w-4 h-4 ml-2" />
-                      </Button>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
+                      <CardContent className="p-8 flex flex-col flex-grow">
+                        <p className="text-muted-foreground font-light leading-relaxed mb-6 flex-grow">
+                          {market.shortDescription}
+                        </p>
+                        
+                        <div className="grid grid-cols-2 gap-4 pt-6 border-t border-gray-100 mb-6">
+                          <div>
+                            <p className="text-xs uppercase text-gray-400 font-semibold tracking-wider mb-1">Yield Médio</p>
+                            <p className="text-lg font-medium text-solara-vinho">{market.yieldRate}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs uppercase text-gray-400 font-semibold tracking-wider mb-1">Apreciação</p>
+                            <p className="text-lg font-medium text-gray-700">{market.appreciationRate}</p>
+                          </div>
+                        </div>
+                        
+                        <Button variant="ghost" className="w-full border border-solara-vinho text-solara-vinho hover:bg-solara-vinho hover:text-white group-hover:bg-solara-vinho group-hover:text-white transition-all">
+                          Explorar Oportunidades <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))
+              ) : (
+                <div className="col-span-full text-center text-gray-500 py-10">
+                  <p>Nenhum mercado disponível no momento ou erro de conexão.</p>
+                </div>
+              )}
             </div>
           )}
         </div>

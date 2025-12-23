@@ -6,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Save, ArrowLeft, Plus, Trash2, MapPin } from "lucide-react";
 
@@ -16,6 +15,8 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 let DefaultIcon = L.icon({
     iconUrl: icon,
@@ -65,13 +66,13 @@ const AdminMarketEditor = () => {
   useEffect(() => {
     if (id) {
       setIsLoading(true);
-      fetch(`http://localhost:3001/markets/${id}`) // Ajuste se seu backend usar slug ou id na rota de detalhe
+      // CORREÇÃO CRÍTICA: Busca pelo endpoint específico de ID
+      fetch(`${API_URL}/markets/id/${id}`) 
         .then(res => {
             if(!res.ok) throw new Error("Erro ao buscar");
             return res.json();
         })
         .then(data => {
-          // Garante que pins seja um array mesmo se vier null do banco
           setFormData({ ...data, pins: data.pins || [] }); 
         })
         .catch(err => {
@@ -80,7 +81,7 @@ const AdminMarketEditor = () => {
         })
         .finally(() => setIsLoading(false));
     }
-  }, [id]);
+  }, [id, toast]);
 
   // Auto-gerar slug a partir do nome
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -116,7 +117,8 @@ const AdminMarketEditor = () => {
   // Salvar
   const handleSave = async () => {
     setIsLoading(true);
-    const url = id ? `http://localhost:3001/markets/${id}` : `http://localhost:3001/markets`;
+    // Nota: O endpoint de PUT/UPDATE geralmente usa o ID direto, diferente do GET que precisa diferenciar slug/id
+    const url = id ? `${API_URL}/markets/${id}` : `${API_URL}/markets`;
     const method = id ? 'PUT' : 'POST';
 
     try {
@@ -133,6 +135,7 @@ const AdminMarketEditor = () => {
         throw new Error("Falha ao salvar");
       }
     } catch (error) {
+      console.error(error);
       toast({ title: "Erro", description: "Não foi possível salvar.", variant: "destructive" });
     } finally {
       setIsLoading(false);
