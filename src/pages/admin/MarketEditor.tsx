@@ -8,9 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Save, ArrowLeft, Plus, Trash2, MapPin } from "lucide-react";
-
-// Imports do Mapa para o Admin
-import { MapContainer, TileLayer, Marker, useMapEvents, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMapEvents, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -26,13 +24,43 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-// Componente auxiliar para capturar cliques no mapa
 const MapClickCapture = ({ onLocationSelect }: { onLocationSelect: (lat: number, lng: number) => void }) => {
   useMapEvents({
     click(e) {
       onLocationSelect(e.latlng.lat, e.latlng.lng);
     },
   });
+  return null;
+};
+
+const MapController = ({ 
+  center, 
+  zoom, 
+  pins, 
+  activeTab 
+}: { 
+  center: [number, number], 
+  zoom: number, 
+  pins: { lat: number; lng: number }[], 
+  activeTab: string 
+}) => {
+  const map = useMap();
+
+  useEffect(() => {
+    if (activeTab === 'map') {
+      setTimeout(() => {
+        map.invalidateSize();
+        
+        if (pins.length > 0) {
+          const bounds = L.latLngBounds(pins.map(p => [p.lat, p.lng]));
+          map.fitBounds(bounds, { padding: [50, 50] });
+        } else {
+          map.setView(center, zoom);
+        }
+      }, 200);
+    }
+  }, [map, activeTab, pins, center, zoom]);
+
   return null;
 };
 
@@ -43,7 +71,6 @@ const AdminMarketEditor = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("general");
 
-  // Estado do Formulário
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
@@ -53,20 +80,17 @@ const AdminMarketEditor = () => {
     yieldRate: "",
     appreciationRate: "",
     imageUrl: "",
-    mapLat: 38.7223, // Default Lisboa
+    mapLat: 38.7223,
     mapLng: -9.1393,
     mapZoom: 6,
     pins: [] as { city: string; lat: number; lng: number }[]
   });
 
-  // Estado temporário para adicionar novo PIN
   const [newPin, setNewPin] = useState({ city: "", lat: 0, lng: 0 });
 
-  // Carregar dados se for edição
   useEffect(() => {
     if (id) {
       setIsLoading(true);
-      // CORREÇÃO CRÍTICA: Busca pelo endpoint específico de ID
       fetch(`${API_URL}/markets/id/${id}`) 
         .then(res => {
             if(!res.ok) throw new Error("Erro ao buscar");
@@ -83,18 +107,16 @@ const AdminMarketEditor = () => {
     }
   }, [id, toast]);
 
-  // Auto-gerar slug a partir do nome
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
     const slug = name.toLowerCase()
-      .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Remove acentos
-      .replace(/[^a-z0-9]/g, "-") // Troca espaços/símbolos por traço
-      .replace(/-+/g, "-"); // Remove traços duplicados
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9]/g, "-")
+      .replace(/-+/g, "-");
     
     setFormData(prev => ({ ...prev, name, slug: id ? prev.slug : slug }));
   };
 
-  // Manipular Pins
   const addPin = () => {
     if (!newPin.city) return toast({ title: "Erro", description: "Digite o nome da cidade", variant: "destructive" });
     if (newPin.lat === 0 && newPin.lng === 0) return toast({ title: "Erro", description: "Selecione um local no mapa", variant: "destructive" });
@@ -103,7 +125,7 @@ const AdminMarketEditor = () => {
       ...prev,
       pins: [...prev.pins, { ...newPin }]
     }));
-    setNewPin({ city: "", lat: 0, lng: 0 }); // Reset
+    setNewPin({ city: "", lat: 0, lng: 0 });
     toast({ title: "Sucesso", description: "Pin adicionado à lista!" });
   };
 
@@ -114,10 +136,8 @@ const AdminMarketEditor = () => {
     }));
   };
 
-  // Salvar
   const handleSave = async () => {
     setIsLoading(true);
-    // Nota: O endpoint de PUT/UPDATE geralmente usa o ID direto, diferente do GET que precisa diferenciar slug/id
     const url = id ? `${API_URL}/markets/${id}` : `${API_URL}/markets`;
     const method = id ? 'PUT' : 'POST';
 
@@ -146,7 +166,6 @@ const AdminMarketEditor = () => {
     <div className="min-h-screen bg-gray-50/50 p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-8">
         
-        {/* Header da Página */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button variant="outline" size="icon" onClick={() => navigate("/admin/dashboard")}>
@@ -165,7 +184,6 @@ const AdminMarketEditor = () => {
           </Button>
         </div>
 
-        {/* Tabs de Conteúdo */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
           <TabsList className="bg-white border p-1 h-12">
             <TabsTrigger value="general" className="px-6 h-9">Geral & Capa</TabsTrigger>
@@ -173,7 +191,6 @@ const AdminMarketEditor = () => {
             <TabsTrigger value="map" className="px-6 h-9">Mapa & Pins</TabsTrigger>
           </TabsList>
 
-          {/* ABA 1: GERAL */}
           <TabsContent value="general">
             <Card>
               <CardHeader><CardTitle>Informações Principais</CardTitle></CardHeader>
@@ -217,7 +234,6 @@ const AdminMarketEditor = () => {
             </Card>
           </TabsContent>
 
-          {/* ABA 2: CONTEÚDO */}
           <TabsContent value="content">
             <Card>
               <CardHeader><CardTitle>Conteúdo Editorial</CardTitle></CardHeader>
@@ -247,41 +263,39 @@ const AdminMarketEditor = () => {
             </Card>
           </TabsContent>
 
-          {/* ABA 3: MAPA */}
           <TabsContent value="map">
             <div className="grid lg:grid-cols-[1fr_350px] gap-6">
               
-              {/* Esquerda: Mapa Visual */}
               <Card className="overflow-hidden flex flex-col h-[600px]">
                 <div className="bg-neutral-100 p-2 text-xs text-center border-b">
                   Clique no mapa para pegar as coordenadas automaticamente para o centro ou para um novo PIN.
                 </div>
                 <div className="flex-grow relative z-0">
                   <MapContainer 
-                    key={`${formData.mapLat}-${formData.mapLng}`} // Força re-render se mudar centro via input
                     center={[formData.mapLat, formData.mapLng]} 
                     zoom={formData.mapZoom} 
                     className="h-full w-full"
                   >
+                    <MapController 
+                        center={[formData.mapLat, formData.mapLng]} 
+                        zoom={formData.mapZoom}
+                        pins={formData.pins}
+                        activeTab={activeTab}
+                    />
+                    
                     <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
                     
-                    {/* Captura de Cliques */}
                     <MapClickCapture onLocationSelect={(lat, lng) => {
-                      // Se estiver editando um pin, atualiza o pin
-                      // Se não, pode ser para definir o centro do mapa (opcional)
-                      // Aqui vamos definir que o clique preenche o "Novo Pin"
                       setNewPin(prev => ({ ...prev, lat, lng }));
                       toast({ description: "Coordenadas capturadas! Digite o nome da cidade e clique em Adicionar." });
                     }} />
 
-                    {/* Pins Existentes */}
                     {formData.pins.map((pin, idx) => (
                       <Marker key={idx} position={[pin.lat, pin.lng]}>
                         <Popup>{pin.city}</Popup>
                       </Marker>
                     ))}
 
-                    {/* Preview do Novo Pin */}
                     {newPin.lat !== 0 && (
                       <Marker position={[newPin.lat, newPin.lng]} opacity={0.6} />
                     )}
@@ -289,10 +303,8 @@ const AdminMarketEditor = () => {
                 </div>
               </Card>
 
-              {/* Direita: Controles */}
               <div className="space-y-6">
                 
-                {/* Config do Mapa Principal */}
                 <Card>
                   <CardHeader className="pb-3"><CardTitle className="text-sm font-medium">Configuração Inicial do Mapa</CardTitle></CardHeader>
                   <CardContent className="space-y-3">
@@ -316,7 +328,6 @@ const AdminMarketEditor = () => {
                   </CardContent>
                 </Card>
 
-                {/* Adicionar Novo Pin */}
                 <Card className="border-solara-vinho/20">
                   <CardHeader className="pb-3 bg-solara-vinho/5"><CardTitle className="text-sm font-medium text-solara-vinho">Adicionar Cidade (Pin)</CardTitle></CardHeader>
                   <CardContent className="space-y-3 pt-3">
@@ -339,7 +350,6 @@ const AdminMarketEditor = () => {
                   </CardContent>
                 </Card>
 
-                {/* Lista de Pins */}
                 <div className="space-y-2">
                   <Label className="text-sm">Pins Ativos ({formData.pins.length})</Label>
                   <div className="max-h-[200px] overflow-y-auto space-y-2 pr-2">

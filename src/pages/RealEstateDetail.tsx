@@ -6,7 +6,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, MapPin, Loader2 } from "lucide-react";
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'; // <--- Adicionado useMap
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -14,6 +14,7 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+// Configuração do Ícone Padrão do Leaflet
 let DefaultIcon = L.icon({
     iconUrl: icon,
     shadowUrl: iconShadow,
@@ -34,12 +35,32 @@ interface MarketDetail {
   imageUrl: string;
 }
 
+// --- Componente Auxiliar para Ajustar o Zoom aos Pinos ---
+const FitBounds = ({ pins, center, zoom }: { pins: any[], center: [number, number], zoom: number }) => {
+  const map = useMap();
+  
+  useEffect(() => {
+    // Se houver pinos, ajusta o mapa para mostrar todos eles
+    if (pins && pins.length > 0) {
+      const bounds = L.latLngBounds(pins.map(p => [p.lat, p.lng]));
+      // O padding evita que os pinos fiquem colados na borda do mapa
+      map.fitBounds(bounds, { padding: [50, 50] });
+    } else {
+      // Se não houver pinos, usa o centro e zoom configurados manualmente
+      map.setView(center, zoom);
+    }
+  }, [map, pins, center, zoom]);
+
+  return null;
+};
+
 const RealEstateDetail = () => {
   const { slug } = useParams();
   const [market, setMarket] = useState<MarketDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Busca os dados do mercado pelo Slug
     fetch(`${API_URL}/markets/${slug}`)
       .then(res => res.json())
       .then(data => {
@@ -59,6 +80,7 @@ const RealEstateDetail = () => {
     <div className="min-h-screen font-sans bg-white">
       <Header />
       
+      {/* Hero Section */}
       <div className="bg-neutral-900 text-white pt-32 pb-16">
         <div className="container mx-auto px-6 lg:px-8">
           <Link to="/services/real-estate">
@@ -77,6 +99,8 @@ const RealEstateDetail = () => {
 
       <div className="container mx-auto px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-2 gap-16">
+          
+          {/* Coluna da Esquerda: Texto */}
           <div className="space-y-8">
             <h2 className="text-3xl font-light text-solara-vinho">Visão Estratégica</h2>
             <div 
@@ -99,6 +123,7 @@ const RealEstateDetail = () => {
             </div>
           </div>
 
+          {/* Coluna da Direita: Mapa */}
           <div className="h-[600px] w-full bg-gray-100 rounded-3xl overflow-hidden shadow-2xl border border-gray-200 sticky top-32">
             <MapContainer 
               center={[market.mapLat, market.mapLng]} 
@@ -106,10 +131,18 @@ const RealEstateDetail = () => {
               scrollWheelZoom={false} 
               className="h-full w-full"
             >
+              {/* Componente que faz a mágica do zoom automático */}
+              <FitBounds 
+                pins={market.pins || []} 
+                center={[market.mapLat, market.mapLng]} 
+                zoom={market.mapZoom}
+              />
+              
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
               />
+              
               {market.pins && market.pins.map((pin, idx) => (
                 <Marker key={idx} position={[pin.lat, pin.lng]}>
                   <Popup className="font-sans text-sm">
