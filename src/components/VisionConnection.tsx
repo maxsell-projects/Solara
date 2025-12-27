@@ -82,7 +82,8 @@ const VisionConnection = () => {
                             <Loader2 className="h-5 w-5 animate-spin text-vision-green" />
                         </div>
                     ) : posts.length === 0 ? (
-                        <p className="text-sm text-muted-foreground">Nenhum artigo recente encontrado.</p>
+                        /* ALTERADO: Adicionado mb-6 para dar espaço quando não houver posts */
+                        <p className="text-sm text-muted-foreground mb-6">Nenhum artigo recente encontrado.</p>
                     ) : (
                         posts.map((post) => (
                             <Card key={post.id} className="p-3 shadow-none hover:bg-neutral-100 transition-colors">

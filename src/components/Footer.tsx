@@ -1,5 +1,6 @@
-import logoSolara from "@/assets/logo-solara-full.png"; // Logo atualizada
+import logoSolara from "@/assets/logo-solara-full.png";
 import logoVision from "@/assets/logo-vision.png";
+import logoMaxSell from "@/assets/maxsell.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -8,13 +9,17 @@ const Footer = () => {
     <footer className="bg-foreground text-background py-16">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          <div className="space-y-6">
-            {/* LOGO ALTERADO: Removida moldura e aumentado o tamanho */}
-            <div className="flex items-start">
+          <div className="space-y-8">
+            <div className="flex flex-col gap-6 items-start">
               <img 
                 src={logoSolara} 
                 alt="Solara Project" 
-                className="h-20 w-auto object-contain" // Mantido h-20 conforme solicitado
+                className="h-24 w-auto object-contain" 
+              />
+              <img 
+                src={logoVision} 
+                alt="Vision Press" 
+                className="h-24 w-auto brightness-0 invert opacity-90"
               />
             </div>
             <p className="text-sm font-light opacity-80 leading-relaxed">
@@ -49,20 +54,19 @@ const Footer = () => {
                 info@solaraproject.pt
               </p>
             </div>
-            <div>
-              <img 
-                src={logoVision} 
-                alt="Vision Press" 
-                className="h-10 w-auto brightness-0 invert opacity-80"
-              />
-            </div>
           </div>
         </div>
         
         <div className="pt-8 border-t border-background/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light opacity-60">
             <p>© {currentYear} Solara Project®. All rights reserved.</p>
-            <div className="flex gap-6">
+            
+            <div className="flex items-center gap-2 order-3 md:order-2">
+                <span className="text-xs">Powered by</span>
+                <img src={logoMaxSell} alt="MaxSell" className="h-6 w-auto invert brightness-0" />
+            </div>
+
+            <div className="flex gap-6 order-2 md:order-3">
               <a href="#" className="hover:opacity-100 transition-opacity">Terms & Conditions</a>
               <a href="#" className="hover:opacity-100 transition-opacity">Accessibility</a>
               <a href="#" className="hover:opacity-100 transition-opacity">Cookies</a>
