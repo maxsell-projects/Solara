@@ -4,29 +4,29 @@ import logoMaxSell from "@/assets/maxsell.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-  
+
   return (
     <footer className="bg-foreground text-background py-16">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div className="space-y-8">
-            <div className="flex flex-col gap-6 items-start">
-              <img 
-                src={logoSolara} 
-                alt="Solara Project" 
-                className="h-24 w-auto object-contain" 
+            <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
+              <img
+                src={logoSolara}
+                alt="Solara Project"
+                className="h-20 w-auto object-contain"
               />
-              <img 
-                src={logoVision} 
-                alt="Vision Press" 
-                className="h-24 w-auto brightness-0 invert opacity-90"
+              <img
+                src={logoVision}
+                alt="Vision Press"
+                className="h-20 w-auto brightness-0 invert opacity-90"
               />
             </div>
             <p className="text-sm font-light opacity-80 leading-relaxed">
               Strategic investment consultancy with conscious vision for sustainable prosperity.
             </p>
           </div>
-          
+
           <div>
             <h4 className="font-light text-lg mb-4">Services</h4>
             <ul className="space-y-2 text-sm font-light opacity-80">
@@ -36,7 +36,7 @@ const Footer = () => {
               <li><a href="#" className="hover:opacity-100 transition-opacity">Partnership Opportunities</a></li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="font-light text-lg mb-4">Company</h4>
             <ul className="space-y-2 text-sm font-light opacity-80">
@@ -46,7 +46,7 @@ const Footer = () => {
               <li><a href="#" className="hover:opacity-100 transition-opacity">Privacy Policy</a></li>
             </ul>
           </div>
-          
+
           <div className="space-y-6">
             <div>
               <h4 className="font-light text-lg mb-4">Connect</h4>
@@ -56,14 +56,14 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="pt-8 border-t border-background/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light opacity-60">
             <p>© {currentYear} Solara Project®. All rights reserved.</p>
-            
+
             <div className="flex items-center gap-2 order-3 md:order-2">
-                <span className="text-xs">Powered by</span>
-                <img src={logoMaxSell} alt="MaxSell" className="h-6 w-auto invert brightness-0" />
+              <span className="text-xs">Powered by</span>
+              <img src={logoMaxSell} alt="MaxSell" className="h-6 w-auto invert brightness-0" />
             </div>
 
             <div className="flex gap-6 order-2 md:order-3">
