@@ -16,14 +16,16 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
+// --- Configuração do ícone do Leaflet para não bugar no build ---
 let DefaultIcon = L.icon({
-    iconUrl: icon,
-    shadowUrl: iconShadow,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41]
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41]
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
+// --- Componente auxiliar para capturar cliques no mapa ---
 const MapClickCapture = ({ onLocationSelect }: { onLocationSelect: (lat: number, lng: number) => void }) => {
   useMapEvents({
     click(e) {
@@ -33,28 +35,32 @@ const MapClickCapture = ({ onLocationSelect }: { onLocationSelect: (lat: number,
   return null;
 };
 
-const MapController = ({ 
-  center, 
-  zoom, 
-  pins, 
-  activeTab 
-}: { 
-  center: [number, number], 
-  zoom: number, 
-  pins: { lat: number; lng: number }[], 
-  activeTab: string 
+// --- Controlador do Mapa (Zoom e Centro Dinâmico) ---
+const MapController = ({
+  center,
+  zoom,
+  pins,
+  activeTab
+}: {
+  center: [number, number],
+  zoom: number,
+  pins: { lat: number; lng: number }[],
+  activeTab: string
 }) => {
   const map = useMap();
 
   useEffect(() => {
     if (activeTab === 'map') {
       setTimeout(() => {
-        map.invalidateSize();
-        
+        map.invalidateSize(); // Corrige problema de renderização em abas ocultas
+
+        // Verifica se o centro é válido antes de dar setView
+        const isValidCenter = !isNaN(center[0]) && !isNaN(center[1]);
+
         if (pins.length > 0) {
           const bounds = L.latLngBounds(pins.map(p => [p.lat, p.lng]));
           map.fitBounds(bounds, { padding: [50, 50] });
-        } else {
+        } else if (isValidCenter) {
           map.setView(center, zoom);
         }
       }, 200);
@@ -71,6 +77,7 @@ const AdminMarketEditor = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("general");
 
+  // State inicial com valores numéricos seguros
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
@@ -88,35 +95,45 @@ const AdminMarketEditor = () => {
 
   const [newPin, setNewPin] = useState({ city: "", lat: 0, lng: 0 });
 
+  // --- Carregar Dados (Edit Mode) ---
   useEffect(() => {
     if (id) {
       setIsLoading(true);
-      fetch(`${API_URL}/markets/id/${id}`) 
+      fetch(`${API_URL}/markets/id/${id}`)
         .then(res => {
-            if(!res.ok) throw new Error("Erro ao buscar");
-            return res.json();
+          if (!res.ok) throw new Error("Erro ao buscar");
+          return res.json();
         })
         .then(data => {
-          setFormData({ ...data, pins: data.pins || [] }); 
+          // BLINDAGEM: Garante que lat/lng venham como números e pins como array
+          setFormData({
+            ...data,
+            mapLat: Number(data.mapLat) || 38.7223,
+            mapLng: Number(data.mapLng) || -9.1393,
+            mapZoom: Number(data.mapZoom) || 6,
+            pins: Array.isArray(data.pins) ? data.pins : []
+          });
         })
         .catch(err => {
-            console.error(err);
-            toast({ title: "Erro", description: "Falha ao carregar dados.", variant: "destructive" });
+          console.error(err);
+          toast({ title: "Erro", description: "Falha ao carregar dados.", variant: "destructive" });
         })
         .finally(() => setIsLoading(false));
     }
   }, [id, toast]);
 
+  // --- Gerador de Slug Automático ---
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
     const slug = name.toLowerCase()
       .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9]/g, "-")
       .replace(/-+/g, "-");
-    
+
     setFormData(prev => ({ ...prev, name, slug: id ? prev.slug : slug }));
   };
 
+  // --- Gestão de Pins ---
   const addPin = () => {
     if (!newPin.city) return toast({ title: "Erro", description: "Digite o nome da cidade", variant: "destructive" });
     if (newPin.lat === 0 && newPin.lng === 0) return toast({ title: "Erro", description: "Selecione um local no mapa", variant: "destructive" });
@@ -136,16 +153,26 @@ const AdminMarketEditor = () => {
     }));
   };
 
+  // --- Salvar (BLINDADO) ---
   const handleSave = async () => {
     setIsLoading(true);
     const url = id ? `${API_URL}/markets/${id}` : `${API_URL}/markets`;
     const method = id ? 'PUT' : 'POST';
 
+    // Validação de Segurança antes de enviar
+    const payload = {
+      ...formData,
+      // Se for NaN, usa um default seguro para não quebrar o banco/mapa
+      mapLat: isNaN(Number(formData.mapLat)) ? 38.7223 : Number(formData.mapLat),
+      mapLng: isNaN(Number(formData.mapLng)) ? -9.1393 : Number(formData.mapLng),
+      mapZoom: isNaN(Number(formData.mapZoom)) ? 6 : Number(formData.mapZoom),
+    };
+
     try {
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
       if (res.ok) {
@@ -156,16 +183,23 @@ const AdminMarketEditor = () => {
       }
     } catch (error) {
       console.error(error);
-      toast({ title: "Erro", description: "Não foi possível salvar.", variant: "destructive" });
+      toast({ title: "Erro", description: "Não foi possível salvar. Verifique se as colunas 'mapLat' existem no banco.", variant: "destructive" });
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Garante que o centro do mapa nunca seja NaN para renderização
+  const safeMapCenter: [number, number] = [
+    isNaN(formData.mapLat) ? 0 : formData.mapLat,
+    isNaN(formData.mapLng) ? 0 : formData.mapLng
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50/50 p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-8">
-        
+
+        {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button variant="outline" size="icon" onClick={() => navigate("/admin/dashboard")}>
@@ -184,6 +218,7 @@ const AdminMarketEditor = () => {
           </Button>
         </div>
 
+        {/* Abas */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
           <TabsList className="bg-white border p-1 h-12">
             <TabsTrigger value="general" className="px-6 h-9">Geral & Capa</TabsTrigger>
@@ -191,6 +226,7 @@ const AdminMarketEditor = () => {
             <TabsTrigger value="map" className="px-6 h-9">Mapa & Pins</TabsTrigger>
           </TabsList>
 
+          {/* ABA GERAL */}
           <TabsContent value="general">
             <Card>
               <CardHeader><CardTitle>Informações Principais</CardTitle></CardHeader>
@@ -202,28 +238,28 @@ const AdminMarketEditor = () => {
                   </div>
                   <div className="space-y-2">
                     <Label>Slug (URL)</Label>
-                    <Input value={formData.slug} onChange={e => setFormData({...formData, slug: e.target.value})} placeholder="portugal" />
+                    <Input value={formData.slug} onChange={e => setFormData({ ...formData, slug: e.target.value })} placeholder="portugal" />
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="space-y-2">
                     <Label>Tag (Destaque)</Label>
-                    <Input value={formData.tag} onChange={e => setFormData({...formData, tag: e.target.value})} placeholder="Ex: Golden Visa" />
+                    <Input value={formData.tag} onChange={e => setFormData({ ...formData, tag: e.target.value })} placeholder="Ex: Golden Visa" />
                   </div>
                   <div className="space-y-2">
                     <Label>Yield Médio</Label>
-                    <Input value={formData.yieldRate} onChange={e => setFormData({...formData, yieldRate: e.target.value})} placeholder="Ex: 5-7%" />
+                    <Input value={formData.yieldRate} onChange={e => setFormData({ ...formData, yieldRate: e.target.value })} placeholder="Ex: 5-7%" />
                   </div>
                   <div className="space-y-2">
                     <Label>Apreciação</Label>
-                    <Input value={formData.appreciationRate} onChange={e => setFormData({...formData, appreciationRate: e.target.value})} placeholder="Ex: Alta / Estável" />
+                    <Input value={formData.appreciationRate} onChange={e => setFormData({ ...formData, appreciationRate: e.target.value })} placeholder="Ex: Alta / Estável" />
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label>URL da Imagem de Capa</Label>
-                  <Input value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} placeholder="https://..." />
+                  <Input value={formData.imageUrl} onChange={e => setFormData({ ...formData, imageUrl: e.target.value })} placeholder="https://..." />
                   {formData.imageUrl && (
                     <div className="mt-2 h-40 w-full rounded-md overflow-hidden bg-gray-100 border">
                       <img src={formData.imageUrl} alt="Preview" className="w-full h-full object-cover" />
@@ -234,57 +270,59 @@ const AdminMarketEditor = () => {
             </Card>
           </TabsContent>
 
+          {/* ABA CONTEÚDO */}
           <TabsContent value="content">
             <Card>
               <CardHeader><CardTitle>Conteúdo Editorial</CardTitle></CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-2">
                   <Label>Descrição Curta (Aparece no Card)</Label>
-                  <Textarea 
-                    rows={3} 
-                    value={formData.shortDescription} 
-                    onChange={e => setFormData({...formData, shortDescription: e.target.value})}
-                    placeholder="Um resumo atrativo de 2 ou 3 linhas." 
+                  <Textarea
+                    rows={3}
+                    value={formData.shortDescription}
+                    onChange={e => setFormData({ ...formData, shortDescription: e.target.value })}
+                    placeholder="Um resumo atrativo de 2 ou 3 linhas."
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label>Descrição Completa (Página Detalhada)</Label>
                   <div className="text-xs text-gray-500 mb-1">Dica: Você pode usar tags HTML básicas aqui para negrito (&lt;b&gt;texto&lt;/b&gt;) ou parágrafos.</div>
-                  <Textarea 
-                    rows={15} 
+                  <Textarea
+                    rows={15}
                     className="font-mono text-sm"
-                    value={formData.fullDescription} 
-                    onChange={e => setFormData({...formData, fullDescription: e.target.value})}
-                    placeholder="Escreva todo o conteúdo detalhado sobre o mercado..." 
+                    value={formData.fullDescription}
+                    onChange={e => setFormData({ ...formData, fullDescription: e.target.value })}
+                    placeholder="Escreva todo o conteúdo detalhado sobre o mercado..."
                   />
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
+          {/* ABA MAPA */}
           <TabsContent value="map">
             <div className="grid lg:grid-cols-[1fr_350px] gap-6">
-              
+
               <Card className="overflow-hidden flex flex-col h-[600px]">
                 <div className="bg-neutral-100 p-2 text-xs text-center border-b">
                   Clique no mapa para pegar as coordenadas automaticamente para o centro ou para um novo PIN.
                 </div>
                 <div className="flex-grow relative z-0">
-                  <MapContainer 
-                    center={[formData.mapLat, formData.mapLng]} 
-                    zoom={formData.mapZoom} 
+                  <MapContainer
+                    center={safeMapCenter}
+                    zoom={formData.mapZoom}
                     className="h-full w-full"
                   >
-                    <MapController 
-                        center={[formData.mapLat, formData.mapLng]} 
-                        zoom={formData.mapZoom}
-                        pins={formData.pins}
-                        activeTab={activeTab}
+                    <MapController
+                      center={safeMapCenter}
+                      zoom={formData.mapZoom}
+                      pins={formData.pins}
+                      activeTab={activeTab}
                     />
-                    
+
                     <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
-                    
+
                     <MapClickCapture onLocationSelect={(lat, lng) => {
                       setNewPin(prev => ({ ...prev, lat, lng }));
                       toast({ description: "Coordenadas capturadas! Digite o nome da cidade e clique em Adicionar." });
@@ -304,25 +342,49 @@ const AdminMarketEditor = () => {
               </Card>
 
               <div className="space-y-6">
-                
+
                 <Card>
                   <CardHeader className="pb-3"><CardTitle className="text-sm font-medium">Configuração Inicial do Mapa</CardTitle></CardHeader>
                   <CardContent className="space-y-3">
                     <div className="grid grid-cols-2 gap-2">
                       <div>
                         <Label className="text-xs">Latitude Centro</Label>
-                        <Input type="number" step="0.0001" value={formData.mapLat} onChange={e => setFormData({...formData, mapLat: parseFloat(e.target.value)})} />
+                        <Input
+                          type="number"
+                          step="0.0001"
+                          value={formData.mapLat}
+                          // PROTEÇÃO: Se der NaN (input vazio), assume 0 para não quebrar a UI
+                          onChange={e => {
+                            const val = parseFloat(e.target.value);
+                            setFormData({ ...formData, mapLat: isNaN(val) ? 0 : val });
+                          }}
+                        />
                       </div>
                       <div>
                         <Label className="text-xs">Longitude Centro</Label>
-                        <Input type="number" step="0.0001" value={formData.mapLng} onChange={e => setFormData({...formData, mapLng: parseFloat(e.target.value)})} />
+                        <Input
+                          type="number"
+                          step="0.0001"
+                          value={formData.mapLng}
+                          onChange={e => {
+                            const val = parseFloat(e.target.value);
+                            setFormData({ ...formData, mapLng: isNaN(val) ? 0 : val });
+                          }}
+                        />
                       </div>
                     </div>
                     <div>
                       <Label className="text-xs">Zoom Inicial</Label>
-                      <Input type="number" value={formData.mapZoom} onChange={e => setFormData({...formData, mapZoom: parseInt(e.target.value)})} />
+                      <Input
+                        type="number"
+                        value={formData.mapZoom}
+                        onChange={e => {
+                          const val = parseInt(e.target.value);
+                          setFormData({ ...formData, mapZoom: isNaN(val) ? 6 : val });
+                        }}
+                      />
                     </div>
-                    <Button variant="secondary" size="sm" className="w-full text-xs" onClick={() => setFormData({...formData, mapLat: newPin.lat, mapLng: newPin.lng})}>
+                    <Button variant="secondary" size="sm" className="w-full text-xs" onClick={() => setFormData({ ...formData, mapLat: newPin.lat, mapLng: newPin.lng })}>
                       Usar clique como Centro
                     </Button>
                   </CardContent>
@@ -333,9 +395,9 @@ const AdminMarketEditor = () => {
                   <CardContent className="space-y-3 pt-3">
                     <div>
                       <Label className="text-xs">Nome da Cidade</Label>
-                      <Input 
-                        value={newPin.city} 
-                        onChange={e => setNewPin({...newPin, city: e.target.value})} 
+                      <Input
+                        value={newPin.city}
+                        onChange={e => setNewPin({ ...newPin, city: e.target.value })}
                         placeholder="Ex: Porto"
                       />
                     </div>

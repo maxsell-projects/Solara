@@ -15,7 +15,7 @@ const About = () => {
   return (
     <div className="min-h-screen">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-20 bg-gradient-to-b from-neutral-50 to-background">
         <div className="container mx-auto px-6 lg:px-8 text-center">
@@ -37,38 +37,38 @@ const About = () => {
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8">
-            <div>
-              <h2 className="text-4xl md:text-5xl font-light mb-6 leading-tight">
-                Investir com propósito <span className="text-primary">significa iluminar</span>
-              </h2>
-            </div>
-            
-            <div className="space-y-6 text-lg font-light text-muted-foreground leading-relaxed">
-              <p>
-                A Solara é a energia vital, ela comunica com alma e nasce da convicção de que a verdadeira prosperidade é enraizada na consciência.
-              </p>
-              <p>
-                Uma plataforma de investimentos imobiliários e financeiros, para quem busca além de retorno: significado, impacto, e crescimento iluminado por valores.
-              </p>
-              <p>
-                Inspirados na inteligência da natureza e na energia vital do Sol, acreditamos que investir é um gesto espiritual, uma escolha, um reflexo de quem somos e do mundo que construímos.
-              </p>
-              <p>
-                Na Solara, cultivamos e iluminamos caminhos no desenvolvimento sólido de patrimônios sustentáveis, projetos com alma, e futuros a brilhar com autenticidade. Porque quando propósito e estratégia caminham juntos, o resultado é luz em movimento.
-              </p>
-              <p>
-                Escolher investir com intenção é estar consciente de que o verdadeiro valor está na interdependência entre pessoas, ideias e territórios. Para quem entende que brilhar é partilhar luz.
-              </p>
-              <p className="text-primary font-normal italic">
-                Solara. Onde o futuro é semeado com consciência e colhido com brilho.
-              </p>
-            </div>
-              
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-light mb-6 leading-tight">
+                  Investir com propósito <span className="text-primary">significa iluminar</span>
+                </h2>
+              </div>
+
+              <div className="space-y-6 text-lg font-light text-muted-foreground leading-relaxed">
+                <p>
+                  A Solara é a energia vital, ela comunica com alma e nasce da convicção de que a verdadeira prosperidade é enraizada na consciência.
+                </p>
+                <p>
+                  Uma plataforma de investimentos imobiliários e financeiros, para quem busca além de retorno: significado, impacto, e crescimento iluminado por valores.
+                </p>
+                <p>
+                  Inspirados na inteligência da natureza e na energia vital do Sol, acreditamos que investir é um gesto espiritual, uma escolha, um reflexo de quem somos e do mundo que construímos.
+                </p>
+                <p>
+                  Na Solara, cultivamos e iluminamos caminhos no desenvolvimento sólido de patrimônios sustentáveis, projetos com alma, e futuros a brilhar com autenticidade. Porque quando propósito e estratégia caminham juntos, o resultado é luz em movimento.
+                </p>
+                <p>
+                  Escolher investir com intenção é estar consciente de que o verdadeiro valor está na interdependência entre pessoas, ideias e territórios. Para quem entende que brilhar é partilhar luz.
+                </p>
+                <p className="text-primary font-normal italic">
+                  Solara. Onde o futuro é semeado com consciência e colhido com brilho.
+                </p>
+              </div>
+
               <div className="pt-4">
-                <img 
-                  src={signatureCamila} 
-                  alt="Camila Montenegro signature" 
+                <img
+                  src={signatureCamila}
+                  alt="Camila Montenegro signature"
                   className="h-12 w-auto opacity-80"
                 />
                 <p className="text-sm text-muted-foreground font-light mt-2">
@@ -76,7 +76,7 @@ const About = () => {
                 </p>
               </div>
             </div>
-            
+
             <div className="space-y-8">
               <Card className="bg-neutral-50 border-0 p-8">
                 <h3 className="text-2xl font-light mb-6">Vertentes da Solara</h3>
@@ -162,43 +162,43 @@ const About = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="order-2 lg:order-1">
               <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
-                <img 
-                  src={visionImg} 
-                  alt="Vision Press workspace" 
+                <img
+                  src={visionImg}
+                  alt="Vision Press workspace"
                   className="w-full h-full object-cover"
                 />
               </div>
             </div>
-            
+
             <div className="space-y-8 order-1 lg:order-2">
               <div className="mb-8">
-                <img 
-                  src={logoVision} 
-                  alt="Vision Press" 
+                <img
+                  src={logoVision}
+                  alt="Vision Press"
                   className="h-16 w-auto mb-6 opacity-90"
                 />
               </div>
-              
+
               <h2 className="text-4xl md:text-5xl font-light leading-tight">
                 A força da <span style={{ color: 'hsl(100, 19%, 64%)' }}>informação</span>
               </h2>
-              
+
               <p className="text-lg font-light text-muted-foreground leading-relaxed">
-                A Solara acredita na força da informação. Por isso, criou a Vision Press, 
+                A Solara acredita na força da informação. Por isso, criou a Vision Press,
                 uma plataforma de análise, conteúdo e inteligência de mercado.
               </p>
 
               <p className="text-lg font-light text-muted-foreground leading-relaxed">
-                A Vision Press é o braço editorial e de comunicação estratégica da Solara, 
-                transformando insights de mercado em narrativas que educam, inspiram e 
+                A Vision Press é o braço editorial e de comunicação estratégica da Solara,
+                transformando insights de mercado em narrativas que educam, inspiram e
                 ampliam a visão dos investidores conscientes.
               </p>
-              
+
               <Link to="/vision">
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-2"
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full border-2"
                   style={{ borderColor: 'hsl(100, 19%, 74%)', color: 'hsl(100, 22%, 13%)' }}
                 >
                   Visite a Vision Press
@@ -210,8 +210,8 @@ const About = () => {
       </section>
 
       <Footer />
-      <WhatsAppButton 
-        phoneNumber="+351123456789" 
+      <WhatsAppButton
+        phoneNumber="+351123456789"
         message="Olá! Gostaria de saber mais sobre a Solara."
         brand="solara"
       />

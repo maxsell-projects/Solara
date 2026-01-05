@@ -1,14 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import logoSolara from "@/assets/logo-solara-full.png";
 import logoVision from "@/assets/logo-vision.png";
 
 const Hero = () => {
-  const [mousePosition, setMousePosition] = useState({ 
-    x: 0, 
+  const [mousePosition, setMousePosition] = useState({
+    x: 0,
     y: 0,
-    pixelX: 0, // Posição exata em pixels para o spotlight
-    pixelY: 0
   });
   const [isHoveringLogo, setIsHoveringLogo] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -16,17 +15,11 @@ const Hero = () => {
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       const { innerWidth, innerHeight } = window;
-      
-      // Coordenadas normalizadas (-1 a 1) para rotações
       const x = (event.clientX - innerWidth / 2) / (innerWidth / 2);
       const y = (event.clientY - innerHeight / 2) / (innerHeight / 2);
 
-      // Coordenadas exatas para o feixe de luz (Spotlight)
-      const pixelX = event.clientX;
-      const pixelY = event.clientY;
-
       requestAnimationFrame(() => {
-        setMousePosition({ x, y, pixelX, pixelY });
+        setMousePosition({ x, y });
       });
     };
 
@@ -34,128 +27,81 @@ const Hero = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // --- CÁLCULOS DE FÍSICA PARA OS PRISMAS ---
-  
-  // Movimento base
-  const moveX = mousePosition.x * 30; 
-  const moveY = mousePosition.y * 30;
-
-  // Rotação dinâmica: Os prismas giram levemente para "olhar" para o mouse
-  const rotateDynamic = mousePosition.x * 5; // +/- 5 graus
-  
-  // Skew (Inclinação): Dá a sensação de elasticidade/vidro
-  const skewDynamic = mousePosition.y * 2; 
-
-  // Tilt da logo (mantido)
-  const logoTiltX = isHoveringLogo ? 0 : mousePosition.y * -25;
-  const logoTiltY = isHoveringLogo ? 0 : mousePosition.x * 25;
+  const logoTiltX = isHoveringLogo ? 0 : mousePosition.y * -15;
+  const logoTiltY = isHoveringLogo ? 0 : mousePosition.x * 15;
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#f8f8f8] perspective-1000"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white perspective-1000"
     >
-      {/* --- CAMADA DE FUNDO INTERATIVA --- */}
+      {/* --- FUNDO LIMPO (Branco com grão sutil) --- */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        
-        {/* 1. TEXTURA DE GRÃO (NOISE) - Sempre presente para elegância */}
-        <div className="absolute inset-0 opacity-[0.04] z-10 mix-blend-multiply" 
-             style={{ 
-               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` 
-             }} 
-        />
-
-        {/* 2. SPOTLIGHT (HOLOFOTE) - Segue o mouse */}
-        {/* Esta camada cria uma luz branca suave onde o mouse passa, revelando mais cores */}
-        <div 
-          className="absolute inset-0 z-20 mix-blend-overlay transition-opacity duration-300"
+        <div className="absolute inset-0 opacity-[0.03] z-10 mix-blend-multiply"
           style={{
-            background: `radial-gradient(600px circle at ${mousePosition.pixelX}px ${mousePosition.pixelY}px, rgba(255,255,255,0.8), transparent 40%)`
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
           }}
         />
-
-        {/* 3. FEIXES DE LUZ (PRISMAS) COM REAÇÃO FÍSICA */}
-        
-        {/* Feixe Vinho (Esquerda) */}
-        <div 
-          className="absolute -top-[10%] -left-[10%] w-[70vw] h-[140vh] bg-gradient-to-br from-solara-vinho via-[#701c35] to-transparent opacity-20 blur-[50px]"
-          style={{
-            // Aqui combinamos movimento, rotação e inclinação (skew) baseados no mouse
-            transform: `translate(${moveX * -1.5}px, ${moveY * -1.5}px) rotate(${-15 + rotateDynamic}deg) skewX(${skewDynamic}deg)`,
-            transition: 'transform 0.1s ease-out'
-          }}
-        />
-
-        {/* Feixe Verde (Direita) */}
-        <div 
-          className="absolute -bottom-[10%] -right-[10%] w-[60vw] h-[120vh] bg-gradient-to-tl from-vision-green via-[#5e8c61] to-transparent opacity-25 blur-[50px]"
-          style={{
-            transform: `translate(${moveX * 1.5}px, ${moveY * 1.5}px) rotate(${15 + rotateDynamic}deg) skewY(${skewDynamic * -1}deg)`,
-            transition: 'transform 0.1s ease-out'
-          }}
-        />
-
-        {/* Feixe Dourado (Luz Central) - Reage mais rápido */}
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-amber-400/10 rounded-full blur-[100px] mix-blend-multiply"
-          style={{
-            transform: `translate(-50%, -50%) translate(${mousePosition.x * -60}px, ${mousePosition.y * -60}px) scale(${1 + Math.abs(mousePosition.x * 0.1)})`,
-            transition: 'transform 0.15s ease-out'
-          }}
-        />
-
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neutral-50 via-white to-white opacity-80"></div>
       </div>
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-32">
-        <div className="max-w-4xl mx-auto space-y-10">
-          
-          {/* Logo Section */}
-          <div className="flex flex-col items-center gap-6 mb-12">
-            <div className="flex items-center gap-4 opacity-100">
-              <div className="h-[2px] w-12 bg-vision-green/50"></div>
-              <span className="text-xs uppercase tracking-[0.3em] text-vision-green font-bold">em parceria com</span>
-              <div className="h-[2px] w-12 bg-vision-green/50"></div>
-            </div>
+      <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-20">
+        <div className="max-w-5xl mx-auto space-y-12">
 
-            <Link to="/vision" className="block perspective-container relative group">
-              <div 
-                className="flex items-center justify-center transition-all duration-300 ease-out will-change-transform relative"
+          {/* Logo Section Principal: SOLARA */}
+          <div className="flex flex-col items-center gap-8 mb-8">
+            <div className="block perspective-container relative group">
+              <div
+                className="flex items-center justify-center transition-all duration-500 ease-out will-change-transform relative"
                 onMouseEnter={() => setIsHoveringLogo(true)}
                 onMouseLeave={() => setIsHoveringLogo(false)}
                 style={{
-                  transform: `perspective(1000px) rotateX(${logoTiltX}deg) rotateY(${logoTiltY}deg) scale3d(${isHoveringLogo ? 1.05 : 1}, ${isHoveringLogo ? 1.05 : 1}, 1)`,
+                  transform: `perspective(1000px) rotateX(${logoTiltX}deg) rotateY(${logoTiltY}deg) scale3d(${isHoveringLogo ? 1.02 : 1}, ${isHoveringLogo ? 1.02 : 1}, 1)`,
                 }}
               >
-                {/* Glow interativo da logo */}
-                <div 
-                  className={`absolute inset-0 bg-[#8FB390] rounded-full blur-[60px] transition-all duration-500 ${isHoveringLogo ? 'opacity-40 scale-110' : 'opacity-0 scale-90'}`}
+                {/* EFEITO GLOW (BRILHO VINHO) NO HOVER */}
+                <div
+                  className={`absolute inset-0 bg-solara-vinho rounded-full blur-[80px] transition-all duration-500 ${isHoveringLogo ? 'opacity-25 scale-125' : 'opacity-0 scale-50'}`}
                   style={{ zIndex: -1 }}
                 />
 
-                <img 
-                  src={logoVision} 
-                  alt="Vision Press" 
-                  className="h-64 w-auto object-contain transition-all duration-300 relative z-10"
+                {/* Logo Solara */}
+                <img
+                  src={logoSolara}
+                  alt="Solara Project"
+                  className="h-40 md:h-56 w-auto object-contain transition-all duration-300 relative z-10"
                   style={{
-                    filter: isHoveringLogo 
-                      ? `drop-shadow(0 15px 35px rgba(143, 179, 144, 0.3))` 
-                      : `drop-shadow(${mousePosition.x * -15}px ${mousePosition.y * 15}px 20px rgba(0,0,0,0.1))`
+                    // Drop shadow Vinho RGB(92, 6, 30)
+                    filter: isHoveringLogo
+                      ? `drop-shadow(0 0 30px rgba(92, 6, 30, 0.4))`
+                      : `drop-shadow(${mousePosition.x * -10}px ${mousePosition.y * 10}px 15px rgba(0,0,0,0.05))`
                   }}
                 />
               </div>
-            </Link>
+            </div>
+
+            {/* Logo Secundária: VISION */}
+            <div className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity duration-300">
+              <div className="h-px w-8 bg-neutral-300"></div>
+              <img
+                src={logoVision}
+                alt="Vision Press"
+                className="h-8 md:h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all"
+              />
+              <div className="h-px w-8 bg-neutral-300"></div>
+            </div>
           </div>
-          
-          <p className="text-sm uppercase tracking-[0.2em] text-gray-500 font-semibold animate-fade-in">
+
+          <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-semibold animate-fade-in">
             ESTD 2025
           </p>
-          
-          {/* TÍTULO MAGNÉTICO - Segue levemente o mouse */}
+
+          {/* TÍTULO */}
           <div style={{
-             transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
-             transition: 'transform 0.1s ease-out'
+            transform: `translate(${mousePosition.x * 5}px, ${mousePosition.y * 5}px)`,
+            transition: 'transform 0.2s ease-out'
           }}>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-foreground tracking-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-neutral-900 tracking-tight">
               Strategic Investment
               <br />
               <span className="text-solara-vinho font-medium relative inline-block">
@@ -163,22 +109,27 @@ const Hero = () => {
               </span>
             </h1>
           </div>
-          
-          <p className="text-lg md:text-xl font-normal text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Solara Project delivers tailored investment solutions and strategic consultancy, 
+
+          <p className="text-lg md:text-xl font-light text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+            Solara Project delivers tailored investment solutions and strategic consultancy,
             combining financial expertise with authentic vision for sustainable prosperity.
           </p>
-          
+
+          {/* BOTÕES */}
           <div className="flex flex-col sm:flex-row gap-5 justify-center pt-8">
-            <Button size="lg" className="text-base bg-solara-vinho hover:bg-[#4a1223] text-white border-none shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 px-8 py-6 rounded-none uppercase tracking-widest text-xs font-bold">
-              Explore Services
-            </Button>
+            <Link to="/services">
+              <Button size="lg" className="rounded-full text-base bg-solara-vinho hover:bg-[#4a1223] text-white border-none shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold">
+                Explore Services
+              </Button>
+            </Link>
+
             <Link to="/vision">
-              <Button size="lg" variant="outline" className="text-base border border-vision-green text-vision-green hover:bg-vision-green/5 hover:text-vision-green shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 px-8 py-6 rounded-none uppercase tracking-widest text-xs font-bold">
+              <Button size="lg" variant="outline" className="rounded-full text-base border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold">
                 Discover Vision Press
               </Button>
             </Link>
           </div>
+
         </div>
       </div>
     </section>

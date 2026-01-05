@@ -2,209 +2,177 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
-import ExitIntentPopup from "@/components/ExitIntentPopup";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Megaphone, PenTool, Radio, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Palette, TrendingUp, Users, FileText, Target, Share2, Shield, Megaphone } from "lucide-react";
+
+// Importando imagens reais do seu projeto para dar vida aos serviços
+import brandingImg from "@/assets/vision-editorial.jpg";
+import marketingImg from "@/assets/service-consulting-premium.jpg"; // Reutilizando uma imagem premium
+import pressImg from "@/assets/service-consulting.jpg"; // Reutilizando imagem de consultoria
 
 const VisionServices = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white font-sans text-neutral-900">
       <Header />
-      
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-b from-neutral-50 to-background">
-        <div className="container mx-auto px-6 lg:px-8 text-center">
-          <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground font-light mb-4">
-            Vision Press Services
-          </p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-light mb-6 leading-tight">
-            Comunicação com propósito.
-            <br />
-            <span style={{ color: 'hsl(100, 22%, 13%)' }}>Marcas com visão.</span>
+
+      {/* --- HERO VISION --- */}
+      <section className="pt-32 pb-20 bg-neutral-50 border-b border-neutral-100">
+        <div className="container mx-auto px-6 lg:px-8 text-center animate-in fade-in zoom-in duration-700">
+          <span className="text-emerald-600 font-medium tracking-[0.2em] text-xs uppercase mb-6 block">
+            Vision Press Agency
+          </span>
+          <h1 className="text-4xl md:text-6xl font-light mb-8 max-w-4xl mx-auto leading-tight">
+            Comunicação, Jornalismo e <br className="hidden md:block" />
+            <span className="italic font-serif text-emerald-800">Inteligência de Mercado</span>
           </h1>
-          <p className="text-lg md:text-xl font-light text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Branding, marketing e comunicação estratégica para empresas e investidores
+          <p className="text-lg md:text-xl text-neutral-600 font-light max-w-2xl mx-auto leading-relaxed">
+            Transformamos informação em autoridade. Nossas soluções de branding e conteúdo posicionam sua marca no centro das conversas que importam.
           </p>
         </div>
       </section>
 
-      {/* Branding Estratégico */}
+      {/* --- LISTA DE SERVIÇOS --- */}
       <section className="py-24">
-        <div className="container mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-light mb-6">
-              Branding <span style={{ color: 'hsl(100, 22%, 13%)' }}>Estratégico</span>
-            </h2>
-            <p className="text-lg font-light text-muted-foreground max-w-2xl mx-auto">
-              Construímos identidades de marca autênticas que comunicam valor e geram conexão
-            </p>
+        <div className="container mx-auto px-6 lg:px-8 space-y-32">
+
+          {/* SERVIÇO 1: BRANDING */}
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="order-2 md:order-1">
+              <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-8">
+                <PenTool className="w-7 h-7 text-emerald-700" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">Branding & Estratégia</h2>
+              <p className="text-neutral-500 leading-relaxed mb-8 text-lg font-light">
+                Criação de marcas que respiram e se conectam. Do design visual ao tom de voz, construímos identidades sólidas que resistem ao tempo.
+              </p>
+              <ul className="space-y-4 text-neutral-600 font-light mb-8">
+                <li className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Posicionamento de Mercado
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Identidade Visual & Verbal
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Gestão de Reputação
+                </li>
+              </ul>
+              <Link to="/contact">
+                <Button variant="link" className="text-emerald-700 p-0 hover:text-emerald-900 text-base">
+                  Iniciar Projeto de Branding <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
+
+            <div className="order-1 md:order-2 relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-xl group">
+              <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-all duration-500 z-10" />
+              <img
+                src={brandingImg}
+                alt="Branding e Estratégia"
+                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: 'hsl(100, 19%, 74%)' }}>
-                  <Palette className="w-7 h-7" style={{ color: 'hsl(100, 22%, 13%)' }} />
-                </div>
-                <h3 className="text-xl font-light mb-4">Criação de Marca e Identidade</h3>
-                <p className="text-muted-foreground font-light leading-relaxed">
-                  Desenvolvimento completo de identidade visual, naming, manifesto de marca e guidelines estratégicos
-                </p>
-              </CardContent>
-            </Card>
+          <Separator className="bg-neutral-100" />
 
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: 'hsl(100, 19%, 74%)' }}>
-                  <Target className="w-7 h-7" style={{ color: 'hsl(100, 22%, 13%)' }} />
-                </div>
-                <h3 className="text-xl font-light mb-4">Posicionamento de Mercado</h3>
-                <p className="text-muted-foreground font-light leading-relaxed">
-                  Análise competitiva, definição de públicos e estratégia de diferenciação autêntica
-                </p>
-              </CardContent>
-            </Card>
+          {/* SERVIÇO 2: MARKETING */}
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="order-1 relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-xl group">
+              <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-all duration-500 z-10" />
+              <img
+                src={marketingImg}
+                alt="Marketing e Performance"
+                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
 
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
-                <div className="w-14 h-14 rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: 'hsl(100, 19%, 74%)' }}>
-                  <FileText className="w-7 h-7" style={{ color: 'hsl(100, 22%, 13%)' }} />
-                </div>
-                <h3 className="text-xl font-light mb-4">Storytelling e Reputação</h3>
-                <p className="text-muted-foreground font-light leading-relaxed">
-                  Narrativas que conectam emocionalmente e constroem autoridade de marca duradoura
-                </p>
-              </CardContent>
-            </Card>
+            <div className="order-2">
+              <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-8">
+                <Megaphone className="w-7 h-7 text-emerald-700" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">Marketing & Performance</h2>
+              <p className="text-neutral-500 leading-relaxed mb-8 text-lg font-light">
+                Estratégias orientadas a dados para ampliar alcance e conversão. Unimos criatividade com métricas precisas.
+              </p>
+              <ul className="space-y-4 text-neutral-600 font-light mb-8">
+                <li className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Tráfego Pago & SEO
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Social Media & Automação
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Marketing de Influência
+                </li>
+              </ul>
+              <Link to="/contact">
+                <Button variant="link" className="text-emerald-700 p-0 hover:text-emerald-900 text-base">
+                  Ampliar seu Alcance <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
           </div>
+
+          <Separator className="bg-neutral-100" />
+
+          {/* SERVIÇO 3: ASSESSORIA */}
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="order-2 md:order-1">
+              <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-8">
+                <Radio className="w-7 h-7 text-emerald-700" />
+              </div>
+              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">Assessoria de Imprensa</h2>
+              <p className="text-neutral-500 leading-relaxed mb-8 text-lg font-light">
+                Conectamos sua marca aos principais veículos de comunicação, gerenciando crises e criando narrativas de impacto.
+              </p>
+              <ul className="space-y-4 text-neutral-600 font-light mb-8">
+                <li className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Relações Públicas (PR)
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Media Training
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Conteúdos Institucionais
+                </li>
+              </ul>
+              <Link to="/contact">
+                <Button variant="link" className="text-emerald-700 p-0 hover:text-emerald-900 text-base">
+                  Consultar Assessoria <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </Link>
+            </div>
+
+            <div className="order-1 md:order-2 relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-xl group">
+              <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-all duration-500 z-10" />
+              <img
+                src={pressImg}
+                alt="Assessoria de Imprensa"
+                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+          </div>
+
         </div>
       </section>
 
-      {/* Marketing e Performance */}
-      <section className="py-24 bg-neutral-50">
-        <div className="container mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-light mb-6">
-              Marketing e <span style={{ color: 'hsl(100, 22%, 13%)' }}>Performance</span>
-            </h2>
-            <p className="text-lg font-light text-muted-foreground max-w-2xl mx-auto">
-              Estratégias digitais que geram resultados mensuráveis e crescimento sustentável
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <Card className="border-0 shadow-lg text-center">
-              <CardContent className="p-6">
-                <TrendingUp className="w-8 h-8 mx-auto mb-4" style={{ color: 'hsl(100, 22%, 13%)' }} />
-                <h3 className="text-lg font-light mb-2">Planeamento de Campanhas</h3>
-                <p className="text-sm text-muted-foreground font-light">
-                  Estratégias integradas de comunicação e marketing
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg text-center">
-              <CardContent className="p-6">
-                <Target className="w-8 h-8 mx-auto mb-4" style={{ color: 'hsl(100, 22%, 13%)' }} />
-                <h3 className="text-lg font-light mb-2">Tráfego Pago e SEO</h3>
-                <p className="text-sm text-muted-foreground font-light">
-                  Otimização de conversões e visibilidade orgânica
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg text-center">
-              <CardContent className="p-6">
-                <Share2 className="w-8 h-8 mx-auto mb-4" style={{ color: 'hsl(100, 22%, 13%)' }} />
-                <h3 className="text-lg font-light mb-2">Social Media e Automação</h3>
-                <p className="text-sm text-muted-foreground font-light">
-                  Gestão estratégica de redes sociais e fluxos automatizados
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg text-center">
-              <CardContent className="p-6">
-                <Users className="w-8 h-8 mx-auto mb-4" style={{ color: 'hsl(100, 22%, 13%)' }} />
-                <h3 className="text-lg font-light mb-2">Marketing de Influência</h3>
-                <p className="text-sm text-muted-foreground font-light">
-                  Parcerias autênticas com embaixadores de marca
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+      {/* --- CTA --- */}
+      <section className="py-24 bg-emerald-900 text-white text-center relative overflow-hidden">
+        {/* Elemento decorativo de fundo */}
+        <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+          <div className="absolute right-0 top-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute left-0 bottom-0 w-64 h-64 bg-emerald-400 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
         </div>
-      </section>
 
-      {/* Comunicação Corporativa */}
-      <section className="py-24">
-        <div className="container mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-light mb-6">
-              Comunicação <span style={{ color: 'hsl(100, 22%, 13%)' }}>Corporativa</span>
-            </h2>
-            <p className="text-lg font-light text-muted-foreground max-w-2xl mx-auto">
-              Gestão profissional da comunicação institucional e reputação empresarial
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="flex gap-4 items-start p-6 border-l-4 bg-neutral-50 rounded-r-2xl" style={{ borderColor: 'hsl(100, 19%, 74%)' }}>
-              <Megaphone className="w-6 h-6 mt-1 flex-shrink-0" style={{ color: 'hsl(100, 22%, 13%)' }} />
-              <div>
-                <h3 className="text-lg font-light mb-2">Relações Públicas e Imprensa</h3>
-                <p className="text-sm text-muted-foreground font-light">
-                  Gestão de relacionamento com media e stakeholders estratégicos
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-start p-6 border-l-4 bg-neutral-50 rounded-r-2xl" style={{ borderColor: 'hsl(100, 19%, 74%)' }}>
-              <Users className="w-6 h-6 mt-1 flex-shrink-0" style={{ color: 'hsl(100, 22%, 13%)' }} />
-              <div>
-                <h3 className="text-lg font-light mb-2">Comunicação Interna</h3>
-                <p className="text-sm text-muted-foreground font-light">
-                  Alinhamento de cultura, valores e engagement de equipas
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-start p-6 border-l-4 bg-neutral-50 rounded-r-2xl" style={{ borderColor: 'hsl(100, 19%, 74%)' }}>
-              <Shield className="w-6 h-6 mt-1 flex-shrink-0" style={{ color: 'hsl(100, 22%, 13%)' }} />
-              <div>
-                <h3 className="text-lg font-light mb-2">Gestão de Crises</h3>
-                <p className="text-sm text-muted-foreground font-light">
-                  Protocolos e resposta estratégica em situações críticas
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-start p-6 border-l-4 bg-neutral-50 rounded-r-2xl" style={{ borderColor: 'hsl(100, 19%, 74%)' }}>
-              <FileText className="w-6 h-6 mt-1 flex-shrink-0" style={{ color: 'hsl(100, 22%, 13%)' }} />
-              <div>
-                <h3 className="text-lg font-light mb-2">Produção de Conteúdos Institucionais</h3>
-                <p className="text-sm text-muted-foreground font-light">
-                  Relatórios, apresentações e materiais corporativos de excelência
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Final */}
-      <section className="py-24 bg-gradient-to-b from-neutral-50 to-background">
-        <div className="container mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-light mb-6">
-            Quer transformar a sua marca em <span style={{ color: 'hsl(100, 22%, 13%)' }}>autoridade</span>?
-          </h2>
-          <p className="text-lg font-light text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Entre em contacto e descubra como a Vision Press pode elevar a sua comunicação
+        <div className="container mx-auto px-6 relative z-10">
+          <h2 className="text-3xl md:text-5xl font-light mb-8">Pronto para elevar sua comunicação?</h2>
+          <p className="text-emerald-100/80 mb-10 max-w-2xl mx-auto font-light text-lg">
+            Agende uma reunião estratégica com nossa equipe editorial e descubra o poder de uma narrativa bem construída.
           </p>
           <Link to="/contact">
-            <Button size="lg" className="text-base" style={{ backgroundColor: 'hsl(100, 22%, 13%)' }}>
+            <Button className="rounded-full bg-white text-emerald-900 hover:bg-emerald-50 px-10 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all">
               Fale com a Vision Press
             </Button>
           </Link>
@@ -212,13 +180,8 @@ const VisionServices = () => {
       </section>
 
       <Footer />
-      <WhatsAppButton 
-        phoneNumber="+351123456789" 
-        message="Olá! Gostaria de saber mais sobre os serviços da Vision Press."
-        brand="vision"
-      />
+      <WhatsAppButton phoneNumber="+351123456789" message="Olá, gostaria de saber mais sobre os serviços da Vision Press." brand="vision" />
       <BackToTop />
-      <ExitIntentPopup brand="vision" />
     </div>
   );
 };

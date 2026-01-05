@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logoSolara from "@/assets/logo-solara-full.png";
 import logoVision from "@/assets/logo-vision.png";
 import logoMaxSell from "@/assets/maxsell.png";
@@ -6,71 +7,124 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-foreground text-background py-16">
+    <footer className="bg-neutral-900 text-neutral-200 py-16 border-t border-neutral-800">
       <div className="container mx-auto px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+
+        {/* GRID PRINCIPAL */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+          {/* COLUNA 1: MARCAS & IDENTIDADE */}
           <div className="space-y-8">
-            <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
-              <img
-                src={logoSolara}
-                alt="Solara Project"
-                className="h-20 w-auto object-contain"
-              />
-              <img
-                src={logoVision}
-                alt="Vision Press"
-                className="h-20 w-auto brightness-0 invert opacity-90"
-              />
+            <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
+              {/* Logo Solara */}
+              <Link to="/" className="hover:opacity-80 transition-opacity">
+                <img
+                  src={logoSolara}
+                  alt="Solara Project"
+                  className="h-16 w-auto object-contain invert brightness-0"
+                />
+              </Link>
+              {/* Separator visual (opcional) */}
+              <div className="hidden sm:block h-8 w-px bg-neutral-700"></div>
+              {/* Logo Vision */}
+              <Link to="/vision" className="hover:opacity-80 transition-opacity">
+                <img
+                  src={logoVision}
+                  alt="Vision Press"
+                  className="h-14 w-auto brightness-0 invert opacity-80"
+                />
+              </Link>
             </div>
-            <p className="text-sm font-light opacity-80 leading-relaxed">
-              Strategic investment consultancy with conscious vision for sustainable prosperity.
+            <p className="text-sm font-light opacity-60 leading-relaxed max-w-xs">
+              Strategic investment consultancy integrated with market intelligence and conscious vision.
             </p>
           </div>
 
+          {/* COLUNA 2: SOLARA (INVESTIMENTOS) */}
           <div>
-            <h4 className="font-light text-lg mb-4">Services</h4>
-            <ul className="space-y-2 text-sm font-light opacity-80">
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Real Estate Investments</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Financial Investments</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Strategic Consultancy</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Partnership Opportunities</a></li>
+            <h4 className="font-medium text-white text-lg mb-6">Solara Solutions</h4>
+            <ul className="space-y-3 text-sm font-light opacity-70">
+              <li>
+                <Link to="/services/real-estate" className="hover:text-solara-vinho hover:opacity-100 transition-colors">
+                  Real Estate Investments
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/financial" className="hover:text-solara-vinho hover:opacity-100 transition-colors">
+                  Financial Strategy
+                </Link>
+              </li>
+              <li>
+                <Link to="/services/consultancy" className="hover:text-solara-vinho hover:opacity-100 transition-colors">
+                  Strategic Consultancy
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* COLUNA 3: VISION PRESS (COMUNICAÇÃO) */}
           <div>
-            <h4 className="font-light text-lg mb-4">Company</h4>
-            <ul className="space-y-2 text-sm font-light opacity-80">
-              <li><a href="#about" className="hover:opacity-100 transition-opacity">About Solara</a></li>
-              <li><a href="#vision" className="hover:opacity-100 transition-opacity">Vision Press</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Contact</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">Privacy Policy</a></li>
+            <h4 className="font-medium text-white text-lg mb-6">Vision Press</h4>
+            <ul className="space-y-3 text-sm font-light opacity-70">
+              <li>
+                <Link to="/vision" className="hover:text-emerald-400 hover:opacity-100 transition-colors">
+                  Editorial & Market News
+                </Link>
+              </li>
+              <li>
+                <Link to="/vision/services" className="hover:text-emerald-400 hover:opacity-100 transition-colors">
+                  Branding & Agency
+                </Link>
+              </li>
+              <li>
+                <Link to="/vision/articles" className="hover:text-emerald-400 hover:opacity-100 transition-colors">
+                  Market Intelligence
+                </Link>
+              </li>
             </ul>
           </div>
 
-          <div className="space-y-6">
-            <div>
-              <h4 className="font-light text-lg mb-4">Connect</h4>
-              <p className="text-sm font-light opacity-80">
-                info@solaraproject.pt
-              </p>
-            </div>
+          {/* COLUNA 4: INSTITUCIONAL */}
+          <div>
+            <h4 className="font-medium text-white text-lg mb-6">Company</h4>
+            <ul className="space-y-3 text-sm font-light opacity-70">
+              <li>
+                <Link to="/about" className="hover:text-white hover:opacity-100 transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-white hover:opacity-100 transition-colors">
+                  Contact & Location
+                </Link>
+              </li>
+              <li className="pt-4">
+                <a href="mailto:info@solaraproject.pt" className="text-white hover:text-solara-vinho transition-colors">
+                  info@solaraproject.pt
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-background/20">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-light opacity-60">
-            <p>© {currentYear} Solara Project®. All rights reserved.</p>
+        {/* RODAPÉ INFERIOR */}
+        <div className="pt-8 border-t border-neutral-800">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-xs font-light opacity-50">
 
-            <div className="flex items-center gap-2 order-3 md:order-2">
-              <span className="text-xs">Powered by</span>
-              <img src={logoMaxSell} alt="MaxSell" className="h-6 w-auto invert brightness-0" />
+            <p className="order-2 md:order-1">
+              © {currentYear} Solara Project®. All rights reserved.
+            </p>
+
+            <div className="flex gap-6 order-1 md:order-2">
+              <Link to="#" className="hover:opacity-100 transition-opacity">Privacy Policy</Link>
+              <Link to="#" className="hover:opacity-100 transition-opacity">Terms & Conditions</Link>
             </div>
 
-            <div className="flex gap-6 order-2 md:order-3">
-              <a href="#" className="hover:opacity-100 transition-opacity">Terms & Conditions</a>
-              <a href="#" className="hover:opacity-100 transition-opacity">Accessibility</a>
-              <a href="#" className="hover:opacity-100 transition-opacity">Cookies</a>
+            <div className="flex items-center gap-2 order-3">
+              <span>Powered by</span>
+              <img src={logoMaxSell} alt="MaxSell" className="h-4 w-auto invert brightness-0 opacity-70" />
             </div>
+
           </div>
         </div>
       </div>
