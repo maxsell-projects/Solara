@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, ShieldCheck, PieChart, Landmark, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import financialHero from "@/assets/service-financial.jpg"; // Usando a imagem existente
+import financialHero from "@/assets/service-financial.jpg";
 
 const Financial = () => {
   return (
@@ -15,7 +15,8 @@ const Financial = () => {
       <Header />
 
       {/* --- HERO SECTION --- */}
-      <section className="relative pt-32 pb-20 overflow-hidden bg-neutral-900 text-white">
+      {/* ALTERAÇÃO: mt-20 para empurrar a imagem para baixo da navbar */}
+      <section className="relative mt-20 pt-20 pb-20 overflow-hidden bg-neutral-900 text-white">
         <div className="absolute inset-0 opacity-40">
           <img src={financialHero} alt="Financial Background" className="w-full h-full object-cover" />
         </div>

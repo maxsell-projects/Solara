@@ -10,149 +10,150 @@ import { Link } from "react-router-dom";
 import consultingHero from "@/assets/service-consulting-premium.jpg"; // Usando imagem existente
 
 const Consultancy = () => {
-  return (
-    <div className="min-h-screen font-sans text-neutral-900 bg-white">
-      <Header />
+    return (
+        <div className="min-h-screen font-sans text-neutral-900 bg-white">
+            <Header />
 
-      {/* --- HERO SECTION --- */}
-      <section className="relative pt-32 pb-20 overflow-hidden bg-neutral-900 text-white">
-        <div className="absolute inset-0 opacity-50">
-            <img src={consultingHero} alt="Strategic Consulting" className="w-full h-full object-cover" />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900 via-neutral-900/80 to-transparent" />
-        
-        <div className="container mx-auto px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl space-y-8 animate-in fade-in slide-in-from-left duration-700">
-            <Badge variant="outline" className="border-white/30 text-white px-4 py-1 text-xs uppercase tracking-widest font-semibold">
-              Strategic Advisory
-            </Badge>
-            <h1 className="text-5xl md:text-7xl font-light leading-tight tracking-tight">
-              Global Mobility <br />
-              <span className="text-solara-vinho font-medium">& Strategy</span>
-            </h1>
-            <p className="text-xl text-white/70 font-light leading-relaxed max-w-2xl">
-              Navigating the complexities of international relocation, tax optimization, and residency planning with precision.
-            </p>
-            <div className="pt-4">
-              <Link to="/contact">
-                <Button className="bg-white text-neutral-900 hover:bg-solara-vinho hover:text-white transition-all px-8 h-12 text-base">
-                  Book a Consultation
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+            {/* --- HERO SECTION --- */}
+            {/* ALTERAÇÃO: mt-20 para respeitar o espaço da navbar */}
+            <section className="relative mt-20 pt-20 pb-20 overflow-hidden bg-neutral-900 text-white">
+                <div className="absolute inset-0 opacity-50">
+                    <img src={consultingHero} alt="Strategic Consulting" className="w-full h-full object-cover" />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-neutral-900 via-neutral-900/80 to-transparent" />
 
-      {/* --- CONCEPT SECTION --- */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-light mb-6">Seamless Borders. Strategic Living.</h2>
-                <p className="text-lg text-neutral-600 font-light leading-relaxed">
-                    Moving capital or residency across borders involves intricate legal and fiscal challenges. We provide the strategic roadmap to ensure your transition is compliant, tax-efficient, and aligned with your personal or business goals.
-                </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-                {/* Card 1: Residency */}
-                <Card className="border border-neutral-100 shadow-lg hover:shadow-xl transition-all">
-                    <CardContent className="p-8">
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="w-12 h-12 bg-solara-vinho/10 rounded-full flex items-center justify-center text-solara-vinho">
-                                <Globe className="w-6 h-6" />
-                            </div>
-                            <h3 className="text-2xl font-light">Residency & Citizenship</h3>
-                        </div>
-                        <p className="text-neutral-500 font-light mb-6">
-                            Expert guidance on Golden Visa programs, D7 Visas, and Digital Nomad routes. We manage the entire bureaucracy, from initial application to final card issuance.
+                <div className="container mx-auto px-6 lg:px-8 relative z-10">
+                    <div className="max-w-3xl space-y-8 animate-in fade-in slide-in-from-left duration-700">
+                        <Badge variant="outline" className="border-white/30 text-white px-4 py-1 text-xs uppercase tracking-widest font-semibold">
+                            Strategic Advisory
+                        </Badge>
+                        <h1 className="text-5xl md:text-7xl font-light leading-tight tracking-tight">
+                            Global Mobility <br />
+                            <span className="text-solara-vinho font-medium">& Strategy</span>
+                        </h1>
+                        <p className="text-xl text-white/70 font-light leading-relaxed max-w-2xl">
+                            Navigating the complexities of international relocation, tax optimization, and residency planning with precision.
                         </p>
-                        <ul className="space-y-3">
-                            {["Golden Visa (Investment Funds)", "D2 (Entrepreneur)", "D7 (Passive Income)"].map(item => (
-                                <li key={item} className="flex items-center gap-2 text-sm text-neutral-700">
-                                    <CheckCircle2 className="w-4 h-4 text-solara-vinho" /> {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </CardContent>
-                </Card>
-
-                {/* Card 2: Tax Optimization */}
-                <Card className="border border-neutral-100 shadow-lg hover:shadow-xl transition-all">
-                    <CardContent className="p-8">
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="w-12 h-12 bg-solara-vinho/10 rounded-full flex items-center justify-center text-solara-vinho">
-                                <FileText className="w-6 h-6" />
-                            </div>
-                            <h3 className="text-2xl font-light">Tax Optimization</h3>
+                        <div className="pt-4">
+                            <Link to="/contact">
+                                <Button className="rounded-full bg-white text-neutral-900 hover:bg-solara-vinho hover:text-white transition-all px-8 h-12 text-base">
+                                    Book a Consultation
+                                </Button>
+                            </Link>
                         </div>
-                        <p className="text-neutral-500 font-light mb-6">
-                            Structure your income and assets to benefit from regimes like the NHR (Non-Habitual Resident) status, ensuring maximum fiscal efficiency in your new tax residence.
+                    </div>
+                </div>
+            </section>
+
+            {/* --- CONCEPT SECTION --- */}
+            <section className="py-24 bg-white">
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="max-w-4xl mx-auto text-center mb-16">
+                        <h2 className="text-3xl md:text-4xl font-light mb-6">Seamless Borders. Strategic Living.</h2>
+                        <p className="text-lg text-neutral-600 font-light leading-relaxed">
+                            Moving capital or residency across borders involves intricate legal and fiscal challenges. We provide the strategic roadmap to ensure your transition is compliant, tax-efficient, and aligned with your personal or business goals.
                         </p>
-                        <ul className="space-y-3">
-                            {["NHR Status Application", "Double Taxation Treaties", "Corporate Tax Structuring"].map(item => (
-                                <li key={item} className="flex items-center gap-2 text-sm text-neutral-700">
-                                    <CheckCircle2 className="w-4 h-4 text-solara-vinho" /> {item}
-                                </li>
-                            ))}
-                        </ul>
-                    </CardContent>
-                </Card>
-            </div>
-        </div>
-      </section>
+                    </div>
 
-      {/* --- RELOCATION SERVICES --- */}
-      <section className="py-24 bg-neutral-50">
-        <div className="container mx-auto px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-center gap-16">
-                <div className="flex-1 space-y-6">
-                    <h2 className="text-3xl md:text-4xl font-light">
-                        Concierge Relocation
-                    </h2>
-                    <p className="text-neutral-600 font-light leading-relaxed text-lg">
-                        We believe luxury is the absence of worry. Our concierge team handles the logistics of your move so you can focus on the excitement of arrival.
-                    </p>
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                        <div className="flex items-start gap-3">
-                            <MapPin className="w-5 h-5 text-solara-vinho mt-1" />
-                            <div>
-                                <h4 className="font-medium">School Search</h4>
-                                <p className="text-sm text-neutral-500">Finding top international schools.</p>
+                    <div className="grid md:grid-cols-2 gap-8">
+                        {/* Card 1: Residency */}
+                        <Card className="border border-neutral-100 shadow-lg hover:shadow-xl transition-all">
+                            <CardContent className="p-8">
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="w-12 h-12 bg-solara-vinho/10 rounded-full flex items-center justify-center text-solara-vinho">
+                                        <Globe className="w-6 h-6" />
+                                    </div>
+                                    <h3 className="text-2xl font-light">Residency & Citizenship</h3>
+                                </div>
+                                <p className="text-neutral-500 font-light mb-6">
+                                    Expert guidance on Golden Visa programs, D7 Visas, and Digital Nomad routes. We manage the entire bureaucracy, from initial application to final card issuance.
+                                </p>
+                                <ul className="space-y-3">
+                                    {["Golden Visa (Investment Funds)", "D2 (Entrepreneur)", "D7 (Passive Income)"].map(item => (
+                                        <li key={item} className="flex items-center gap-2 text-sm text-neutral-700">
+                                            <CheckCircle2 className="w-4 h-4 text-solara-vinho" /> {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </CardContent>
+                        </Card>
+
+                        {/* Card 2: Tax Optimization */}
+                        <Card className="border border-neutral-100 shadow-lg hover:shadow-xl transition-all">
+                            <CardContent className="p-8">
+                                <div className="flex items-center gap-4 mb-6">
+                                    <div className="w-12 h-12 bg-solara-vinho/10 rounded-full flex items-center justify-center text-solara-vinho">
+                                        <FileText className="w-6 h-6" />
+                                    </div>
+                                    <h3 className="text-2xl font-light">Tax Optimization</h3>
+                                </div>
+                                <p className="text-neutral-500 font-light mb-6">
+                                    Structure your income and assets to benefit from regimes like the NHR (Non-Habitual Resident) status, ensuring maximum fiscal efficiency in your new tax residence.
+                                </p>
+                                <ul className="space-y-3">
+                                    {["NHR Status Application", "Double Taxation Treaties", "Corporate Tax Structuring"].map(item => (
+                                        <li key={item} className="flex items-center gap-2 text-sm text-neutral-700">
+                                            <CheckCircle2 className="w-4 h-4 text-solara-vinho" /> {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </CardContent>
+                        </Card>
+                    </div>
+                </div>
+            </section>
+
+            {/* --- RELOCATION SERVICES --- */}
+            <section className="py-24 bg-neutral-50">
+                <div className="container mx-auto px-6 lg:px-8">
+                    <div className="flex flex-col md:flex-row items-center gap-16">
+                        <div className="flex-1 space-y-6">
+                            <h2 className="text-3xl md:text-4xl font-light">
+                                Concierge Relocation
+                            </h2>
+                            <p className="text-neutral-600 font-light leading-relaxed text-lg">
+                                We believe luxury is the absence of worry. Our concierge team handles the logistics of your move so you can focus on the excitement of arrival.
+                            </p>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                                <div className="flex items-start gap-3">
+                                    <MapPin className="w-5 h-5 text-solara-vinho mt-1" />
+                                    <div>
+                                        <h4 className="font-medium">School Search</h4>
+                                        <p className="text-sm text-neutral-500">Finding top international schools.</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-3">
+                                    <Briefcase className="w-5 h-5 text-solara-vinho mt-1" />
+                                    <div>
+                                        <h4 className="font-medium">Business Setup</h4>
+                                        <p className="text-sm text-neutral-500">Company incorporation & banking.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="flex items-start gap-3">
-                            <Briefcase className="w-5 h-5 text-solara-vinho mt-1" />
-                            <div>
-                                <h4 className="font-medium">Business Setup</h4>
-                                <p className="text-sm text-neutral-500">Company incorporation & banking.</p>
+
+                        {/* Visual Feature */}
+                        <div className="flex-1 relative h-[400px] w-full bg-white p-8 rounded-3xl shadow-xl flex items-center justify-center border border-neutral-100">
+                            <div className="text-center space-y-4">
+                                <div className="w-20 h-20 bg-neutral-900 rounded-full flex items-center justify-center mx-auto text-white">
+                                    <Globe className="w-10 h-10" />
+                                </div>
+                                <h3 className="text-2xl font-light">Global Access</h3>
+                                <p className="text-neutral-500 max-w-xs mx-auto">
+                                    Serving clients from USA, Brazil, UK, and Middle East moving to Europe.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                {/* Visual Feature */}
-                <div className="flex-1 relative h-[400px] w-full bg-white p-8 rounded-3xl shadow-xl flex items-center justify-center border border-neutral-100">
-                    <div className="text-center space-y-4">
-                         <div className="w-20 h-20 bg-neutral-900 rounded-full flex items-center justify-center mx-auto text-white">
-                            <Globe className="w-10 h-10" />
-                         </div>
-                         <h3 className="text-2xl font-light">Global Access</h3>
-                         <p className="text-neutral-500 max-w-xs mx-auto">
-                            Serving clients from USA, Brazil, UK, and Middle East moving to Europe.
-                         </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </section>
+            </section>
 
-      <Footer />
-      <WhatsAppButton phoneNumber="+351123456789" message="Hello, I need assistance with relocation/visas." />
-      <BackToTop />
-    </div>
-  );
+            <Footer />
+            <WhatsAppButton phoneNumber="+351123456789" message="Hello, I need assistance with relocation/visas." />
+            <BackToTop />
+        </div>
+    );
 };
 
 export default Consultancy;
