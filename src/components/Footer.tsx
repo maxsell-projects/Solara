@@ -18,22 +18,24 @@ const Footer = () => {
           {/* COLUNA 1: MARCAS & IDENTIDADE */}
           <div className="space-y-8">
             <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
-              {/* Logo Solara (Grande e Colorida) */}
+              {/* Logo Solara */}
               <Link to="/" className="hover:opacity-80 transition-opacity">
                 <img
                   src={logoSolara}
                   alt="Solara Project"
-                  className="h-20 w-auto object-contain"
+                  // Aumentado para h-24 e filtro para ficar BRANCO
+                  className="h-24 w-auto object-contain invert brightness-0"
                 />
               </Link>
               {/* Separator visual */}
-              <div className="hidden sm:block h-10 w-px bg-neutral-700"></div>
-              {/* Logo Vision (Grande e Colorida) */}
+              <div className="hidden sm:block h-12 w-px bg-neutral-700"></div>
+              {/* Logo Vision */}
               <Link to="/vision" className="hover:opacity-80 transition-opacity">
                 <img
                   src={logoVision}
                   alt="Vision Press"
-                  className="h-16 w-auto object-contain"
+                  // Aumentado para h-20 e filtro para ficar BRANCO
+                  className="h-20 w-auto object-contain brightness-0 invert"
                 />
               </Link>
             </div>
@@ -118,13 +120,8 @@ const Footer = () => {
             </p>
 
             <div className="flex gap-6 order-1 md:order-2">
-              {/* LINKS LEGAIS ATUALIZADOS AQUI 👇 */}
-              <Link to="/legal?section=privacy" className="hover:opacity-100 transition-opacity">
-                {t('footer.privacy')}
-              </Link>
-              <Link to="/legal?section=terms" className="hover:opacity-100 transition-opacity">
-                {t('footer.terms')}
-              </Link>
+              <Link to="/legal?section=privacy" className="hover:opacity-100 transition-opacity">{t('footer.privacy')}</Link>
+              <Link to="/legal?section=terms" className="hover:opacity-100 transition-opacity">{t('footer.terms')}</Link>
             </div>
 
             <div className="flex items-center gap-2 order-3">
