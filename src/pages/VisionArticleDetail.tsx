@@ -9,6 +9,8 @@ import { ArrowLeft, Calendar, Clock, Share2, Bookmark, Loader2 } from "lucide-re
 import visionImg from "@/assets/vision-editorial.jpg";
 import logoVision from "@/assets/logo-vision.png";
 import signatureCamila from "@/assets/signature-camila.png";
+// Importação do Carimbo
+import visionStamp from "@/assets/VisionPress-56.png"; 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -175,7 +177,27 @@ const VisionArticleDetail = () => {
               
             </article>
 
-            <div className="mt-16 pt-12 border-t border-vision-green/20">
+            {/* --- ASSINATURA EDITORIAL (CARIMBO) --- */}
+            <div className="mt-16 pt-12 border-t border-vision-green/20 flex flex-col items-end opacity-0 animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
+              <div className="text-right">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 mb-4 font-semibold">
+                  Vision Press Editorial
+                </p>
+                <div className="relative inline-block group cursor-pointer">
+                  <img 
+                    src={visionStamp} 
+                    alt="Vision Press Stamp" 
+                    className="w-32 md:w-40 h-auto opacity-80 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-out"
+                  />
+                </div>
+                <p className="text-xs text-neutral-300 mt-2 font-light italic">
+                  Verified & Published
+                </p>
+              </div>
+            </div>
+
+            {/* --- BIO DO AUTOR --- */}
+            <div className="mt-12 pt-12 border-t border-vision-green/20">
               <div className="flex flex-col gap-6">
                 <img 
                   src={signatureCamila} 
