@@ -6,20 +6,21 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, MapPin, Loader2 } from "lucide-react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'; // <--- Adicionado useMap
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import { useTranslation } from "react-i18next"; // <--- Import i18n
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 // Configuração do Ícone Padrão do Leaflet
 let DefaultIcon = L.icon({
-    iconUrl: icon,
-    shadowUrl: iconShadow,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41]
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41]
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
@@ -40,13 +41,10 @@ const FitBounds = ({ pins, center, zoom }: { pins: any[], center: [number, numbe
   const map = useMap();
   
   useEffect(() => {
-    // Se houver pinos, ajusta o mapa para mostrar todos eles
     if (pins && pins.length > 0) {
       const bounds = L.latLngBounds(pins.map(p => [p.lat, p.lng]));
-      // O padding evita que os pinos fiquem colados na borda do mapa
       map.fitBounds(bounds, { padding: [50, 50] });
     } else {
-      // Se não houver pinos, usa o centro e zoom configurados manualmente
       map.setView(center, zoom);
     }
   }, [map, pins, center, zoom]);
@@ -55,12 +53,12 @@ const FitBounds = ({ pins, center, zoom }: { pins: any[], center: [number, numbe
 };
 
 const RealEstateDetail = () => {
+  const { t } = useTranslation(); // <--- Hook
   const { slug } = useParams();
   const [market, setMarket] = useState<MarketDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Busca os dados do mercado pelo Slug
     fetch(`${API_URL}/markets/${slug}`)
       .then(res => res.json())
       .then(data => {
@@ -73,8 +71,18 @@ const RealEstateDetail = () => {
       });
   }, [slug]);
 
-  if (isLoading) return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin w-10 h-10 text-solara-vinho" /></div>;
-  if (!market) return <div className="min-h-screen flex items-center justify-center">Mercado não encontrado.</div>;
+  if (isLoading) return (
+    <div className="min-h-screen flex items-center justify-center">
+      <Loader2 className="animate-spin w-10 h-10 text-solara-vinho" />
+      <p className="ml-4 text-neutral-500">{t('market_detail.loading')}</p>
+    </div>
+  );
+  
+  if (!market) return (
+    <div className="min-h-screen flex items-center justify-center">
+      {t('market_detail.not_found')}
+    </div>
+  );
 
   return (
     <div className="min-h-screen font-sans bg-white">
@@ -85,7 +93,7 @@ const RealEstateDetail = () => {
         <div className="container mx-auto px-6 lg:px-8">
           <Link to="/services/real-estate">
             <Button variant="link" className="text-white/60 hover:text-white p-0 mb-6">
-              <ArrowLeft className="w-4 h-4 mr-2" /> Voltar para Mercados
+              <ArrowLeft className="w-4 h-4 mr-2" /> {t('market_detail.btn_back')}
             </Button>
           </Link>
           <div className="flex flex-col md:flex-row gap-6 items-start justify-between">
@@ -102,22 +110,26 @@ const RealEstateDetail = () => {
           
           {/* Coluna da Esquerda: Texto */}
           <div className="space-y-8">
-            <h2 className="text-3xl font-light text-solara-vinho">Visão Estratégica</h2>
+            <h2 className="text-3xl font-light text-solara-vinho">{t('market_detail.section_vision')}</h2>
+            
+            {/* O conteúdo HTML vem do backend, então não é traduzido pelo i18n, mas mantemos o layout */}
             <div 
               className="prose prose-lg text-gray-600 font-light leading-relaxed"
               dangerouslySetInnerHTML={{ __html: market.fullDescription }}
             />
             
             <div className="pt-8">
-              <h3 className="text-xl font-medium mb-4">Por que investir em {market.name}?</h3>
+              <h3 className="text-xl font-medium mb-4">
+                {t('market_detail.why_invest')} {market.name}?
+              </h3>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3 text-gray-600 font-light">
                   <div className="w-1.5 h-1.5 rounded-full bg-solara-vinho mt-2.5" />
-                  Alta demanda por propriedades premium nas zonas mapeadas.
+                  {t('market_detail.reason_demand')}
                 </li>
                 <li className="flex items-start gap-3 text-gray-600 font-light">
                   <div className="w-1.5 h-1.5 rounded-full bg-solara-vinho mt-2.5" />
-                  Benefícios fiscais exclusivos para investidores estrangeiros.
+                  {t('market_detail.reason_tax')}
                 </li>
               </ul>
             </div>
@@ -131,7 +143,6 @@ const RealEstateDetail = () => {
               scrollWheelZoom={false} 
               className="h-full w-full"
             >
-              {/* Componente que faz a mágica do zoom automático */}
               <FitBounds 
                 pins={market.pins || []} 
                 center={[market.mapLat, market.mapLng]} 
@@ -148,7 +159,7 @@ const RealEstateDetail = () => {
                   <Popup className="font-sans text-sm">
                     <div className="text-center">
                       <strong className="block text-solara-vinho text-base mb-1">{pin.city}</strong>
-                      <span className="text-gray-500">Área de Atuação Solara</span>
+                      <span className="text-gray-500">{t('market_detail.map_area')}</span>
                     </div>
                   </Popup>
                 </Marker>
@@ -159,7 +170,7 @@ const RealEstateDetail = () => {
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-solara-vinho" />
                 <p className="text-sm font-medium text-gray-700">
-                  {market.pins ? market.pins.length : 0} Cidades com Operação Ativa
+                  {market.pins ? market.pins.length : 0} {t('market_detail.map_active')}
                 </p>
               </div>
             </div>
@@ -169,7 +180,10 @@ const RealEstateDetail = () => {
       </div>
 
       <Footer />
-      <WhatsAppButton phoneNumber="+351912345678" message={`Olá, gostaria de saber mais sobre investimentos em ${market.name}.`} />
+      <WhatsAppButton 
+        phoneNumber="+351912345678" 
+        message={`${t('market_detail.whatsapp_msg')} ${market.name}.`} 
+      />
     </div>
   );
 };

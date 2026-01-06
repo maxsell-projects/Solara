@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, User, Loader2 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next"; // <--- Import i18n
 
 // --- IMPORTAÇÃO DE ASSETS ---
 import logoVision from "@/assets/logo-vision.png";
@@ -34,6 +35,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 const BASE_URL = API_URL.replace('/api', '');
 
 const Vision = () => {
+  const { t } = useTranslation(); // <--- Hook
   const [recentPosts, setRecentPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -165,16 +167,16 @@ const Vision = () => {
               transition: 'transform 0.2s ease-out'
             }}>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-neutral-900 tracking-tight">
-                Information is
+                {t('vision_page.hero.title_main')}
                 <br />
                 <span className="text-emerald-700 font-medium relative inline-block">
-                  Your New Asset
+                  {t('vision_page.hero.title_highlight')}
                 </span>
               </h1>
             </div>
 
             <p className="text-lg md:text-xl font-light text-neutral-600 max-w-2xl mx-auto leading-relaxed">
-              Uncovering market trends, shaping narratives, and empowering decisions with data-driven clarity.
+              {t('vision_page.hero.description')}
             </p>
 
             {/* BOTÕES ARREDONDADOS (Pill Shape) */}
@@ -184,7 +186,7 @@ const Vision = () => {
                   size="lg"
                   className="rounded-full text-base bg-emerald-800 hover:bg-emerald-900 text-white border-none shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold"
                 >
-                  Read Articles
+                  {t('vision_page.hero.btn_articles')}
                 </Button>
               </Link>
               <Link to="/vision/services">
@@ -193,7 +195,7 @@ const Vision = () => {
                   variant="outline"
                   className="rounded-full text-base border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold"
                 >
-                  Agency Services
+                  {t('vision_page.hero.btn_services')}
                 </Button>
               </Link>
             </div>
@@ -206,10 +208,10 @@ const Vision = () => {
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light mb-6 text-neutral-900">
-              Destaques <span className="text-emerald-700 font-normal">Recentes</span>
+              {t('vision_page.highlights.title')} <span className="text-emerald-700 font-normal">{t('vision_page.highlights.title_highlight')}</span>
             </h2>
             <p className="text-lg font-light text-neutral-500 max-w-2xl mx-auto">
-              Insights e análises que transformam informação em visão estratégica
+              {t('vision_page.highlights.subtitle')}
             </p>
           </div>
 
@@ -219,7 +221,7 @@ const Vision = () => {
             </div>
           ) : recentPosts.length === 0 ? (
             <div className="text-center py-12 text-neutral-400 font-light">
-              Ainda não há artigos publicados.
+              {t('vision_page.highlights.no_articles')}
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -273,7 +275,7 @@ const Vision = () => {
                 size="lg"
                 className="rounded-full border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 px-8"
               >
-                Ver Todos os Artigos
+                {t('vision_page.highlights.btn_view_all')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -299,7 +301,7 @@ const Vision = () => {
             <div className="order-1 lg:order-2 space-y-8">
               <div>
                 <p className="text-sm uppercase tracking-[0.3em] text-emerald-600 font-medium mb-4">
-                  Sobre Mim
+                  {t('vision_page.about.label')}
                 </p>
                 <h2 className="text-4xl md:text-5xl font-light mb-6 text-neutral-900">
                   Camila <span className="font-serif italic text-emerald-700">Montenegro</span>
@@ -308,10 +310,10 @@ const Vision = () => {
 
               <div className="prose prose-lg text-neutral-600 font-light leading-relaxed">
                 <p>
-                  A Vision Press nasce da convicção de que a comunicação é a ponte mais forte entre o valor financeiro e o valor humano.
+                  {t('vision_page.about.p1')}
                 </p>
                 <p>
-                  Ela simboliza a transparência, o crescimento orgânico e a conexão profunda com o propósito. Não é apenas uma marca gráfica; é o compromisso de que cada palavra escrita carrega a intenção de construir um futuro mais consciente.
+                  {t('vision_page.about.p2')}
                 </p>
               </div>
 
@@ -322,7 +324,7 @@ const Vision = () => {
                     alt="Assinatura Camila Montenegro"
                     className="h-20 w-auto object-contain opacity-80"
                   />
-                  <p className="text-xs text-neutral-400 mt-2 tracking-widest uppercase">Founding Partner & Editor-in-Chief</p>
+                  <p className="text-xs text-neutral-400 mt-2 tracking-widest uppercase">{t('vision_page.about.role')}</p>
                 </div>
 
                 <div className="relative group cursor-help">
@@ -351,16 +353,16 @@ const Vision = () => {
 
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-4xl font-light mb-6">
-                  Receba os principais <span className="text-emerald-400 font-normal">insights</span>
+                  {t('vision_page.newsletter.title')} <span className="text-emerald-400 font-normal">{t('vision_page.newsletter.title_highlight')}</span>
                 </h2>
                 <p className="text-lg font-light text-neutral-400 mb-10 max-w-2xl mx-auto">
-                  Subscreva a newsletter da Vision Press e receba análises exclusivas de mercado diretamente na sua caixa de entrada.
+                  {t('vision_page.newsletter.description')}
                 </p>
 
                 <form className="max-w-md mx-auto flex gap-4">
                   <Input
                     type="email"
-                    placeholder="O seu e-mail"
+                    placeholder={t('vision_page.newsletter.placeholder')}
                     className="h-14 flex-1 bg-white/10 border-white/10 text-white placeholder:text-white/40 focus-visible:ring-emerald-500 rounded-full px-6"
                     required
                   />
@@ -369,12 +371,12 @@ const Vision = () => {
                     size="lg"
                     className="h-14 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full px-8 transition-all duration-300"
                   >
-                    Subscrever
+                    {t('vision_page.newsletter.btn_subscribe')}
                   </Button>
                 </form>
 
                 <p className="text-xs text-neutral-500 font-light mt-6">
-                  Ao subscrever, concorda com a nossa Política de Privacidade.
+                  {t('vision_page.newsletter.disclaimer')}
                 </p>
               </div>
             </CardContent>
@@ -385,7 +387,7 @@ const Vision = () => {
       <Footer />
       <WhatsAppButton
         phoneNumber="+351123456789"
-        message="Olá! Gostaria de saber mais sobre a Vision Press."
+        message={t('vision_page.whatsapp_msg')}
         brand="vision"
       />
       <BackToTop />

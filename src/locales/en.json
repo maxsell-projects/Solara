@@ -1,4 +1,13 @@
 {
+  "header": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About",
+    "contact": "Contact",
+    "vision_btn": "Discover Vision Press",
+    "solara_btn": "Back to Solara",
+    "book_meeting": "Book a Meeting"
+  },
   "hero": {
     "estd": "ESTD 2025",
     "title_main": "Strategic Investment",
@@ -187,5 +196,242 @@
       "error_desc": "There was a problem sending your message. Please try again or use WhatsApp.",
       "whatsapp_body": "Hello! I would like to know more about"
     }
+  },
+  "real_estate": {
+    "hero": {
+      "badge": "Premium Assets",
+      "title_line1": "Curated Property",
+      "title_line2": "Portfolio",
+      "description": "Exclusive access to off-market properties and high-yield real estate developments in Portugal's most sought-after locations.",
+      "btn": "View Collection"
+    },
+    "intro": {
+      "title": "Beyond Traditional Real Estate.",
+      "description": "We don't just sell properties; we source investment vehicles. Our focus is on assets that offer capital appreciation, rental yield potential, or unique lifestyle value."
+    },
+    "listings": {
+      "title": "Featured Opportunities",
+      "subtitle": "A selection of our current premium listings.",
+      "price_label": "Price",
+      "location_label": "Location",
+      "type_label": "Type",
+      "btn_details": "View Details"
+    },
+    "features": {
+        "title": "Why Invest with Solara?",
+        "cards": {
+            "off_market_title": "Off-Market Access",
+            "off_market_desc": "Many of our best properties never hit public portals.",
+            "yield_title": "Yield Focus",
+            "yield_desc": "Analysis of ROI and rental potential for every asset.",
+            "turnkey_title": "Turnkey Management",
+            "turnkey_desc": "From acquisition to renovation and property management."
+        }
+    }
+  },
+  "real_estate": {
+    "hero": {
+      "badge": "Global Expertise",
+      "title_line1": "Premium Real Estate",
+      "title_line2": "Investment",
+      "description": "Exclusive access to off-market opportunities and high-yield developments in the world's most dynamic regions.",
+      "btn_markets": "View Markets",
+      "btn_contact": "Contact Advisor"
+    },
+    "vision": {
+      "title": "Beyond Traditional Asset Management",
+      "p1": "At Solara, we believe that real estate is the cornerstone of a resilient wealth preservation strategy. It is not merely about acquiring square meters; it is about securing a position in economies that demonstrate robust legal frameworks, consistent appreciation, and high quality of life.",
+      "p2": "Our approach transcends borders. We meticulously analyze macroeconomic indicators, tax incentives (such as Golden Visas or NHR regimes), and urban development plans to identify markets before they reach saturation. This allows our clients to capitalize on the \"first-mover advantage\" while maintaining the security of tangible assets.",
+      "p3": "Whether you are seeking passive income through high-yield rentals or long-term capital appreciation for generational wealth transfer, our curated portfolio is designed to perform in diverse economic climates.",
+      "icons": {
+        "appreciation_title": "Capital Appreciation",
+        "appreciation_desc": "Long-term value growth driven by strategic location and urban development.",
+        "yield_title": "Passive Yield",
+        "yield_desc": "Consistent cash flow generation through premium rental markets.",
+        "hedge_title": "Inflation Hedge",
+        "hedge_desc": "Real assets that protect purchasing power against currency devaluation.",
+        "diversification_title": "Diversification",
+        "diversification_desc": "Geographic distribution of assets to mitigate geopolitical risks."
+      }
+    },
+    "listings": {
+      "title": "Curated Global Markets",
+      "subtitle": "We strictly select jurisdictions that offer the ideal balance between legal security, quality of life, and financial return.",
+      "stat_active": "Active Regions",
+      "loading": "Loading opportunities...",
+      "empty": "No markets currently available.",
+      "card_yield": "Est. Yield",
+      "card_appreciation": "Appreciation",
+      "btn_explore": "Explore Opportunities"
+    },
+    "cta": {
+      "title": "Ready to expand your portfolio?",
+      "description": "Our team of expert advisors is ready to guide you through the best international real estate opportunities tailored to your investment goals.",
+      "btn": "Schedule a Consultation"
+    }
+  },
+  "market_detail": {
+    "btn_back": "Back to Markets",
+    "section_vision": "Strategic Vision",
+    "why_invest": "Why invest in",
+    "reason_demand": "High demand for premium properties in mapped zones.",
+    "reason_tax": "Exclusive tax benefits for foreign investors.",
+    "map_active": "Cities with Active Operation",
+    "map_area": "Solara Coverage Area",
+    "loading": "Loading market data...",
+    "not_found": "Market not found.",
+    "whatsapp_msg": "Hello, I would like to know more about investments in"
+  },
+  "services_hub": {
+    "hero": {
+      "label": "Consultancy & Investment",
+      "title_line1": "Consultancy & Investment",
+      "title_line2": "with Purpose",
+      "description": "From strategy to results — complete solutions for those who invest with vision."
+    },
+    "real_estate": {
+      "title": "Real Estate",
+      "title_highlight": "Investment",
+      "description": "We transform real estate opportunities into profitable and sustainable investments, with strategic analysis and long-term vision.",
+      "item1_title": "Consultancy & Opportunities",
+      "item1_desc": "Identification and analysis of properties with appreciation potential",
+      "item2_title": "Yield Studies",
+      "item2_desc": "Complete analyses of ROI, cash flow, and market projections",
+      "item3_title": "Sourcing & Mediation",
+      "item3_desc": "Connection with investors and complete management of real estate projects"
+    },
+    "financial": {
+      "title": "Financial",
+      "title_highlight": "Investments",
+      "description": "Personalized investment strategies combining security, profitability, and intelligent portfolio diversification.",
+      "item1_title": "Portfolio Planning & Management",
+      "item1_desc": "Building diversified portfolios aligned with your goals",
+      "item2_title": "Strategic Partnerships",
+      "item2_desc": "Collaboration with credit intermediaries and trusted financial institutions",
+      "item3_title": "Tools & Simulators",
+      "item3_desc": "Access to advanced technology for analysis and investment tracking"
+    },
+    "differentials": {
+      "title": "Solara",
+      "title_highlight": "Differentials",
+      "subtitle": "What makes us unique in the consultancy and investment market",
+      "card1_title": "Strategic Analysis",
+      "card1_desc": "Deep market evaluation with real data and grounded projections",
+      "card2_title": "Total Transparency",
+      "card2_desc": "Clear communication, transparent processes, and trusted partnership",
+      "card3_title": "International Network",
+      "card3_desc": "Access to global opportunities and expertise in international markets",
+      "btn_study": "Request a Personalized Yield Study"
+    },
+    "cta": {
+      "title": "Ready to",
+      "title_highlight": "Invest with Consciousness",
+      "description": "Schedule a strategic consultation and discover the best opportunities for your profile.",
+      "btn": "Schedule Consultation"
+    },
+    "whatsapp_msg": "Hello! I would like to know more about Solara services."
+  },
+  "vision_page": {
+    "hero": {
+      "title_main": "Information is",
+      "title_highlight": "Your New Asset",
+      "description": "Uncovering market trends, shaping narratives, and empowering decisions with data-driven clarity.",
+      "btn_articles": "Read Articles",
+      "btn_services": "Agency Services"
+    },
+    "highlights": {
+      "title": "Recent",
+      "title_highlight": "Highlights",
+      "subtitle": "Insights and analyses that transform information into strategic vision",
+      "no_articles": "No articles published yet.",
+      "btn_view_all": "View All Articles"
+    },
+    "about": {
+      "label": "About Me",
+      "p1": "Vision Press was born from the conviction that communication is the strongest bridge between financial value and human value.",
+      "p2": "It symbolizes transparency, organic growth, and deep connection with purpose. It is not just a graphic brand; it is the commitment that every written word carries the intention of building a more conscious future.",
+      "role": "Founding Partner & Editor-in-Chief"
+    },
+    "newsletter": {
+      "title": "Receive key",
+      "title_highlight": "insights",
+      "description": "Subscribe to the Vision Press newsletter and get exclusive market analysis directly in your inbox.",
+      "placeholder": "Your email",
+      "btn_subscribe": "Subscribe",
+      "disclaimer": "By subscribing, you agree to our Privacy Policy."
+    },
+    "whatsapp_msg": "Hello! I would like to know more about Vision Press."
+  },
+  "article_detail": {
+    "not_found_title": "Article not found",
+    "btn_back_articles": "Back to Articles",
+    "read_time": "min read",
+    "stamp_label": "Vision Press Editorial",
+    "stamp_verified": "Verified & Published",
+    "author_name": "Camila Montenegro",
+    "author_role": "Founding Partner",
+    "author_bio_title": "Camila Montenegro",
+    "author_bio_desc": "Strategic investment specialist and corporate communication expert. Founding Partner of Solara Project and Editor-in-Chief of Vision Press.",
+    "continue_reading": "Continue reading",
+    "btn_back_list": "Back to Article List",
+    "loading": "Loading article...",
+    "error_loading": "Error loading article."
+  },
+  "vision_articles": {
+    "header_label": "Vision Press Journal",
+    "title_main": "Articles &",
+    "title_highlight": "Insights",
+    "description": "Editorial content that transforms information into strategic vision",
+    "search_placeholder": "Search articles...",
+    "categories": {
+      "all": "All",
+      "business": "Business",
+      "real_estate": "Real Estate",
+      "finance": "Finance",
+      "society": "Society",
+      "trends": "Trends"
+    },
+    "loading": "Loading articles...",
+    "empty_state": "No articles found.",
+    "read_time": "min read",
+    "error_loading": "Could not load articles."
+  },
+  "vision_services": {
+    "hero": {
+      "label": "Vision Press Agency",
+      "title_line1": "Communication, Journalism &",
+      "title_highlight": "Market Intelligence",
+      "description": "We transform information into authority. Our branding and content solutions position your brand at the center of conversations that matter."
+    },
+    "branding": {
+      "title": "Branding & Strategy",
+      "description": "Creating brands that breathe and connect. From visual design to tone of voice, we build solid identities that stand the test of time.",
+      "item1": "Market Positioning",
+      "item2": "Visual & Verbal Identity",
+      "item3": "Reputation Management",
+      "btn": "Start Branding Project"
+    },
+    "marketing": {
+      "title": "Marketing & Performance",
+      "description": "Data-driven strategies to expand reach and conversion. We combine creativity with precise metrics.",
+      "item1": "Paid Traffic & SEO",
+      "item2": "Social Media & Automation",
+      "item3": "Influencer Marketing",
+      "btn": "Expand Your Reach"
+    },
+    "press": {
+      "title": "Press Office",
+      "description": "We connect your brand to major media outlets, managing crises and creating impactful narratives.",
+      "item1": "Public Relations (PR)",
+      "item2": "Media Training",
+      "item3": "Institutional Content",
+      "btn": "Consult Press Services"
+    },
+    "cta": {
+      "title": "Ready to elevate your communication?",
+      "description": "Schedule a strategic meeting with our editorial team and discover the power of a well-crafted narrative.",
+      "btn": "Talk to Vision Press"
+    },
+    "whatsapp_msg": "Hello, I would like to know more about Vision Press services."
   }
 }

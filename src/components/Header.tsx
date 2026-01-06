@@ -5,8 +5,12 @@ import { Link, useLocation } from "react-router-dom";
 import logoSolara from "@/assets/logo-solara-full.png";
 import logoVision from "@/assets/logo-vision.png";
 import HamburgerMenu from "@/components/HamburgerMenu";
+// Novos Imports para Tradução
+import LanguageSwitcher from "@/components/LanguageSwitcher"; 
+import { useTranslation } from "react-i18next"; 
 
 const Header = () => {
+  const { t } = useTranslation(); // <--- Hook de tradução
   const location = useLocation();
   // Verifica se estamos na rota /vision ou sub-rotas
   const isVisionSection = location.pathname.startsWith('/vision');
@@ -30,7 +34,7 @@ const Header = () => {
 
   // Lógica de Links Dinâmicos
   const homeLink = isVisionSection ? "/vision" : "/";
-  // Se estiver na Vision, vai para /vision/services. Se não, vai para o Hub de Serviços (/services) ou direto para /services/financial se preferir
+  // Se estiver na Vision, vai para /vision/services. Se não, vai para o Hub de Serviços (/services)
   const servicesLink = isVisionSection ? "/vision/services" : "/services";
 
   return (
@@ -67,19 +71,19 @@ const Header = () => {
           <nav className="hidden md:flex items-center gap-8">
             {/* LINK HOME DINÂMICO */}
             <Link to={homeLink} className={`text-sm font-light transition-colors ${navLinkHoverClass}`}>
-              Home
+              {t('header.home')}
             </Link>
 
             {/* LINK SERVIÇOS DINÂMICO */}
             <Link to={servicesLink} className={`text-sm font-light transition-colors ${navLinkHoverClass}`}>
-              Serviços
+              {t('header.services')}
             </Link>
 
             <Link to="/about" className={`text-sm font-light transition-colors ${navLinkHoverClass}`}>
-              Sobre
+              {t('header.about')}
             </Link>
             <Link to="/contact" className={`text-sm font-light transition-colors ${navLinkHoverClass}`}>
-              Contacto
+              {t('header.contact')}
             </Link>
 
             {/* Botão de Troca de Marca (Switch) */}
@@ -90,7 +94,7 @@ const Header = () => {
                   size="sm"
                   className="rounded-full border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-50 hover:text-emerald-700 transition-colors"
                 >
-                  Conheça a Vision Press
+                  {t('header.vision_btn')}
                 </Button>
               </Link>
             )}
@@ -98,19 +102,29 @@ const Header = () => {
             {isVisionSection && (
               <Link to="/">
                 <Button variant="outline" size="sm" className="rounded-full border-2 border-solara-vinho text-solara-vinho hover:bg-solara-vinho/10">
-                  Voltar à Solara
+                  {t('header.solara_btn')}
                 </Button>
               </Link>
             )}
 
             <Link to="/contact">
               <Button variant="default" size="sm" className="rounded-full bg-solara-vinho hover:bg-solara-vinho/90 text-white">
-                Agende uma Reunião
+                {t('header.book_meeting')}
               </Button>
             </Link>
+
+            {/* --- NOVO: Botão de Idioma (Desktop) --- */}
+            <div className="pl-4 border-l border-gray-200 h-6 flex items-center">
+              <LanguageSwitcher />
+            </div>
+
           </nav>
 
-          <HamburgerMenu />
+          {/* Mobile Menu & Switcher */}
+          <div className="flex items-center gap-2 md:hidden">
+            <LanguageSwitcher />
+            <HamburgerMenu />
+          </div>
         </div>
       </div>
     </header>

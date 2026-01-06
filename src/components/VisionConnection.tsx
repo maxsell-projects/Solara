@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import logoVision from "@/assets/logo-vision.png";
 import visionImg from "@/assets/vision-editorial.jpg";
+import { useTranslation } from "react-i18next"; // <--- Import
 
 interface Post {
   id: number;
@@ -16,6 +17,7 @@ interface Post {
 const API_URL = import.meta.env.VITE_API_URL;
 
 const VisionConnection = () => {
+  const { t } = useTranslation(); // <--- Hook
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -58,32 +60,29 @@ const VisionConnection = () => {
                 className="h-20 w-auto mb-6 opacity-100"
               />
               <p className="text-sm uppercase tracking-[0.2em] text-vision-green font-medium">
-                Creative Communication
+                {t('vision.label')}
               </p>
             </div>
             
             <h2 className="text-4xl md:text-5xl font-light leading-tight">
-              Amplifying Impact
+              {t('vision.title_main')}
               <br />
-              Through <span className="italic text-vision-green">Vision Press</span>
+              {t('vision.title_sub')} <span className="italic text-vision-green">Vision Press</span>
             </h2>
             
             <p className="text-lg font-light text-muted-foreground leading-relaxed">
-              Vision Press, our editorial and creative communication arm, transforms strategic 
-              insights into compelling narratives. Through thoughtful journalism, brand storytelling, 
-              and content excellence, we bridge investment vision with authentic communication.
+              {t('vision.description')}
             </p>
             
             <div className="pt-4">
-                <h4 className="text-xl font-medium text-solara-vinho mb-4">Destaques Recentes</h4>
+                <h4 className="text-xl font-medium text-solara-vinho mb-4">{t('vision.recent_highlights')}</h4>
                 <div className="space-y-3">
                     {isLoading ? (
                         <div className="flex justify-center items-center h-16">
                             <Loader2 className="h-5 w-5 animate-spin text-vision-green" />
                         </div>
                     ) : posts.length === 0 ? (
-                        /* ALTERADO: Adicionado mb-6 para dar espaço quando não houver posts */
-                        <p className="text-sm text-muted-foreground mb-6">Nenhum artigo recente encontrado.</p>
+                        <p className="text-sm text-muted-foreground mb-6">{t('vision.no_articles')}</p>
                     ) : (
                         posts.map((post) => (
                             <Card key={post.id} className="p-3 shadow-none hover:bg-neutral-100 transition-colors">
@@ -103,7 +102,7 @@ const VisionConnection = () => {
                 variant="outline" 
                 className="border-2 border-vision-green text-vision-green hover:bg-vision-light hover:text-vision-green hover:border-vision-light transition-all duration-300 shadow-sm"
               >
-                Explore Vision Press
+                {t('vision.btn_explore')}
               </Button>
             </Link>
           </div>

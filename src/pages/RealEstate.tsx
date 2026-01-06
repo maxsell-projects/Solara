@@ -10,7 +10,9 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowRight, Loader2, Building2, TrendingUp, ShieldCheck, Globe, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-premium-property.jpg";
-import visionImage from "@/assets/vision-editorial.jpg"; // Ou qualquer outra imagem de 'lifestyle' que tenhas
+// Note: Removi o import não usado 'visionImage' para limpar o código, 
+// a menos que queiras usar noutro sítio.
+import { useTranslation } from "react-i18next"; // <--- Import i18n
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -26,6 +28,7 @@ interface Market {
 }
 
 const RealEstate = () => {
+  const { t } = useTranslation(); // <--- Hook
   const [markets, setMarkets] = useState<Market[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -66,14 +69,14 @@ const RealEstate = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-8 animate-in fade-in slide-in-from-left duration-700">
               <Badge variant="outline" className="border-solara-vinho text-solara-vinho px-4 py-1 text-xs uppercase tracking-widest font-semibold">
-                Global Expertise
+                {t('real_estate.hero.badge')}
               </Badge>
               <h1 className="text-5xl md:text-6xl font-light leading-tight tracking-tight text-neutral-900">
-                Premium Real Estate <br />
-                <span className="text-solara-vinho font-medium">Investment</span>
+                {t('real_estate.hero.title_line1')} <br />
+                <span className="text-solara-vinho font-medium">{t('real_estate.hero.title_line2')}</span>
               </h1>
               <p className="text-lg md:text-xl text-neutral-600 font-light leading-relaxed max-w-lg">
-                Exclusive access to off-market opportunities and high-yield developments in the world's most dynamic regions.
+                {t('real_estate.hero.description')}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -82,13 +85,13 @@ const RealEstate = () => {
                   onClick={scrollToMarkets}
                   className="bg-solara-vinho hover:bg-solara-vinho/90 text-white px-8 h-12 text-base"
                 >
-                  View Markets <ChevronDown className="ml-2 w-4 h-4" />
+                  {t('real_estate.hero.btn_markets')} <ChevronDown className="ml-2 w-4 h-4" />
                 </Button>
 
                 {/* Botão com Link para Contato */}
                 <Link to="/contact">
                   <Button variant="outline" className="border-neutral-300 hover:bg-neutral-50 px-8 h-12 text-base w-full sm:w-auto">
-                    Contact Advisor
+                    {t('real_estate.hero.btn_contact')}
                   </Button>
                 </Link>
               </div>
@@ -111,18 +114,12 @@ const RealEstate = () => {
             {/* Texto Narrativo */}
             <div className="space-y-6">
               <h2 className="text-3xl md:text-4xl font-light text-neutral-900">
-                Beyond Traditional Asset Management
+                {t('real_estate.vision.title')}
               </h2>
               <div className="space-y-6 text-neutral-600 font-light leading-relaxed text-lg">
-                <p>
-                  At Solara, we believe that real estate is the cornerstone of a resilient wealth preservation strategy. It is not merely about acquiring square meters; it is about securing a position in economies that demonstrate robust legal frameworks, consistent appreciation, and high quality of life.
-                </p>
-                <p>
-                  Our approach transcends borders. We meticulously analyze macroeconomic indicators, tax incentives (such as Golden Visas or NHR regimes), and urban development plans to identify markets before they reach saturation. This allows our clients to capitalize on the "first-mover advantage" while maintaining the security of tangible assets.
-                </p>
-                <p>
-                  Whether you are seeking passive income through high-yield rentals or long-term capital appreciation for generational wealth transfer, our curated portfolio is designed to perform in diverse economic climates.
-                </p>
+                <p>{t('real_estate.vision.p1')}</p>
+                <p>{t('real_estate.vision.p2')}</p>
+                <p>{t('real_estate.vision.p3')}</p>
               </div>
             </div>
 
@@ -130,23 +127,23 @@ const RealEstate = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-xl shadow-sm border border-neutral-100">
                 <TrendingUp className="w-8 h-8 text-solara-vinho mb-4" />
-                <h3 className="font-medium text-lg mb-2">Capital Appreciation</h3>
-                <p className="text-sm text-neutral-500 leading-relaxed">Long-term value growth driven by strategic location and urban development.</p>
+                <h3 className="font-medium text-lg mb-2">{t('real_estate.vision.icons.appreciation_title')}</h3>
+                <p className="text-sm text-neutral-500 leading-relaxed">{t('real_estate.vision.icons.appreciation_desc')}</p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-neutral-100">
                 <Building2 className="w-8 h-8 text-solara-vinho mb-4" />
-                <h3 className="font-medium text-lg mb-2">Passive Yield</h3>
-                <p className="text-sm text-neutral-500 leading-relaxed">Consistent cash flow generation through premium rental markets.</p>
+                <h3 className="font-medium text-lg mb-2">{t('real_estate.vision.icons.yield_title')}</h3>
+                <p className="text-sm text-neutral-500 leading-relaxed">{t('real_estate.vision.icons.yield_desc')}</p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-neutral-100">
                 <ShieldCheck className="w-8 h-8 text-solara-vinho mb-4" />
-                <h3 className="font-medium text-lg mb-2">Inflation Hedge</h3>
-                <p className="text-sm text-neutral-500 leading-relaxed">Real assets that protect purchasing power against currency devaluation.</p>
+                <h3 className="font-medium text-lg mb-2">{t('real_estate.vision.icons.hedge_title')}</h3>
+                <p className="text-sm text-neutral-500 leading-relaxed">{t('real_estate.vision.icons.hedge_desc')}</p>
               </div>
               <div className="bg-white p-6 rounded-xl shadow-sm border border-neutral-100">
                 <Globe className="w-8 h-8 text-solara-vinho mb-4" />
-                <h3 className="font-medium text-lg mb-2">Diversification</h3>
-                <p className="text-sm text-neutral-500 leading-relaxed">Geographic distribution of assets to mitigate geopolitical risks.</p>
+                <h3 className="font-medium text-lg mb-2">{t('real_estate.vision.icons.diversification_title')}</h3>
+                <p className="text-sm text-neutral-500 leading-relaxed">{t('real_estate.vision.icons.diversification_desc')}</p>
               </div>
             </div>
 
@@ -155,28 +152,27 @@ const RealEstate = () => {
       </section>
 
       {/* --- MARKETS LISTING --- */}
-      {/* Adicionei o ref aqui para o scroll funcionar */}
       <section ref={marketsSectionRef} className="py-24 bg-white scroll-mt-20">
         <div className="container mx-auto px-6 lg:px-8">
 
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
             <div className="max-w-2xl">
-              <h2 className="text-4xl font-light mb-4">Curated Global Markets</h2>
+              <h2 className="text-4xl font-light mb-4">{t('real_estate.listings.title')}</h2>
               <p className="text-neutral-500 font-light text-lg">
-                We strictly select jurisdictions that offer the ideal balance between legal security, quality of life, and financial return.
+                {t('real_estate.listings.subtitle')}
               </p>
             </div>
             <div className="hidden md:block h-px flex-1 bg-neutral-100 mx-8 mb-4"></div>
             <div className="text-right">
               <span className="block text-4xl font-light text-solara-vinho">{markets.length}</span>
-              <span className="text-xs uppercase tracking-wider text-neutral-400">Active Regions</span>
+              <span className="text-xs uppercase tracking-wider text-neutral-400">{t('real_estate.listings.stat_active')}</span>
             </div>
           </div>
 
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-20 gap-4">
               <Loader2 className="w-10 h-10 animate-spin text-solara-vinho" />
-              <p className="text-neutral-400 font-light">Loading opportunities...</p>
+              <p className="text-neutral-400 font-light">{t('real_estate.listings.loading')}</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -213,17 +209,17 @@ const RealEstate = () => {
 
                         <div className="grid grid-cols-2 gap-4 mb-6">
                           <div>
-                            <p className="text-[10px] uppercase text-neutral-400 font-bold tracking-widest mb-1">Est. Yield</p>
+                            <p className="text-[10px] uppercase text-neutral-400 font-bold tracking-widest mb-1">{t('real_estate.listings.card_yield')}</p>
                             <p className="text-xl font-medium text-solara-vinho">{market.yieldRate}</p>
                           </div>
                           <div>
-                            <p className="text-[10px] uppercase text-neutral-400 font-bold tracking-widest mb-1">Appreciation</p>
+                            <p className="text-[10px] uppercase text-neutral-400 font-bold tracking-widest mb-1">{t('real_estate.listings.card_appreciation')}</p>
                             <p className="text-xl font-medium text-neutral-700">{market.appreciationRate}</p>
                           </div>
                         </div>
 
                         <Button variant="ghost" className="w-full justify-between hover:bg-neutral-50 text-neutral-900 font-normal px-0 hover:px-4 transition-all">
-                          Explore Opportunities <ArrowRight className="w-4 h-4 text-solara-vinho" />
+                          {t('real_estate.listings.btn_explore')} <ArrowRight className="w-4 h-4 text-solara-vinho" />
                         </Button>
                       </CardContent>
                     </Card>
@@ -231,7 +227,7 @@ const RealEstate = () => {
                 ))
               ) : (
                 <div className="col-span-full py-20 text-center bg-neutral-50 rounded-2xl border border-dashed border-neutral-200">
-                  <p className="text-neutral-500">No markets currently available.</p>
+                  <p className="text-neutral-500">{t('real_estate.listings.empty')}</p>
                 </div>
               )}
             </div>
@@ -242,13 +238,13 @@ const RealEstate = () => {
       {/* --- CTA SECTION --- */}
       <section className="py-20 bg-neutral-900 text-white">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-light mb-6">Ready to expand your portfolio?</h2>
+          <h2 className="text-3xl md:text-4xl font-light mb-6">{t('real_estate.cta.title')}</h2>
           <p className="text-neutral-400 mb-8 max-w-2xl mx-auto font-light text-lg">
-            Our team of expert advisors is ready to guide you through the best international real estate opportunities tailored to your investment goals.
+            {t('real_estate.cta.description')}
           </p>
           <Link to="/contact">
             <Button className="bg-white text-neutral-900 hover:bg-neutral-200 px-8 py-6 text-lg">
-              Schedule a Consultation
+              {t('real_estate.cta.btn')}
             </Button>
           </Link>
         </div>

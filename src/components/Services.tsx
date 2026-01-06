@@ -2,42 +2,46 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom"; 
 import realEstateImg from "@/assets/service-real-estate.jpg";
 import financialImg from "@/assets/service-financial.jpg";
-import consultingImg from "@/assets/service-consulting-premium.jpg"; // Garante que a imagem existe
-
-const services = [
-  {
-    title: "Real Estate Investments",
-    description: "Strategic property portfolio development with focus on sustainable value creation and long-term capital appreciation.",
-    image: realEstateImg,
-    link: "/services/real-estate" // Rota correta
-  },
-  {
-    title: "Financial Investments",
-    description: "Diversified investment strategies tailored to individual goals, combining market expertise with conscious allocation.",
-    image: financialImg,
-    link: "/services/financial" // <--- ATUALIZADO: Aponta para a nova página
-  },
-  {
-    title: "Strategic Consultancy",
-    description: "Comprehensive business guidance integrating investment vision, growth strategy, and operational excellence.",
-    image: consultingImg,
-    link: "/services/consultancy" // <--- ATUALIZADO: Aponta para a nova página
-  },
-];
+import consultingImg from "@/assets/service-consulting-premium.jpg";
+import { useTranslation } from "react-i18next"; // <--- Import da biblioteca de tradução
 
 const Services = () => {
+  const { t } = useTranslation(); // <--- Inicialização do hook
+
+  // Movemos o array 'services' para dentro do componente para ter acesso à função 't'
+  const services = [
+    {
+      title: t('services.cards.real_estate_title'),
+      description: t('services.cards.real_estate_desc'),
+      image: realEstateImg,
+      link: "/services/real-estate"
+    },
+    {
+      title: t('services.cards.financial_title'),
+      description: t('services.cards.financial_desc'),
+      image: financialImg,
+      link: "/services/financial"
+    },
+    {
+      title: t('services.cards.consulting_title'),
+      description: t('services.cards.consulting_desc'),
+      image: consultingImg,
+      link: "/services/consultancy"
+    },
+  ];
+
   return (
     <section id="services" className="py-24 lg:py-32 bg-neutral-50">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <p className="text-sm uppercase tracking-[0.2em] text-solara-vinho font-semibold mb-4">
-            Our Expertise
+            {t('services.label')}
           </p>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-light mb-6 text-neutral-900">
-            Investment Solutions
+            {t('services.title')}
           </h2>
           <p className="text-lg font-light text-neutral-600 leading-relaxed">
-            Delivering excellence through specialized services designed to elevate your financial future.
+            {t('services.description')}
           </p>
         </div>
         
@@ -62,9 +66,8 @@ const Services = () => {
                     {service.description}
                   </p>
                   
-                  {/* Indicador visual de clique (Traduzido) */}
                   <span className="text-sm uppercase tracking-widest mt-6 text-solara-vinho font-medium group-hover:text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 flex items-center gap-2">
-                    Discover More →
+                    {t('services.discover_more')}
                   </span>
                 </CardContent>
               </Card>

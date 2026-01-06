@@ -6,13 +6,16 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Megaphone, PenTool, Radio, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // <--- Import i18n
 
 // Importando imagens reais do seu projeto para dar vida aos serviços
 import brandingImg from "@/assets/vision-editorial.jpg";
-import marketingImg from "@/assets/service-consulting-premium.jpg"; // Reutilizando uma imagem premium
-import pressImg from "@/assets/service-consulting.jpg"; // Reutilizando imagem de consultoria
+import marketingImg from "@/assets/service-consulting-premium.jpg";
+import pressImg from "@/assets/service-consulting.jpg";
 
 const VisionServices = () => {
+  const { t } = useTranslation(); // <--- Hook
+
   return (
     <div className="min-h-screen bg-white font-sans text-neutral-900">
       <Header />
@@ -21,14 +24,14 @@ const VisionServices = () => {
       <section className="pt-32 pb-20 bg-neutral-50 border-b border-neutral-100">
         <div className="container mx-auto px-6 lg:px-8 text-center animate-in fade-in zoom-in duration-700">
           <span className="text-emerald-600 font-medium tracking-[0.2em] text-xs uppercase mb-6 block">
-            Vision Press Agency
+            {t('vision_services.hero.label')}
           </span>
           <h1 className="text-4xl md:text-6xl font-light mb-8 max-w-4xl mx-auto leading-tight">
-            Comunicação, Jornalismo e <br className="hidden md:block" />
-            <span className="italic font-serif text-emerald-800">Inteligência de Mercado</span>
+            {t('vision_services.hero.title_line1')} <br className="hidden md:block" />
+            <span className="italic font-serif text-emerald-800">{t('vision_services.hero.title_highlight')}</span>
           </h1>
           <p className="text-lg md:text-xl text-neutral-600 font-light max-w-2xl mx-auto leading-relaxed">
-            Transformamos informação em autoridade. Nossas soluções de branding e conteúdo posicionam sua marca no centro das conversas que importam.
+            {t('vision_services.hero.description')}
           </p>
         </div>
       </section>
@@ -43,24 +46,24 @@ const VisionServices = () => {
               <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-8">
                 <PenTool className="w-7 h-7 text-emerald-700" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">Branding & Estratégia</h2>
+              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">{t('vision_services.branding.title')}</h2>
               <p className="text-neutral-500 leading-relaxed mb-8 text-lg font-light">
-                Criação de marcas que respiram e se conectam. Do design visual ao tom de voz, construímos identidades sólidas que resistem ao tempo.
+                {t('vision_services.branding.description')}
               </p>
               <ul className="space-y-4 text-neutral-600 font-light mb-8">
                 <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Posicionamento de Mercado
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.branding.item1')}
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Identidade Visual & Verbal
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.branding.item2')}
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Gestão de Reputação
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.branding.item3')}
                 </li>
               </ul>
               <Link to="/contact">
                 <Button variant="link" className="text-emerald-700 p-0 hover:text-emerald-900 text-base">
-                  Iniciar Projeto de Branding <ArrowRight className="ml-2 w-4 h-4" />
+                  {t('vision_services.branding.btn')} <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
             </div>
@@ -69,7 +72,7 @@ const VisionServices = () => {
               <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-all duration-500 z-10" />
               <img
                 src={brandingImg}
-                alt="Branding e Estratégia"
+                alt={t('vision_services.branding.title')}
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
               />
             </div>
@@ -83,7 +86,7 @@ const VisionServices = () => {
               <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-all duration-500 z-10" />
               <img
                 src={marketingImg}
-                alt="Marketing e Performance"
+                alt={t('vision_services.marketing.title')}
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
               />
             </div>
@@ -92,24 +95,24 @@ const VisionServices = () => {
               <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-8">
                 <Megaphone className="w-7 h-7 text-emerald-700" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">Marketing & Performance</h2>
+              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">{t('vision_services.marketing.title')}</h2>
               <p className="text-neutral-500 leading-relaxed mb-8 text-lg font-light">
-                Estratégias orientadas a dados para ampliar alcance e conversão. Unimos criatividade com métricas precisas.
+                {t('vision_services.marketing.description')}
               </p>
               <ul className="space-y-4 text-neutral-600 font-light mb-8">
                 <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Tráfego Pago & SEO
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.marketing.item1')}
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Social Media & Automação
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.marketing.item2')}
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Marketing de Influência
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.marketing.item3')}
                 </li>
               </ul>
               <Link to="/contact">
                 <Button variant="link" className="text-emerald-700 p-0 hover:text-emerald-900 text-base">
-                  Ampliar seu Alcance <ArrowRight className="ml-2 w-4 h-4" />
+                  {t('vision_services.marketing.btn')} <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
             </div>
@@ -123,24 +126,24 @@ const VisionServices = () => {
               <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-8">
                 <Radio className="w-7 h-7 text-emerald-700" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">Assessoria de Imprensa</h2>
+              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">{t('vision_services.press.title')}</h2>
               <p className="text-neutral-500 leading-relaxed mb-8 text-lg font-light">
-                Conectamos sua marca aos principais veículos de comunicação, gerenciando crises e criando narrativas de impacto.
+                {t('vision_services.press.description')}
               </p>
               <ul className="space-y-4 text-neutral-600 font-light mb-8">
                 <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Relações Públicas (PR)
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.press.item1')}
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Media Training
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.press.item2')}
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> Conteúdos Institucionais
+                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.press.item3')}
                 </li>
               </ul>
               <Link to="/contact">
                 <Button variant="link" className="text-emerald-700 p-0 hover:text-emerald-900 text-base">
-                  Consultar Assessoria <ArrowRight className="ml-2 w-4 h-4" />
+                  {t('vision_services.press.btn')} <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </Link>
             </div>
@@ -149,7 +152,7 @@ const VisionServices = () => {
               <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-all duration-500 z-10" />
               <img
                 src={pressImg}
-                alt="Assessoria de Imprensa"
+                alt={t('vision_services.press.title')}
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
               />
             </div>
@@ -167,20 +170,20 @@ const VisionServices = () => {
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <h2 className="text-3xl md:text-5xl font-light mb-8">Pronto para elevar sua comunicação?</h2>
+          <h2 className="text-3xl md:text-5xl font-light mb-8">{t('vision_services.cta.title')}</h2>
           <p className="text-emerald-100/80 mb-10 max-w-2xl mx-auto font-light text-lg">
-            Agende uma reunião estratégica com nossa equipe editorial e descubra o poder de uma narrativa bem construída.
+            {t('vision_services.cta.description')}
           </p>
           <Link to="/contact">
             <Button className="rounded-full bg-white text-emerald-900 hover:bg-emerald-50 px-10 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all">
-              Fale com a Vision Press
+              {t('vision_services.cta.btn')}
             </Button>
           </Link>
         </div>
       </section>
 
       <Footer />
-      <WhatsAppButton phoneNumber="+351123456789" message="Olá, gostaria de saber mais sobre os serviços da Vision Press." brand="vision" />
+      <WhatsAppButton phoneNumber="+351123456789" message={t('vision_services.whatsapp_msg')} brand="vision" />
       <BackToTop />
     </div>
   );

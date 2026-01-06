@@ -8,10 +8,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Building2, TrendingUp, Users, Briefcase, ChartLine, Shield } from "lucide-react";
 import realEstateImg from "@/assets/service-real-estate.jpg";
 import financialImg from "@/assets/service-financial.jpg";
-import consultingImg from "@/assets/service-consulting.jpg";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // <--- Import i18n
 
 const Services = () => {
+  const { t } = useTranslation(); // <--- Hook
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -20,15 +22,15 @@ const Services = () => {
       <section className="pt-32 pb-20 bg-gradient-to-b from-neutral-50 to-background">
         <div className="container mx-auto px-6 lg:px-8 text-center">
           <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground font-light mb-4">
-            Consultoria e Investimento
+            {t('services_hub.hero.label')}
           </p>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-light mb-6 leading-tight">
-            Consultoria e Investimento
+            {t('services_hub.hero.title_line1')}
             <br />
-            <span className="text-primary">com Propósito</span>
+            <span className="text-primary">{t('services_hub.hero.title_line2')}</span>
           </h1>
           <p className="text-lg md:text-xl font-light text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Da estratégia ao resultado — soluções completas para quem investe com visão
+            {t('services_hub.hero.description')}
           </p>
         </div>
       </section>
@@ -48,38 +50,37 @@ const Services = () => {
             </div>
             <div className="space-y-6 order-1 lg:order-2">
               <h2 className="text-4xl md:text-5xl font-light">
-                Investimentos <span className="text-primary">Imobiliários</span>
+                {t('services_hub.real_estate.title')} <span className="text-primary">{t('services_hub.real_estate.title_highlight')}</span>
               </h2>
               <p className="text-lg font-light text-muted-foreground leading-relaxed">
-                Transformamos oportunidades imobiliárias em investimentos rentáveis e sustentáveis, 
-                com análise estratégica e visão de longo prazo.
+                {t('services_hub.real_estate.description')}
               </p>
               
               <div className="space-y-4 pt-4">
                 <div className="flex items-start gap-4">
                   <Building2 className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-light text-lg mb-1">Consultoria e Oportunidades</h4>
+                    <h4 className="font-light text-lg mb-1">{t('services_hub.real_estate.item1_title')}</h4>
                     <p className="text-sm text-muted-foreground font-light">
-                      Identificação e análise de propriedades com potencial de valorização
+                      {t('services_hub.real_estate.item1_desc')}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <ChartLine className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-light text-lg mb-1">Estudos de Rentabilidade</h4>
+                    <h4 className="font-light text-lg mb-1">{t('services_hub.real_estate.item2_title')}</h4>
                     <p className="text-sm text-muted-foreground font-light">
-                      Análises completas de ROI, fluxo de caixa e projeções de mercado
+                      {t('services_hub.real_estate.item2_desc')}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Users className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-light text-lg mb-1">Captação e Intermediação</h4>
+                    <h4 className="font-light text-lg mb-1">{t('services_hub.real_estate.item3_title')}</h4>
                     <p className="text-sm text-muted-foreground font-light">
-                      Conexão com investidores e gestão completa de projetos imobiliários
+                      {t('services_hub.real_estate.item3_desc')}
                     </p>
                   </div>
                 </div>
@@ -91,38 +92,37 @@ const Services = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center mb-24">
             <div className="space-y-6">
               <h2 className="text-4xl md:text-5xl font-light">
-                Investimentos <span className="text-primary">Financeiros</span>
+                {t('services_hub.financial.title')} <span className="text-primary">{t('services_hub.financial.title_highlight')}</span>
               </h2>
               <p className="text-lg font-light text-muted-foreground leading-relaxed">
-                Estratégias personalizadas de investimento que aliam segurança, rentabilidade 
-                e diversificação inteligente de carteira.
+                {t('services_hub.financial.description')}
               </p>
               
               <div className="space-y-4 pt-4">
                 <div className="flex items-start gap-4">
                   <TrendingUp className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-light text-lg mb-1">Planeamento e Gestão de Carteira</h4>
+                    <h4 className="font-light text-lg mb-1">{t('services_hub.financial.item1_title')}</h4>
                     <p className="text-sm text-muted-foreground font-light">
-                      Construção de portfólios diversificados alinhados aos seus objetivos
+                      {t('services_hub.financial.item1_desc')}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Briefcase className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-light text-lg mb-1">Parcerias Estratégicas</h4>
+                    <h4 className="font-light text-lg mb-1">{t('services_hub.financial.item2_title')}</h4>
                     <p className="text-sm text-muted-foreground font-light">
-                      Colaboração com intermediários de crédito e instituições financeiras de confiança
+                      {t('services_hub.financial.item2_desc')}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <Shield className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-light text-lg mb-1">Ferramentas e Simuladores</h4>
+                    <h4 className="font-light text-lg mb-1">{t('services_hub.financial.item3_title')}</h4>
                     <p className="text-sm text-muted-foreground font-light">
-                      Acesso a tecnologia avançada para análise e acompanhamento de investimentos
+                      {t('services_hub.financial.item3_desc')}
                     </p>
                   </div>
                 </div>
@@ -144,10 +144,10 @@ const Services = () => {
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light mb-6">
-              Diferenciais <span className="text-primary">Solara</span>
+              {t('services_hub.differentials.title')} <span className="text-primary">{t('services_hub.differentials.title_highlight')}</span>
             </h2>
             <p className="text-lg font-light text-muted-foreground max-w-2xl mx-auto">
-              O que nos torna únicos no mercado de consultoria e investimento
+              {t('services_hub.differentials.subtitle')}
             </p>
           </div>
 
@@ -157,9 +157,9 @@ const Services = () => {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <ChartLine className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-light mb-4">Análise Estratégica</h3>
+                <h3 className="text-xl font-light mb-4">{t('services_hub.differentials.card1_title')}</h3>
                 <p className="text-muted-foreground font-light leading-relaxed">
-                  Avaliação profunda de mercado com dados reais e projeções fundamentadas
+                  {t('services_hub.differentials.card1_desc')}
                 </p>
               </CardContent>
             </Card>
@@ -169,9 +169,9 @@ const Services = () => {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <Shield className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-light mb-4">Transparência Total</h3>
+                <h3 className="text-xl font-light mb-4">{t('services_hub.differentials.card2_title')}</h3>
                 <p className="text-muted-foreground font-light leading-relaxed">
-                  Comunicação clara, processos transparentes e parceria de confiança
+                  {t('services_hub.differentials.card2_desc')}
                 </p>
               </CardContent>
             </Card>
@@ -181,9 +181,9 @@ const Services = () => {
                 <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <Users className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-light mb-4">Rede Internacional</h3>
+                <h3 className="text-xl font-light mb-4">{t('services_hub.differentials.card3_title')}</h3>
                 <p className="text-muted-foreground font-light leading-relaxed">
-                  Acesso a oportunidades globais e expertise em mercados internacionais
+                  {t('services_hub.differentials.card3_desc')}
                 </p>
               </CardContent>
             </Card>
@@ -192,7 +192,7 @@ const Services = () => {
           <div className="text-center">
             <Link to="/contact">
               <Button size="lg" className="text-base">
-                Solicite um Estudo Personalizado de Rentabilidade
+                {t('services_hub.differentials.btn_study')}
               </Button>
             </Link>
           </div>
@@ -203,14 +203,14 @@ const Services = () => {
       <section className="py-24 bg-gradient-to-b from-background to-neutral-50">
         <div className="container mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-light mb-6">
-            Pronto para <span className="text-primary">Investir com Consciência</span>?
+            {t('services_hub.cta.title')} <span className="text-primary">{t('services_hub.cta.title_highlight')}</span>?
           </h2>
           <p className="text-lg font-light text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Agende uma consultoria estratégica e descubra as melhores oportunidades para o seu perfil
+            {t('services_hub.cta.description')}
           </p>
           <Link to="/contact">
             <Button size="lg" className="text-base">
-              Agendar Consultoria
+              {t('services_hub.cta.btn')}
             </Button>
           </Link>
         </div>
@@ -219,7 +219,7 @@ const Services = () => {
       <Footer />
       <WhatsAppButton 
         phoneNumber="+351123456789" 
-        message="Olá! Gostaria de saber mais sobre os serviços da Solara."
+        message={t('services_hub.whatsapp_msg')}
         brand="solara"
       />
       <BackToTop />

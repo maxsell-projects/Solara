@@ -1,4 +1,13 @@
 {
+  "header": {
+    "home": "Início",
+    "services": "Serviços",
+    "about": "Sobre",
+    "contact": "Contacto",
+    "vision_btn": "Conheça a Vision Press",
+    "solara_btn": "Voltar à Solara",
+    "book_meeting": "Agende uma Reunião"
+  },
   "hero": {
     "estd": "ESTD 2025",
     "title_main": "Investimento Estratégico",
@@ -187,5 +196,242 @@
       "error_desc": "Houve um problema ao enviar sua mensagem. Tente novamente ou use o WhatsApp.",
       "whatsapp_body": "Olá! Gostaria de saber mais sobre"
     }
+  },
+  "real_estate": {
+    "hero": {
+      "badge": "Ativos Premium",
+      "title_line1": "Portfólio Imobiliário",
+      "title_line2": "Curado",
+      "description": "Acesso exclusivo a propriedades off-market e empreendimentos imobiliários de alto rendimento nas localizações mais procuradas de Portugal.",
+      "btn": "Ver Coleção"
+    },
+    "intro": {
+      "title": "Além do Imobiliário Tradicional.",
+      "description": "Não vendemos apenas propriedades; encontramos veículos de investimento. O nosso foco está em ativos que oferecem valorização de capital, potencial de rendimento ou valor de estilo de vida único."
+    },
+    "listings": {
+      "title": "Oportunidades em Destaque",
+      "subtitle": "Uma seleção das nossas listagens premium atuais.",
+      "price_label": "Preço",
+      "location_label": "Localização",
+      "type_label": "Tipo",
+      "btn_details": "Ver Detalhes"
+    },
+    "features": {
+        "title": "Porquê Investir com a Solara?",
+        "cards": {
+            "off_market_title": "Acesso Off-Market",
+            "off_market_desc": "Muitas das nossas melhores propriedades nunca chegam aos portais públicos.",
+            "yield_title": "Foco no Rendimento",
+            "yield_desc": "Análise de ROI e potencial de arrendamento para cada ativo.",
+            "turnkey_title": "Gestão Chave-na-Mão",
+            "turnkey_desc": "Desde a aquisição até à renovação e gestão da propriedade."
+        }
+    }
+  },
+  "real_estate": {
+    "hero": {
+      "badge": "Expertise Global",
+      "title_line1": "Investimento Imobiliário",
+      "title_line2": "Premium",
+      "description": "Acesso exclusivo a oportunidades off-market e empreendimentos de alto rendimento nas regiões mais dinâmicas do mundo.",
+      "btn_markets": "Ver Mercados",
+      "btn_contact": "Contactar Consultor"
+    },
+    "vision": {
+      "title": "Além da Gestão de Ativos Tradicional",
+      "p1": "Na Solara, acreditamos que o imobiliário é a pedra angular de uma estratégia resiliente de preservação de riqueza. Não se trata apenas de adquirir metros quadrados; trata-se de assegurar uma posição em economias que demonstram quadros jurídicos robustos, valorização consistente e elevada qualidade de vida.",
+      "p2": "A nossa abordagem transcende fronteiras. Analisamos meticulosamente indicadores macroeconómicos, incentivos fiscais (como Golden Visas ou regimes RNH) e planos de desenvolvimento urbano para identificar mercados antes de atingirem a saturação. Isto permite aos nossos clientes capitalizar na \"vantagem do pioneiro\" mantendo a segurança de ativos tangíveis.",
+      "p3": "Quer procure rendimento passivo através de arrendamentos de alto rendimento ou valorização de capital a longo prazo para transferência de riqueza geracional, o nosso portfólio curado é desenhado para performar em diversos climas económicos.",
+      "icons": {
+        "appreciation_title": "Valorização de Capital",
+        "appreciation_desc": "Crescimento de valor a longo prazo impulsionado por localização estratégica e desenvolvimento urbano.",
+        "yield_title": "Rendimento Passivo",
+        "yield_desc": "Geração consistente de fluxo de caixa através de mercados de arrendamento premium.",
+        "hedge_title": "Proteção contra Inflação",
+        "hedge_desc": "Ativos reais que protegem o poder de compra contra a desvalorização da moeda.",
+        "diversification_title": "Diversificação",
+        "diversification_desc": "Distribuição geográfica de ativos para mitigar riscos geopolíticos."
+      }
+    },
+    "listings": {
+      "title": "Mercados Globais Curados",
+      "subtitle": "Selecionamos rigorosamente jurisdições que oferecem o equilíbrio ideal entre segurança jurídica, qualidade de vida e retorno financeiro.",
+      "stat_active": "Regiões Ativas",
+      "loading": "A carregar oportunidades...",
+      "empty": "Nenhum mercado disponível no momento.",
+      "card_yield": "Yield Est.",
+      "card_appreciation": "Valorização",
+      "btn_explore": "Explorar Oportunidades"
+    },
+    "cta": {
+      "title": "Pronto para expandir o seu portfólio?",
+      "description": "A nossa equipa de consultores especializados está pronta para o guiar através das melhores oportunidades imobiliárias internacionais adaptadas aos seus objetivos de investimento.",
+      "btn": "Agendar Consultoria"
+    }
+  },
+  "market_detail": {
+    "btn_back": "Voltar para Mercados",
+    "section_vision": "Visão Estratégica",
+    "why_invest": "Por que investir em",
+    "reason_demand": "Alta demanda por propriedades premium nas zonas mapeadas.",
+    "reason_tax": "Benefícios fiscais exclusivos para investidores estrangeiros.",
+    "map_active": "Cidades com Operação Ativa",
+    "map_area": "Área de Atuação Solara",
+    "loading": "A carregar dados do mercado...",
+    "not_found": "Mercado não encontrado.",
+    "whatsapp_msg": "Olá, gostaria de saber mais sobre investimentos em"
+  },
+  "services_hub": {
+    "hero": {
+      "label": "Consultoria e Investimento",
+      "title_line1": "Consultoria e Investimento",
+      "title_line2": "com Propósito",
+      "description": "Da estratégia ao resultado — soluções completas para quem investe com visão."
+    },
+    "real_estate": {
+      "title": "Investimentos",
+      "title_highlight": "Imobiliários",
+      "description": "Transformamos oportunidades imobiliárias em investimentos rentáveis e sustentáveis, com análise estratégica e visão de longo prazo.",
+      "item1_title": "Consultoria e Oportunidades",
+      "item1_desc": "Identificação e análise de propriedades com potencial de valorização",
+      "item2_title": "Estudos de Rentabilidade",
+      "item2_desc": "Análises completas de ROI, fluxo de caixa e projeções de mercado",
+      "item3_title": "Captação e Intermediação",
+      "item3_desc": "Conexão com investidores e gestão completa de projetos imobiliários"
+    },
+    "financial": {
+      "title": "Investimentos",
+      "title_highlight": "Financeiros",
+      "description": "Estratégias personalizadas de investimento que aliam segurança, rentabilidade e diversificação inteligente de carteira.",
+      "item1_title": "Planeamento e Gestão de Carteira",
+      "item1_desc": "Construção de portfólios diversificados alinhados aos seus objetivos",
+      "item2_title": "Parcerias Estratégicas",
+      "item2_desc": "Colaboração com intermediários de crédito e instituições financeiras de confiança",
+      "item3_title": "Ferramentas e Simuladores",
+      "item3_desc": "Acesso a tecnologia avançada para análise e acompanhamento de investimentos"
+    },
+    "differentials": {
+      "title": "Diferenciais",
+      "title_highlight": "Solara",
+      "subtitle": "O que nos torna únicos no mercado de consultoria e investimento",
+      "card1_title": "Análise Estratégica",
+      "card1_desc": "Avaliação profunda de mercado com dados reais e projeções fundamentadas",
+      "card2_title": "Transparência Total",
+      "card2_desc": "Comunicação clara, processos transparentes e parceria de confiança",
+      "card3_title": "Rede Internacional",
+      "card3_desc": "Acesso a oportunidades globais e expertise em mercados internacionais",
+      "btn_study": "Solicite um Estudo Personalizado de Rentabilidade"
+    },
+    "cta": {
+      "title": "Pronto para",
+      "title_highlight": "Investir com Consciência",
+      "description": "Agende uma consultoria estratégica e descubra as melhores oportunidades para o seu perfil.",
+      "btn": "Agendar Consultoria"
+    },
+    "whatsapp_msg": "Olá! Gostaria de saber mais sobre os serviços da Solara."
+  },
+  "vision_page": {
+    "hero": {
+      "title_main": "A Informação é",
+      "title_highlight": "o Seu Novo Ativo",
+      "description": "Descobrindo tendências de mercado, moldando narrativas e capacitando decisões com clareza baseada em dados.",
+      "btn_articles": "Ler Artigos",
+      "btn_services": "Serviços de Agência"
+    },
+    "highlights": {
+      "title": "Destaques",
+      "title_highlight": "Recentes",
+      "subtitle": "Insights e análises que transformam informação em visão estratégica",
+      "no_articles": "Ainda não há artigos publicados.",
+      "btn_view_all": "Ver Todos os Artigos"
+    },
+    "about": {
+      "label": "Sobre Mim",
+      "p1": "A Vision Press nasce da convicção de que a comunicação é a ponte mais forte entre o valor financeiro e o valor humano.",
+      "p2": "Ela simboliza a transparência, o crescimento orgânico e a conexão profunda com o propósito. Não é apenas uma marca gráfica; é o compromisso de que cada palavra escrita carrega a intenção de construir um futuro mais consciente.",
+      "role": "Founding Partner & Editor-in-Chief"
+    },
+    "newsletter": {
+      "title": "Receba os principais",
+      "title_highlight": "insights",
+      "description": "Subscreva a newsletter da Vision Press e receba análises exclusivas de mercado diretamente na sua caixa de entrada.",
+      "placeholder": "O seu e-mail",
+      "btn_subscribe": "Subscrever",
+      "disclaimer": "Ao subscrever, concorda com a nossa Política de Privacidade."
+    },
+    "whatsapp_msg": "Olá! Gostaria de saber mais sobre a Vision Press."
+  },
+  "article_detail": {
+    "not_found_title": "Artigo não encontrado",
+    "btn_back_articles": "Voltar aos Artigos",
+    "read_time": "min de leitura",
+    "stamp_label": "Editorial Vision Press",
+    "stamp_verified": "Verificado & Publicado",
+    "author_name": "Camila Montenegro",
+    "author_role": "Founding Partner",
+    "author_bio_title": "Camila Montenegro",
+    "author_bio_desc": "Especialista em investimentos estratégicos e comunicação corporativa. Founding Partner da Solara Project e Editora-Chefe da Vision Press.",
+    "continue_reading": "Continue a ler",
+    "btn_back_list": "Voltar à Lista de Artigos",
+    "loading": "A carregar artigo...",
+    "error_loading": "Erro ao carregar o artigo."
+  },
+  "vision_articles": {
+    "header_label": "Jornal Vision Press",
+    "title_main": "Artigos e",
+    "title_highlight": "Análises",
+    "description": "Conteúdo editorial que transforma informação em visão estratégica",
+    "search_placeholder": "Pesquisar artigos...",
+    "categories": {
+      "all": "Todos",
+      "business": "Negócios",
+      "real_estate": "Imobiliário",
+      "finance": "Finanças",
+      "society": "Sociedade",
+      "trends": "Tendências"
+    },
+    "loading": "A carregar artigos...",
+    "empty_state": "Nenhum artigo encontrado.",
+    "read_time": "min de leitura",
+    "error_loading": "Não foi possível carregar os artigos."
+  },
+  "vision_services": {
+    "hero": {
+      "label": "Agência Vision Press",
+      "title_line1": "Comunicação, Jornalismo e",
+      "title_highlight": "Inteligência de Mercado",
+      "description": "Transformamos informação em autoridade. As nossas soluções de branding e conteúdo posicionam a sua marca no centro das conversas que importam."
+    },
+    "branding": {
+      "title": "Branding & Estratégia",
+      "description": "Criação de marcas que respiram e se conectam. Do design visual ao tom de voz, construímos identidades sólidas que resistem ao tempo.",
+      "item1": "Posicionamento de Mercado",
+      "item2": "Identidade Visual & Verbal",
+      "item3": "Gestão de Reputação",
+      "btn": "Iniciar Projeto de Branding"
+    },
+    "marketing": {
+      "title": "Marketing & Performance",
+      "description": "Estratégias orientadas a dados para ampliar alcance e conversão. Unimos criatividade com métricas precisas.",
+      "item1": "Tráfego Pago & SEO",
+      "item2": "Social Media & Automação",
+      "item3": "Marketing de Influência",
+      "btn": "Ampliar o Seu Alcance"
+    },
+    "press": {
+      "title": "Assessoria de Imprensa",
+      "description": "Conectamos a sua marca aos principais veículos de comunicação, gerindo crises e criando narrativas de impacto.",
+      "item1": "Relações Públicas (PR)",
+      "item2": "Media Training",
+      "item3": "Conteúdos Institucionais",
+      "btn": "Consultar Assessoria"
+    },
+    "cta": {
+      "title": "Pronto para elevar a sua comunicação?",
+      "description": "Agende uma reunião estratégica com a nossa equipa editorial e descubra o poder de uma narrativa bem construída.",
+      "btn": "Fale com a Vision Press"
+    },
+    "whatsapp_msg": "Olá, gostaria de saber mais sobre os serviços da Vision Press."
   }
 }

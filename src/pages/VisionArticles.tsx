@@ -11,6 +11,7 @@ import visionImg from "@/assets/vision-editorial.jpg";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next"; // <--- Import i18n
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -25,12 +26,21 @@ interface Post {
 }
 
 const VisionArticles = () => {
+  const { t } = useTranslation(); // <--- Hook
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const categories = ["Todos", "Negócios", "Imobiliário", "Finanças", "Sociedade", "Tendências"];
+  // Mapeamento de categorias (Chave interna -> Chave de tradução)
+  const categoryKeys = [
+    { key: "Todos", label: t('vision_articles.categories.all') },
+    { key: "Negócios", label: t('vision_articles.categories.business') },
+    { key: "Imobiliário", label: t('vision_articles.categories.real_estate') },
+    { key: "Finanças", label: t('vision_articles.categories.finance') },
+    { key: "Sociedade", label: t('vision_articles.categories.society') },
+    { key: "Tendências", label: t('vision_articles.categories.trends') }
+  ];
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -42,19 +52,24 @@ const VisionArticles = () => {
         }
       } catch (error) {
         console.error(error);
-        toast.error("Não foi possível carregar os artigos.");
+        toast.error(t('vision_articles.error_loading'));
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchPosts();
-  }, []);
+  }, [t]);
 
   const filteredArticles = posts.filter(article => {
     const matchesSearch = article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         (article.excerpt && article.excerpt.toLowerCase().includes(searchQuery.toLowerCase()));
+                          (article.excerpt && article.excerpt.toLowerCase().includes(searchQuery.toLowerCase()));
+    
+    // A lógica de categoria assume que o backend envia em Português ("Negócios", etc)
+    // Se o backend enviar em Inglês, teremos de ajustar a comparação.
+    // Assumindo que "Todos" limpa o filtro:
     const matchesCategory = !selectedCategory || selectedCategory === "Todos" || article.category === selectedCategory;
+    
     return matchesSearch && matchesCategory;
   });
 
@@ -72,13 +87,13 @@ const VisionArticles = () => {
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <p className="text-sm uppercase tracking-[0.3em] text-vision-green font-medium mb-4">
-              Jornal Vision Press
+              {t('vision_articles.header_label')}
             </p>
             <h1 className="text-5xl md:text-6xl font-light mb-6 leading-tight text-foreground">
-              Artigos e <span className="text-vision-green font-normal">Análises</span>
+              {t('vision_articles.title_main')} <span className="text-vision-green font-normal">{t('vision_articles.title_highlight')}</span>
             </h1>
             <p className="text-lg font-light text-muted-foreground leading-relaxed">
-              Conteúdo editorial que transforma informação em visão estratégica
+              {t('vision_articles.description')}
             </p>
           </div>
 
@@ -87,7 +102,7 @@ const VisionArticles = () => {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-vision-green transition-colors" />
               <Input 
                 type="text"
-                placeholder="Pesquisar artigos..."
+                placeholder={t('vision_articles.search_placeholder')}
                 className="h-14 pl-12 text-base border-vision-green/20 focus-visible:ring-vision-green"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -96,17 +111,18 @@ const VisionArticles = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => (
+            {categoryKeys.map((cat) => (
               <button
-                key={category}
-                onClick={() => setSelectedCategory(category === "Todos" ? null : category)}
+                key={cat.key}
+                // Usamos a chave interna (cat.key) para filtrar, mas mostramos o label traduzido (cat.label)
+                onClick={() => setSelectedCategory(cat.key === "Todos" ? null : cat.key)}
                 className={`px-6 py-2 rounded-full font-light text-sm transition-all duration-300 border ${
-                  (category === "Todos" && !selectedCategory) || selectedCategory === category
+                  (cat.key === "Todos" && !selectedCategory) || selectedCategory === cat.key
                     ? 'bg-vision-green text-white border-vision-green'
                     : 'bg-transparent text-muted-foreground border-transparent hover:border-vision-green/30 hover:bg-vision-light/10 hover:text-vision-green'
                 }`}
               >
-                {category}
+                {cat.label}
               </button>
             ))}
           </div>
@@ -118,11 +134,12 @@ const VisionArticles = () => {
           {isLoading ? (
             <div className="flex justify-center py-20">
               <Loader2 className="w-10 h-10 animate-spin text-vision-green" />
+              <p className="ml-4 text-neutral-500">{t('vision_articles.loading')}</p>
             </div>
           ) : filteredArticles.length === 0 ? (
             <div className="text-center py-16">
               <p className="text-lg text-muted-foreground font-light">
-                Nenhum artigo encontrado.
+                {t('vision_articles.empty_state')}
               </p>
             </div>
           ) : (
@@ -166,7 +183,7 @@ const VisionArticles = () => {
                         </div>
                         <div className="flex items-center gap-1 ml-auto">
                           <Clock className="w-3 h-3 text-vision-green" />
-                          <span>5 min</span>
+                          <span>5 {t('vision_articles.read_time')}</span>
                         </div>
                       </div>
                     </CardContent>

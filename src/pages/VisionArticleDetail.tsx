@@ -13,6 +13,7 @@ import signatureCamila from "@/assets/signature-camila.png";
 import visionStamp from "@/assets/VisionPress-56.png"; 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useTranslation } from "react-i18next"; // <--- Import i18n
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -28,6 +29,7 @@ interface PostDetail {
 }
 
 const VisionArticleDetail = () => {
+  const { t } = useTranslation(); // <--- Hook
   const { slug } = useParams();
   const [article, setArticle] = useState<PostDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +49,7 @@ const VisionArticleDetail = () => {
         }
       } catch (error) {
         console.error(error);
-        toast.error("Erro ao carregar o artigo.");
+        toast.error(t('article_detail.error_loading'));
       } finally {
         setIsLoading(false);
       }
@@ -55,7 +57,7 @@ const VisionArticleDetail = () => {
 
     fetchArticle();
     window.scrollTo(0, 0);
-  }, [slug]);
+  }, [slug, t]); // Adicionado 't' às dependências por boa prática
 
   const getImageUrl = (imagePath: string) => {
     if (!imagePath) return visionImg;
@@ -67,6 +69,7 @@ const VisionArticleDetail = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Loader2 className="h-10 w-10 animate-spin text-vision-green" />
+        <span className="ml-2 text-sm text-neutral-500">{t('article_detail.loading')}</span>
       </div>
     );
   }
@@ -76,10 +79,10 @@ const VisionArticleDetail = () => {
       <div className="min-h-screen bg-background flex flex-col items-center justify-center">
         <Header />
         <div className="text-center space-y-4">
-          <h2 className="text-2xl font-light text-foreground">Artigo não encontrado</h2>
+          <h2 className="text-2xl font-light text-foreground">{t('article_detail.not_found_title')}</h2>
           <Link to="/vision/articles">
             <Button variant="outline" className="border-vision-green text-vision-green">
-              Voltar aos Artigos
+              {t('article_detail.btn_back_articles')}
             </Button>
           </Link>
         </div>
@@ -115,8 +118,8 @@ const VisionArticleDetail = () => {
                 <AvatarFallback className="bg-vision-green text-white text-xs">CM</AvatarFallback>
               </Avatar>
               <div className="text-left">
-                <p className="font-medium text-foreground">Camila Montenegro</p>
-                <p className="text-xs">Founding Partner</p>
+                <p className="font-medium text-foreground">{t('article_detail.author_name')}</p>
+                <p className="text-xs">{t('article_detail.author_role')}</p>
               </div>
             </div>
             <Separator orientation="vertical" className="h-8 hidden sm:block bg-vision-green/20" />
@@ -127,7 +130,7 @@ const VisionArticleDetail = () => {
             <Separator orientation="vertical" className="h-8 hidden sm:block bg-vision-green/20" />
             <div className="flex items-center gap-2">
               <Clock className="w-4 h-4 text-vision-green" />
-              <span>5 min de leitura</span>
+              <span>5 {t('article_detail.read_time')}</span>
             </div>
           </div>
         </div>
@@ -181,7 +184,7 @@ const VisionArticleDetail = () => {
             <div className="mt-16 pt-12 border-t border-vision-green/20 flex flex-col items-end opacity-0 animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
               <div className="text-right">
                 <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 mb-4 font-semibold">
-                  Vision Press Editorial
+                  {t('article_detail.stamp_label')}
                 </p>
                 <div className="relative inline-block group cursor-pointer">
                   <img 
@@ -191,7 +194,7 @@ const VisionArticleDetail = () => {
                   />
                 </div>
                 <p className="text-xs text-neutral-300 mt-2 font-light italic">
-                  Verified & Published
+                  {t('article_detail.stamp_verified')}
                 </p>
               </div>
             </div>
@@ -205,10 +208,9 @@ const VisionArticleDetail = () => {
                   className="h-24 w-auto object-contain self-start opacity-80"
                 />
                 <div>
-                  <h4 className="font-serif text-xl mb-2 text-foreground">Camila Montenegro</h4>
+                  <h4 className="font-serif text-xl mb-2 text-foreground">{t('article_detail.author_bio_title')}</h4>
                   <p className="text-muted-foreground font-light text-sm max-w-md">
-                    Especialista em investimentos estratégicos e comunicação corporativa. 
-                    Founding Partner da Solara Project e Editora-Chefe da Vision Press.
+                    {t('article_detail.author_bio_desc')}
                   </p>
                 </div>
               </div>
@@ -221,10 +223,10 @@ const VisionArticleDetail = () => {
 
       <section className="bg-neutral-50 py-16 border-t border-border">
         <div className="container mx-auto px-6 text-center">
-          <h3 className="font-serif text-2xl mb-6 text-muted-foreground italic">Continue a ler</h3>
+          <h3 className="font-serif text-2xl mb-6 text-muted-foreground italic">{t('article_detail.continue_reading')}</h3>
           <Link to="/vision/articles">
             <Button size="lg" variant="outline" className="border-vision-green text-vision-green hover:bg-vision-green hover:text-white px-8 transition-all duration-300">
-              Voltar à Lista de Artigos
+              {t('article_detail.btn_back_list')}
             </Button>
           </Link>
         </div>
