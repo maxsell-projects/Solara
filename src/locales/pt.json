@@ -451,5 +451,62 @@
   },
   "whatsapp_button": {
     "default_msg": "Olá! Gostaria de mais informações."
+  },
+  "legal": {
+    "title": "Informações Legais",
+    "tabs": {
+      "privacy": "Privacidade",
+      "terms": "Termos de Serviço",
+      "cookies": "Cookies",
+      "notice": "Aviso Legal"
+    },
+    "privacy_content": {
+      "title": "Política de Privacidade",
+      "intro": "A presente Política de Privacidade rege o tratamento de dados pessoais recolhidos pela Solar Project, Lda (NIF 508418534), com sede em Av. João Paulo II, 694A, 4410-406 Arcozelo, Vila Nova de Gaia, Portugal, no âmbito do website https://solarproject.pt, assegurando conformidade com o Regulamento Geral sobre a Proteção de Dados (RGPD).",
+      "sections": [
+        { "title": "1. Dados Pessoais Recolhidos", "content": "Podemos recolher e tratar: Nome e apelidos, Endereço de correio eletrónico, Número de telefone, Informação fornecida em formulários de contacto e Dados de navegação (IP, cookies)." },
+        { "title": "2. Finalidade", "content": "Os dados são tratados para: Responder a pedidos de contacto/orçamentos, Prestar serviços, Enviar comunicações (com consentimento) e Melhorar a experiência do utilizador." },
+        { "title": "3. Base Legal", "content": "O tratamento baseia-se no consentimento, execução de contrato, cumprimento de obrigações legais ou interesse legítimo." },
+        { "title": "4. Conservação", "content": "Os dados serão conservados apenas pelo período necessário às finalidades da recolha." },
+        { "title": "5. Partilha com Terceiros", "content": "A Solar Project não cede dados a terceiros, exceto quando exigido por lei ou necessário à prestação técnica do serviço." },
+        { "title": "6. Direitos dos Titulares", "content": "O utilizador pode aceder, retificar, eliminar, limitar ou opor-se ao tratamento dos seus dados, bem como reclamar junto da CNPD." },
+        { "title": "7. Segurança", "content": "Implementamos medidas técnicas para proteger os dados contra acessos não autorizados." }
+      ]
+    },
+    "terms_content": {
+      "title": "Termos de Serviço",
+      "intro": "Estes Termos regulam o acesso e utilização do website solarproject.pt.",
+      "sections": [
+        { "title": "1. Entidade Responsável", "content": "Solar Project, Lda — NIF 508418534 — Av. João Paulo II, 694A, 4410-406 Arcozelo, Vila Nova de Gaia." },
+        { "title": "2. Objeto", "content": "O website tem finalidade institucional e informativa sobre energia solar e eficiência energética." },
+        { "title": "3. Aceitação", "content": "A utilização do website implica a aceitação plena destes Termos." },
+        { "title": "4. Conteúdo", "content": "As informações são meramente informativas e não constituem aconselhamento legal ou financeiro." },
+        { "title": "5. Propriedade Intelectual", "content": "Todos os conteúdos são propriedade da Solar Project ou de terceiros licenciantes." },
+        { "title": "6. Responsabilidade", "content": "A Solar Project não é responsável por danos resultantes da utilização do website ou erros nas informações." }
+      ]
+    },
+    "cookies_content": {
+      "title": "Política de Cookies",
+      "intro": "O website solarproject.pt utiliza cookies para melhorar a experiência do utilizador.",
+      "sections": [
+        { "title": "1. Definição", "content": "Cookies são pequenos ficheiros armazenados no dispositivo para guardar preferências." },
+        { "title": "2. Tipos", "content": "Essenciais (funcionamento básico), Analíticos (estatísticas) e Funcionais." },
+        { "title": "3. Gestão", "content": "O utilizador pode desativar cookies nas definições do browser, o que pode afetar algumas funcionalidades." }
+      ]
+    },
+    "notice_content": {
+      "title": "Aviso Legal",
+      "sections": [
+        { "title": "1. Identificação", "content": "Solar Project, Lda (NIF 508418534). Sede: Arcozelo, VN Gaia. Email: info@solarproject.pt." },
+        { "title": "2. Conteúdo", "content": "As informações são gerais, não vinculativas e não substituem aconselhamento profissional." },
+        { "title": "3. Lei Aplicável", "content": "Rege-se pela legislação portuguesa. Foro competente: Comarca de Vila Nova de Gaia." }
+      ]
+    }
+  },
+  "cookie_banner": {
+    "text": "Utilizamos cookies para melhorar a sua experiência. Ao continuar a navegar, aceita a nossa Política de Cookies.",
+    "accept": "Aceitar",
+    "decline": "Recusar",
+    "policy_link": "Ler Política"
   }
 }

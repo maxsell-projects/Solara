@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import logoSolara from "@/assets/logo-solara-full.png";
 import logoVision from "@/assets/logo-vision.png";
 import logoMaxSell from "@/assets/maxsell.png";
-import { useTranslation } from "react-i18next"; // <--- Importar o hook
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
-  const { t } = useTranslation(); // <--- Inicializar a tradução
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -23,17 +23,19 @@ const Footer = () => {
                 <img
                   src={logoSolara}
                   alt="Solara Project"
-                  className="h-16 w-auto object-contain invert brightness-0"
+                  // Aumentado e com cores originais (removido filtro invert/brightness)
+                  className="h-20 w-auto object-contain"
                 />
               </Link>
               {/* Separator visual */}
-              <div className="hidden sm:block h-8 w-px bg-neutral-700"></div>
+              <div className="hidden sm:block h-10 w-px bg-neutral-700"></div>
               {/* Logo Vision */}
               <Link to="/vision" className="hover:opacity-80 transition-opacity">
                 <img
                   src={logoVision}
                   alt="Vision Press"
-                  className="h-14 w-auto brightness-0 invert opacity-80"
+                  // Aumentado e com cores originais
+                  className="h-16 w-auto object-contain"
                 />
               </Link>
             </div>

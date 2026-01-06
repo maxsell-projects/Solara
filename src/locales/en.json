@@ -451,5 +451,62 @@
   },
   "whatsapp_button": {
     "default_msg": "Hello! I would like more information."
+  },
+  "legal": {
+    "title": "Legal Information",
+    "tabs": {
+      "privacy": "Privacy",
+      "terms": "Terms of Service",
+      "cookies": "Cookies",
+      "notice": "Legal Notice"
+    },
+    "privacy_content": {
+      "title": "Privacy Policy",
+      "intro": "This Privacy Policy governs the processing of personal data collected by Solar Project, Lda regarding the website https://solarproject.pt, ensuring compliance with the GDPR.",
+      "sections": [
+        { "title": "1. Collected Data", "content": "We may collect: Name, Email, Phone number, and Contact form data." },
+        { "title": "2. Purpose", "content": "Data is processed to answer requests, provide services, and improve user experience." },
+        { "title": "3. Legal Basis", "content": "Processing is based on consent, contract execution, or legitimate interest." },
+        { "title": "4. Retention", "content": "Data is kept only for the necessary period." },
+        { "title": "5. Third Parties", "content": "We do not sell data to third parties." },
+        { "title": "6. Rights", "content": "Users can access, rectify, or delete their data." },
+        { "title": "7. Security", "content": "We implement technical measures to protect data." }
+      ]
+    },
+    "terms_content": {
+      "title": "Terms of Service",
+      "intro": "These Terms govern the use of the website solarproject.pt.",
+      "sections": [
+        { "title": "1. Responsible Entity", "content": "Solar Project, Lda — NIF 508418534." },
+        { "title": "2. Object", "content": "Institutional and informational website about solar energy." },
+        { "title": "3. Acceptance", "content": "Use implies full acceptance of these Terms." },
+        { "title": "4. Content", "content": "Information is informative and does not constitute legal advice." },
+        { "title": "5. Intellectual Property", "content": "All content belongs to Solar Project." },
+        { "title": "6. Liability", "content": "Solar Project is not liable for damages from website use." }
+      ]
+    },
+    "cookies_content": {
+      "title": "Cookie Policy",
+      "intro": "This website uses cookies to improve user experience.",
+      "sections": [
+        { "title": "1. Definition", "content": "Cookies are small files stored on your device." },
+        { "title": "2. Types", "content": "Essential, Analytical, and Functional." },
+        { "title": "3. Management", "content": "You can disable cookies in browser settings." }
+      ]
+    },
+    "notice_content": {
+      "title": "Legal Notice",
+      "sections": [
+        { "title": "1. Identification", "content": "Solar Project, Lda (NIF 508418534)." },
+        { "title": "2. Content", "content": "General, non-binding information." },
+        { "title": "3. Applicable Law", "content": "Governed by Portuguese law. Jurisdiction: Vila Nova de Gaia." }
+      ]
+    }
+  },
+  "cookie_banner": {
+    "text": "We use cookies to improve your experience. By continuing to browse, you accept our Cookie Policy.",
+    "accept": "Accept",
+    "decline": "Decline",
+    "policy_link": "Read Policy"
   }
 }

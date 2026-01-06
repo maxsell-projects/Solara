@@ -9,8 +9,8 @@ import Index from "./pages/Index";
 import Services from "./pages/Services";
 import RealEstate from "./pages/RealEstate";
 import RealEstateDetail from "./pages/RealEstateDetail";
-import Financial from "./pages/Financial"; // <--- NOVO
-import Consultancy from "./pages/Consultancy"; // <--- NOVO
+import Financial from "./pages/Financial";
+import Consultancy from "./pages/Consultancy";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Vision from "./pages/Vision";
@@ -18,6 +18,7 @@ import VisionArticles from "./pages/VisionArticles";
 import VisionServices from "./pages/VisionServices";
 import VisionArticleDetail from "./pages/VisionArticleDetail";
 import NotFound from "./pages/NotFound";
+import Legal from "./pages/Legal"; // <--- Import da Página Legal
 
 // Páginas Admin
 import AdminRoute from "./components/AdminRoute";
@@ -25,6 +26,9 @@ import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminPostEditor from "./pages/admin/PostEditor";
 import AdminMarketEditor from "./pages/admin/MarketEditor";
+
+// Componentes Globais
+import CookieConsent from "./components/CookieConsent"; // <--- Import do Banner de Cookies
 
 const queryClient = new QueryClient();
 
@@ -38,17 +42,21 @@ const App = () => (
           {/* Rotas Públicas */}
           <Route path="/" element={<Index />} />
           
-          {/* HUB de Serviços (Opcional manter ou redirecionar) */}
+          {/* HUB de Serviços */}
           <Route path="/services" element={<Services />} />
           
           {/* Sub-páginas de Serviços */}
           <Route path="/services/real-estate" element={<RealEstate />} />
           <Route path="/services/real-estate/:slug" element={<RealEstateDetail />} />
-          <Route path="/services/financial" element={<Financial />} /> {/* <--- ROTA NOVA */}
-          <Route path="/services/consultancy" element={<Consultancy />} /> {/* <--- ROTA NOVA */}
+          <Route path="/services/financial" element={<Financial />} />
+          <Route path="/services/consultancy" element={<Consultancy />} />
 
+          {/* Páginas Institucionais */}
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/legal" element={<Legal />} /> {/* <--- Nova Rota Legal */}
+
+          {/* Vision Press */}
           <Route path="/vision" element={<Vision />} />
           <Route path="/vision/articles" element={<VisionArticles />} />
           <Route path="/vision/articles/:slug" element={<VisionArticleDetail />} />
@@ -71,6 +79,10 @@ const App = () => (
 
           <Route path="*" element={<NotFound />} />
         </Routes>
+
+        {/* Banner de Cookies (Aparece globalmente) */}
+        <CookieConsent />
+        
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
