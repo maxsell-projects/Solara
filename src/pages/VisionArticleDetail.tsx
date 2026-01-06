@@ -8,13 +8,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ArrowLeft, Calendar, Clock, Share2, Bookmark, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useTranslation } from "react-i18next"; // <--- Import i18n
+import { useTranslation } from "react-i18next";
 
 // --- ASSETS ---
 import visionImg from "@/assets/vision-editorial.jpg";
 import logoVision from "@/assets/logo-vision.png";
 import signatureCamila from "@/assets/signature-camila.png";
-import visionStamp from "@/assets/VisionPress-56.png"; // <--- O CARIMBO AQUI
+// Importação do Carimbo (Certifica-te que o ficheiro está na pasta assets com este nome exato)
+import visionStamp from "@/assets/VisionPress-56.png"; 
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -30,7 +31,7 @@ interface PostDetail {
 }
 
 const VisionArticleDetail = () => {
-  const { t } = useTranslation(); // <--- Hook
+  const { t } = useTranslation();
   const { slug } = useParams();
   const [article, setArticle] = useState<PostDetail | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -150,6 +151,7 @@ const VisionArticleDetail = () => {
         {/* Content Area */}
         <div className="container mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl">
           
+          {/* Sidebar Esquerda (Desktop) */}
           <div className="lg:col-span-2 hidden lg:flex flex-col items-end gap-4 sticky top-32 h-fit">
             <Link to="/vision/articles">
               <Button variant="ghost" size="icon" className="rounded-full hover:bg-vision-green/10 hover:text-vision-green mb-8 transition-colors">
@@ -166,7 +168,9 @@ const VisionArticleDetail = () => {
             </div>
           </div>
 
+          {/* Artigo Principal */}
           <div className="lg:col-span-8 relative">
+            {/* Elemento Decorativo de Fundo */}
             <div className="absolute top-1/4 -right-20 w-96 h-96 opacity-[0.03] pointer-events-none rotate-12 z-0">
               <img src={logoVision} alt="" className="w-full h-full object-contain" />
             </div>
@@ -181,8 +185,9 @@ const VisionArticleDetail = () => {
               
             </article>
 
-            {/* --- ASSINATURA EDITORIAL (CARIMBO AUTOMÁTICO) --- */}
-            <div className="mt-16 pt-12 border-t border-vision-green/20 flex flex-col items-end opacity-0 animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
+            {/* --- CARIMBO EDITORIAL (AUTOMÁTICO) --- */}
+            {/* Este bloco garante que o carimbo aparece no fim de TODO artigo */}
+            <div className="mt-16 pt-12 border-t border-vision-green/20 flex flex-col items-end animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards" style={{ animationDelay: '0.2s' }}>
               <div className="text-right">
                 <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 mb-4 font-semibold">
                   {t('article_detail.stamp_label')}
@@ -223,6 +228,7 @@ const VisionArticleDetail = () => {
         </div>
       </main>
 
+      {/* Footer de Navegação */}
       <section className="bg-neutral-50 py-16 border-t border-border">
         <div className="container mx-auto px-6 text-center">
           <h3 className="font-serif text-2xl mb-6 text-muted-foreground italic">{t('article_detail.continue_reading')}</h3>
