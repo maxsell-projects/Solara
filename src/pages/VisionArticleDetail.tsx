@@ -6,14 +6,15 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ArrowLeft, Calendar, Clock, Share2, Bookmark, Loader2 } from "lucide-react";
-import visionImg from "@/assets/vision-editorial.jpg";
-import logoVision from "@/assets/logo-vision.png";
-import signatureCamila from "@/assets/signature-camila.png";
-// Importação do Carimbo
-import visionStamp from "@/assets/VisionPress-56.png"; 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next"; // <--- Import i18n
+
+// --- ASSETS ---
+import visionImg from "@/assets/vision-editorial.jpg";
+import logoVision from "@/assets/logo-vision.png";
+import signatureCamila from "@/assets/signature-camila.png";
+import visionStamp from "@/assets/VisionPress-56.png"; // <--- O CARIMBO AQUI
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -57,7 +58,7 @@ const VisionArticleDetail = () => {
 
     fetchArticle();
     window.scrollTo(0, 0);
-  }, [slug, t]); // Adicionado 't' às dependências por boa prática
+  }, [slug, t]);
 
   const getImageUrl = (imagePath: string) => {
     if (!imagePath) return visionImg;
@@ -180,13 +181,14 @@ const VisionArticleDetail = () => {
               
             </article>
 
-            {/* --- ASSINATURA EDITORIAL (CARIMBO) --- */}
+            {/* --- ASSINATURA EDITORIAL (CARIMBO AUTOMÁTICO) --- */}
             <div className="mt-16 pt-12 border-t border-vision-green/20 flex flex-col items-end opacity-0 animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>
               <div className="text-right">
                 <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 mb-4 font-semibold">
                   {t('article_detail.stamp_label')}
                 </p>
                 <div className="relative inline-block group cursor-pointer">
+                  {/* Carimbo Vision Press */}
                   <img 
                     src={visionStamp} 
                     alt="Vision Press Stamp" 
