@@ -1,5 +1,6 @@
 import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next"; // <--- Import
 
 interface WhatsAppButtonProps {
   phoneNumber: string;
@@ -9,12 +10,17 @@ interface WhatsAppButtonProps {
 
 const WhatsAppButton = ({ 
   phoneNumber, 
-  message = "Olá! Gostaria de mais informações.", 
+  message, 
   brand = "solara" 
 }: WhatsAppButtonProps) => {
+  const { t } = useTranslation(); // <--- Hook
+
+  // Se não for passada mensagem, usa a traduzida padrão
+  const finalMessage = message || t('whatsapp_button.default_msg');
+
   const handleClick = () => {
     const formattedNumber = phoneNumber.replace(/\D/g, '');
-    const encodedMessage = encodeURIComponent(message);
+    const encodedMessage = encodeURIComponent(finalMessage);
     const url = `https://wa.me/${formattedNumber}?text=${encodedMessage}`;
     window.open(url, '_blank');
   };

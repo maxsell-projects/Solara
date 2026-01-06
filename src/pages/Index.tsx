@@ -7,8 +7,11 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
+import { useTranslation } from "react-i18next"; // <--- Import
 
 const Index = () => {
+  const { t } = useTranslation(); // <--- Hook
+
   return (
     <div className="min-h-screen">
       <Header />
@@ -19,7 +22,7 @@ const Index = () => {
       <Footer />
       <WhatsAppButton 
         phoneNumber="+351123456789" 
-        message="Olá! Gostaria de saber mais sobre a Solara."
+        message={t('index_page.whatsapp_msg')} // <--- Tradução aqui
         brand="solara"
       />
       <BackToTop />

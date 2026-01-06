@@ -3,12 +3,14 @@ import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // <--- Import
 
 interface ExitIntentPopupProps {
   brand?: "solara" | "vision";
 }
 
 const ExitIntentPopup = ({ brand = "solara" }: ExitIntentPopupProps) => {
+  const { t } = useTranslation(); // <--- Hook
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
   const navigate = useNavigate();
@@ -60,13 +62,13 @@ const ExitIntentPopup = ({ brand = "solara" }: ExitIntentPopupProps) => {
 
         <div className="text-center space-y-6">
           <h3 className="text-2xl font-light">
-            Antes de sair...
+            {t('exit_popup.title')}
           </h3>
           
           <p className="text-muted-foreground font-light leading-relaxed">
             {brand === "solara" 
-              ? "Descubra como podemos iluminar seus investimentos com consciência e propósito."
-              : "Explore histórias que acendem estrelas e transformam perspectivas."
+              ? t('exit_popup.text_solara')
+              : t('exit_popup.text_vision')
             }
           </p>
 
@@ -79,7 +81,7 @@ const ExitIntentPopup = ({ brand = "solara" }: ExitIntentPopupProps) => {
                 color: 'white'
               }}
             >
-              Continuar a explorar
+              {t('exit_popup.btn_stay')}
             </Button>
             
             <Button
@@ -87,7 +89,7 @@ const ExitIntentPopup = ({ brand = "solara" }: ExitIntentPopupProps) => {
               variant="outline"
               size="lg"
             >
-              Voltar à página anterior
+              {t('exit_popup.btn_back')}
             </Button>
           </div>
         </div>

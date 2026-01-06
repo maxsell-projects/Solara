@@ -433,5 +433,23 @@
       "btn": "Fale com a Vision Press"
     },
     "whatsapp_msg": "Olá, gostaria de saber mais sobre os serviços da Vision Press."
+  },
+  "index_page": {
+    "whatsapp_msg": "Olá! Gostaria de saber mais sobre a Solara."
+  },
+  "not_found": {
+    "title": "404",
+    "subtitle": "Oops! Página não encontrada",
+    "btn_home": "Voltar ao Início"
+  },
+  "exit_popup": {
+    "title": "Antes de sair...",
+    "text_solara": "Descubra como podemos iluminar os seus investimentos com consciência e propósito.",
+    "text_vision": "Explore histórias que acendem estrelas e transformam perspectivas.",
+    "btn_stay": "Continuar a explorar",
+    "btn_back": "Voltar à página anterior"
+  },
+  "whatsapp_button": {
+    "default_msg": "Olá! Gostaria de mais informações."
   }
 }

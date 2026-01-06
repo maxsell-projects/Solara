@@ -43,23 +43,30 @@ const VisionConnection = () => {
       <div className="container mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="order-2 lg:order-1">
-            <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-vision-green/10">
+            <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-vision-green/10 group">
               <img 
                 src={visionImg} 
                 alt="Vision Press workspace" 
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
               />
             </div>
           </div>
           
           <div className="space-y-8 order-1 lg:order-2">
             <div className="mb-8">
-              <img 
-                src={logoVision} 
-                alt="Vision Press" 
-                className="h-20 w-auto mb-6 opacity-100"
-              />
-              <p className="text-sm uppercase tracking-[0.2em] text-vision-green font-medium">
+              {/* LOGO COM MAIS DESTAQUE */}
+              <div className="relative inline-block group">
+                {/* Efeito de brilho subtil atrás da logo */}
+                <div className="absolute -inset-4 bg-vision-green/5 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                
+                <img 
+                  src={logoVision} 
+                  alt="Vision Press" 
+                  className="relative h-28 md:h-36 w-auto mb-6 opacity-100 drop-shadow-sm transform transition-all duration-500 group-hover:scale-105"
+                />
+              </div>
+              
+              <p className="text-sm uppercase tracking-[0.2em] text-vision-green font-medium pl-1">
                 {t('vision.label')}
               </p>
             </div>
@@ -85,9 +92,9 @@ const VisionConnection = () => {
                         <p className="text-sm text-muted-foreground mb-6">{t('vision.no_articles')}</p>
                     ) : (
                         posts.map((post) => (
-                            <Card key={post.id} className="p-3 shadow-none hover:bg-neutral-100 transition-colors">
+                            <Card key={post.id} className="p-3 shadow-none hover:bg-neutral-100 transition-colors border-l-2 border-l-transparent hover:border-l-vision-green">
                                 <Link to={`/vision/articles/${post.slug}`} className="block">
-                                    <p className="text-xs uppercase font-semibold text-vision-green">{post.category}</p>
+                                    <p className="text-xs uppercase font-semibold text-vision-green mb-1">{post.category}</p>
                                     <h5 className="text-base font-medium text-foreground hover:underline">{post.title}</h5>
                                 </Link>
                             </Card>
@@ -100,7 +107,7 @@ const VisionConnection = () => {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-2 border-vision-green text-vision-green hover:bg-vision-light hover:text-vision-green hover:border-vision-light transition-all duration-300 shadow-sm"
+                className="border-2 border-vision-green text-vision-green hover:bg-vision-light hover:text-vision-green hover:border-vision-light transition-all duration-300 shadow-sm mt-4"
               >
                 {t('vision.btn_explore')}
               </Button>

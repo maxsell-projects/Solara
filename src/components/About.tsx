@@ -26,13 +26,13 @@ const About = () => {
               <p>{t('about.p2')}</p>
             </div>
             
-            <div className="pt-4">
+            <div className="pt-6">
               <img 
                 src={signatureCamila} 
                 alt="Camila Montenegro signature" 
-                className="h-12 w-auto opacity-80"
+                className="h-24 w-auto opacity-100 -ml-2" // Aumentado para h-24, sem opacidade, e pequeno ajuste de margem à esquerda para alinhar visualmente o início da escrita
               />
-              <p className="text-sm text-muted-foreground font-light mt-2">
+              <p className="text-sm text-muted-foreground font-light mt-3">
                 Camila Montenegro, {t('about.founder_role')}
               </p>
             </div>
