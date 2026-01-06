@@ -7,15 +7,17 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Globe, FileText, MapPin, Briefcase, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import consultingHero from "@/assets/service-consulting-premium.jpg"; // Usando imagem existente
+import consultingHero from "@/assets/service-consulting-premium.jpg";
+import { useTranslation } from "react-i18next"; // <--- Import i18n
 
 const Consultancy = () => {
+    const { t } = useTranslation(); // <--- Hook init
+
     return (
         <div className="min-h-screen font-sans text-neutral-900 bg-white">
             <Header />
 
             {/* --- HERO SECTION --- */}
-            {/* ALTERAÇÃO: mt-20 para respeitar o espaço da navbar */}
             <section className="relative mt-20 pt-20 pb-20 overflow-hidden bg-neutral-900 text-white">
                 <div className="absolute inset-0 opacity-50">
                     <img src={consultingHero} alt="Strategic Consulting" className="w-full h-full object-cover" />
@@ -25,19 +27,19 @@ const Consultancy = () => {
                 <div className="container mx-auto px-6 lg:px-8 relative z-10">
                     <div className="max-w-3xl space-y-8 animate-in fade-in slide-in-from-left duration-700">
                         <Badge variant="outline" className="border-white/30 text-white px-4 py-1 text-xs uppercase tracking-widest font-semibold">
-                            Strategic Advisory
+                            {t('consultancy.hero.badge')}
                         </Badge>
                         <h1 className="text-5xl md:text-7xl font-light leading-tight tracking-tight">
-                            Global Mobility <br />
-                            <span className="text-solara-vinho font-medium">& Strategy</span>
+                            {t('consultancy.hero.title_line1')} <br />
+                            <span className="text-solara-vinho font-medium">{t('consultancy.hero.title_line2')}</span>
                         </h1>
                         <p className="text-xl text-white/70 font-light leading-relaxed max-w-2xl">
-                            Navigating the complexities of international relocation, tax optimization, and residency planning with precision.
+                            {t('consultancy.hero.description')}
                         </p>
                         <div className="pt-4">
                             <Link to="/contact">
                                 <Button className="rounded-full bg-white text-neutral-900 hover:bg-solara-vinho hover:text-white transition-all px-8 h-12 text-base">
-                                    Book a Consultation
+                                    {t('consultancy.hero.btn')}
                                 </Button>
                             </Link>
                         </div>
@@ -49,9 +51,9 @@ const Consultancy = () => {
             <section className="py-24 bg-white">
                 <div className="container mx-auto px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-light mb-6">Seamless Borders. Strategic Living.</h2>
+                        <h2 className="text-3xl md:text-4xl font-light mb-6">{t('consultancy.concept.title')}</h2>
                         <p className="text-lg text-neutral-600 font-light leading-relaxed">
-                            Moving capital or residency across borders involves intricate legal and fiscal challenges. We provide the strategic roadmap to ensure your transition is compliant, tax-efficient, and aligned with your personal or business goals.
+                            {t('consultancy.concept.description')}
                         </p>
                     </div>
 
@@ -63,13 +65,17 @@ const Consultancy = () => {
                                     <div className="w-12 h-12 bg-solara-vinho/10 rounded-full flex items-center justify-center text-solara-vinho">
                                         <Globe className="w-6 h-6" />
                                     </div>
-                                    <h3 className="text-2xl font-light">Residency & Citizenship</h3>
+                                    <h3 className="text-2xl font-light">{t('consultancy.concept.residency_title')}</h3>
                                 </div>
                                 <p className="text-neutral-500 font-light mb-6">
-                                    Expert guidance on Golden Visa programs, D7 Visas, and Digital Nomad routes. We manage the entire bureaucracy, from initial application to final card issuance.
+                                    {t('consultancy.concept.residency_desc')}
                                 </p>
                                 <ul className="space-y-3">
-                                    {["Golden Visa (Investment Funds)", "D2 (Entrepreneur)", "D7 (Passive Income)"].map(item => (
+                                    {[
+                                        t('consultancy.concept.residency_list.golden'), 
+                                        t('consultancy.concept.residency_list.d2'), 
+                                        t('consultancy.concept.residency_list.d7')
+                                    ].map(item => (
                                         <li key={item} className="flex items-center gap-2 text-sm text-neutral-700">
                                             <CheckCircle2 className="w-4 h-4 text-solara-vinho" /> {item}
                                         </li>
@@ -85,13 +91,17 @@ const Consultancy = () => {
                                     <div className="w-12 h-12 bg-solara-vinho/10 rounded-full flex items-center justify-center text-solara-vinho">
                                         <FileText className="w-6 h-6" />
                                     </div>
-                                    <h3 className="text-2xl font-light">Tax Optimization</h3>
+                                    <h3 className="text-2xl font-light">{t('consultancy.concept.tax_title')}</h3>
                                 </div>
                                 <p className="text-neutral-500 font-light mb-6">
-                                    Structure your income and assets to benefit from regimes like the NHR (Non-Habitual Resident) status, ensuring maximum fiscal efficiency in your new tax residence.
+                                    {t('consultancy.concept.tax_desc')}
                                 </p>
                                 <ul className="space-y-3">
-                                    {["NHR Status Application", "Double Taxation Treaties", "Corporate Tax Structuring"].map(item => (
+                                    {[
+                                        t('consultancy.concept.tax_list.nhr'), 
+                                        t('consultancy.concept.tax_list.treaties'), 
+                                        t('consultancy.concept.tax_list.corporate')
+                                    ].map(item => (
                                         <li key={item} className="flex items-center gap-2 text-sm text-neutral-700">
                                             <CheckCircle2 className="w-4 h-4 text-solara-vinho" /> {item}
                                         </li>
@@ -109,25 +119,25 @@ const Consultancy = () => {
                     <div className="flex flex-col md:flex-row items-center gap-16">
                         <div className="flex-1 space-y-6">
                             <h2 className="text-3xl md:text-4xl font-light">
-                                Concierge Relocation
+                                {t('consultancy.relocation.title')}
                             </h2>
                             <p className="text-neutral-600 font-light leading-relaxed text-lg">
-                                We believe luxury is the absence of worry. Our concierge team handles the logistics of your move so you can focus on the excitement of arrival.
+                                {t('consultancy.relocation.description')}
                             </p>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                                 <div className="flex items-start gap-3">
                                     <MapPin className="w-5 h-5 text-solara-vinho mt-1" />
                                     <div>
-                                        <h4 className="font-medium">School Search</h4>
-                                        <p className="text-sm text-neutral-500">Finding top international schools.</p>
+                                        <h4 className="font-medium">{t('consultancy.relocation.school_title')}</h4>
+                                        <p className="text-sm text-neutral-500">{t('consultancy.relocation.school_desc')}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
                                     <Briefcase className="w-5 h-5 text-solara-vinho mt-1" />
                                     <div>
-                                        <h4 className="font-medium">Business Setup</h4>
-                                        <p className="text-sm text-neutral-500">Company incorporation & banking.</p>
+                                        <h4 className="font-medium">{t('consultancy.relocation.business_title')}</h4>
+                                        <p className="text-sm text-neutral-500">{t('consultancy.relocation.business_desc')}</p>
                                     </div>
                                 </div>
                             </div>
@@ -139,9 +149,9 @@ const Consultancy = () => {
                                 <div className="w-20 h-20 bg-neutral-900 rounded-full flex items-center justify-center mx-auto text-white">
                                     <Globe className="w-10 h-10" />
                                 </div>
-                                <h3 className="text-2xl font-light">Global Access</h3>
+                                <h3 className="text-2xl font-light">{t('consultancy.relocation.global_title')}</h3>
                                 <p className="text-neutral-500 max-w-xs mx-auto">
-                                    Serving clients from USA, Brazil, UK, and Middle East moving to Europe.
+                                    {t('consultancy.relocation.global_desc')}
                                 </p>
                             </div>
                         </div>

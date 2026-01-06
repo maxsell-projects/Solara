@@ -11,10 +11,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Mail, MessageSquare, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next"; // <--- Import i18n
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Contact = () => {
+  const { t } = useTranslation(); // <--- Hook
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -41,8 +43,8 @@ const Contact = () => {
 
       if (response.ok) {
         toast({
-          title: "Mensagem enviada!",
-          description: "Entraremos em contacto brevemente.",
+          title: t('contact.messages.success_title'),
+          description: t('contact.messages.success_desc'),
           variant: "default",
         });
         setFormData({ name: "", email: "", area: "", message: "" });
@@ -51,8 +53,8 @@ const Contact = () => {
       }
     } catch (error) {
       toast({
-        title: "Erro ao enviar",
-        description: "Houve um problema ao enviar sua mensagem. Tente novamente ou use o WhatsApp.",
+        title: t('contact.messages.error_title'),
+        description: t('contact.messages.error_desc'),
         variant: "destructive",
       });
     } finally {
@@ -61,7 +63,7 @@ const Contact = () => {
   };
 
   const whatsappMessage = encodeURIComponent(
-    `Olá! Gostaria de saber mais sobre ${formData.area || 'os serviços da Solara Project'}.`
+    `${t('contact.messages.whatsapp_body')} ${formData.area || 'Solara Project'}.`
   );
 
   return (
@@ -71,15 +73,15 @@ const Contact = () => {
       <section className="pt-32 pb-20 bg-gradient-to-b from-neutral-50 to-background">
         <div className="container mx-auto px-6 lg:px-8 text-center">
           <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground font-light mb-4">
-            Fale Connosco
+            {t('contact.hero.label')}
           </p>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-light mb-6 leading-tight">
-            Vamos iniciar uma
+            {t('contact.hero.title_line1')}
             <br />
-            <span className="text-primary">conversa estratégica</span>
+            <span className="text-primary">{t('contact.hero.title_line2')}</span>
           </h1>
           <p className="text-lg md:text-xl font-light text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Seja para investimento, consultoria ou comunicação, estamos aqui para ajudar
+            {t('contact.hero.description')}
           </p>
         </div>
       </section>
@@ -89,12 +91,12 @@ const Contact = () => {
           <div className="grid lg:grid-cols-2 gap-16">
             <div>
               <h2 className="text-3xl md:text-4xl font-light mb-8">
-                Envie-nos uma <span className="text-primary">mensagem</span>
+                {t('contact.form.title')} <span className="text-primary">{t('contact.form.title_highlight')}</span>
               </h2>
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="font-light">Nome completo</Label>
+                  <Label htmlFor="name" className="font-light">{t('contact.form.name_label')}</Label>
                   <Input 
                     id="name"
                     type="text"
@@ -107,7 +109,7 @@ const Contact = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email" className="font-light">E-mail</Label>
+                  <Label htmlFor="email" className="font-light">{t('contact.form.email_label')}</Label>
                   <Input 
                     id="email"
                     type="email"
@@ -120,25 +122,25 @@ const Contact = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="area" className="font-light">Área de interesse</Label>
+                  <Label htmlFor="area" className="font-light">{t('contact.form.area_label')}</Label>
                   <Select 
                     value={formData.area} 
                     onValueChange={(value) => setFormData({...formData, area: value})}
                     disabled={isLoading}
                   >
                     <SelectTrigger className="h-12">
-                      <SelectValue placeholder="Selecione uma opção" />
+                      <SelectValue placeholder={t('contact.form.area_placeholder')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="solara">Solara — Investimentos e Consultoria</SelectItem>
-                      <SelectItem value="vision">Vision Press — Comunicação e Conteúdo</SelectItem>
-                      <SelectItem value="both">Ambas as áreas</SelectItem>
+                      <SelectItem value="solara">{t('contact.form.area_options.solara')}</SelectItem>
+                      <SelectItem value="vision">{t('contact.form.area_options.vision')}</SelectItem>
+                      <SelectItem value="both">{t('contact.form.area_options.both')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message" className="font-light">Mensagem</Label>
+                  <Label htmlFor="message" className="font-light">{t('contact.form.message_label')}</Label>
                   <Textarea 
                     id="message"
                     value={formData.message}
@@ -157,7 +159,7 @@ const Contact = () => {
                     ) : (
                       <Mail className="w-4 h-4 mr-2" />
                     )}
-                    {isLoading ? "A enviar..." : "Enviar Mensagem"}
+                    {isLoading ? t('contact.form.btn_sending') : t('contact.form.btn_submit')}
                   </Button>
                   <Button 
                     type="button"
@@ -172,7 +174,7 @@ const Contact = () => {
                       rel="noopener noreferrer"
                     >
                       <MessageSquare className="w-4 h-4 mr-2" />
-                      WhatsApp
+                      {t('contact.form.btn_whatsapp')}
                     </a>
                   </Button>
                 </div>
@@ -182,14 +184,14 @@ const Contact = () => {
             <div className="space-y-12">
               <div>
                 <h3 className="text-2xl font-light mb-6">
-                  Informações de <span className="text-primary">Contacto</span>
+                  {t('contact.info.title')} <span className="text-primary">{t('contact.info.title_highlight')}</span>
                 </h3>
                 
                 <div className="space-y-6">
                   <div className="p-6 bg-neutral-50 rounded-2xl">
                     <h4 className="font-light text-lg mb-2">Solara Project</h4>
                     <p className="text-sm text-muted-foreground font-light mb-1">
-                      Investimentos & Consultoria
+                      {t('contact.info.solara_desc')}
                     </p>
                     <a 
                       href="mailto:info@solaraproject.pt" 
@@ -202,7 +204,7 @@ const Contact = () => {
                   <div className="p-6 bg-neutral-50 rounded-2xl">
                     <h4 className="font-light text-lg mb-2">Vision Press</h4>
                     <p className="text-sm text-muted-foreground font-light mb-1">
-                      Comunicação & Conteúdo
+                      {t('contact.info.vision_desc')}
                     </p>
                     <a 
                       href="mailto:contact@visionpress.pt" 
@@ -217,7 +219,7 @@ const Contact = () => {
 
               <div>
                 <h3 className="text-2xl font-light mb-6">
-                  Redes <span className="text-primary">Sociais</span>
+                  {t('contact.info.social_title')} <span className="text-primary">{t('contact.info.social_highlight')}</span>
                 </h3>
                 
                 <div className="flex flex-wrap gap-4">
@@ -249,13 +251,13 @@ const Contact = () => {
               </div>
 
               <div className="p-8 bg-gradient-to-br from-neutral-50 to-background rounded-3xl border border-border">
-                <h3 className="text-xl font-light mb-4">Horário de Atendimento</h3>
+                <h3 className="text-xl font-light mb-4">{t('contact.info.schedule_title')}</h3>
                 <p className="text-muted-foreground font-light leading-relaxed">
-                  Segunda a Sexta: 9h00 - 18h00
+                  {t('contact.info.schedule_days')}
                   <br />
-                  Sábado: Sob marcação
+                  {t('contact.info.schedule_saturday')}
                   <br />
-                  Domingo: Encerrado
+                  {t('contact.info.schedule_sunday')}
                 </p>
               </div>
             </div>
@@ -266,7 +268,7 @@ const Contact = () => {
       <Footer />
       <WhatsAppButton 
         phoneNumber="+351123456789" 
-        message="Olá! Gostaria de entrar em contacto."
+        message={t('contact.messages.whatsapp_body')}
         brand="solara"
       />
       <BackToTop />

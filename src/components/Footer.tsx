@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import logoSolara from "@/assets/logo-solara-full.png";
 import logoVision from "@/assets/logo-vision.png";
 import logoMaxSell from "@/assets/maxsell.png";
+import { useTranslation } from "react-i18next"; // <--- Importar o hook
 
 const Footer = () => {
+  const { t } = useTranslation(); // <--- Inicializar a tradução
   const currentYear = new Date().getFullYear();
 
   return (
@@ -24,7 +26,7 @@ const Footer = () => {
                   className="h-16 w-auto object-contain invert brightness-0"
                 />
               </Link>
-              {/* Separator visual (opcional) */}
+              {/* Separator visual */}
               <div className="hidden sm:block h-8 w-px bg-neutral-700"></div>
               {/* Logo Vision */}
               <Link to="/vision" className="hover:opacity-80 transition-opacity">
@@ -36,27 +38,27 @@ const Footer = () => {
               </Link>
             </div>
             <p className="text-sm font-light opacity-60 leading-relaxed max-w-xs">
-              Strategic investment consultancy integrated with market intelligence and conscious vision.
+              {t('footer.description')}
             </p>
           </div>
 
           {/* COLUNA 2: SOLARA (INVESTIMENTOS) */}
           <div>
-            <h4 className="font-medium text-white text-lg mb-6">Solara Solutions</h4>
+            <h4 className="font-medium text-white text-lg mb-6">{t('footer.col_solara')}</h4>
             <ul className="space-y-3 text-sm font-light opacity-70">
               <li>
                 <Link to="/services/real-estate" className="hover:text-solara-vinho hover:opacity-100 transition-colors">
-                  Real Estate Investments
+                  {t('footer.links.real_estate')}
                 </Link>
               </li>
               <li>
                 <Link to="/services/financial" className="hover:text-solara-vinho hover:opacity-100 transition-colors">
-                  Financial Strategy
+                  {t('footer.links.financial')}
                 </Link>
               </li>
               <li>
                 <Link to="/services/consultancy" className="hover:text-solara-vinho hover:opacity-100 transition-colors">
-                  Strategic Consultancy
+                  {t('footer.links.consultancy')}
                 </Link>
               </li>
             </ul>
@@ -64,21 +66,21 @@ const Footer = () => {
 
           {/* COLUNA 3: VISION PRESS (COMUNICAÇÃO) */}
           <div>
-            <h4 className="font-medium text-white text-lg mb-6">Vision Press</h4>
+            <h4 className="font-medium text-white text-lg mb-6">{t('footer.col_vision')}</h4>
             <ul className="space-y-3 text-sm font-light opacity-70">
               <li>
                 <Link to="/vision" className="hover:text-emerald-400 hover:opacity-100 transition-colors">
-                  Editorial & Market News
+                  {t('footer.links.editorial')}
                 </Link>
               </li>
               <li>
                 <Link to="/vision/services" className="hover:text-emerald-400 hover:opacity-100 transition-colors">
-                  Branding & Agency
+                  {t('footer.links.branding')}
                 </Link>
               </li>
               <li>
                 <Link to="/vision/articles" className="hover:text-emerald-400 hover:opacity-100 transition-colors">
-                  Market Intelligence
+                  {t('footer.links.intelligence')}
                 </Link>
               </li>
             </ul>
@@ -86,16 +88,16 @@ const Footer = () => {
 
           {/* COLUNA 4: INSTITUCIONAL */}
           <div>
-            <h4 className="font-medium text-white text-lg mb-6">Company</h4>
+            <h4 className="font-medium text-white text-lg mb-6">{t('footer.col_company')}</h4>
             <ul className="space-y-3 text-sm font-light opacity-70">
               <li>
                 <Link to="/about" className="hover:text-white hover:opacity-100 transition-colors">
-                  About Us
+                  {t('footer.links.about')}
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="hover:text-white hover:opacity-100 transition-colors">
-                  Contact & Location
+                  {t('footer.links.contact')}
                 </Link>
               </li>
               <li className="pt-4">
@@ -112,16 +114,16 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-xs font-light opacity-50">
 
             <p className="order-2 md:order-1">
-              © {currentYear} Solara Project®. All rights reserved.
+              © {currentYear} Solara Project®. {t('footer.copyright')}
             </p>
 
             <div className="flex gap-6 order-1 md:order-2">
-              <Link to="#" className="hover:opacity-100 transition-opacity">Privacy Policy</Link>
-              <Link to="#" className="hover:opacity-100 transition-opacity">Terms & Conditions</Link>
+              <Link to="#" className="hover:opacity-100 transition-opacity">{t('footer.privacy')}</Link>
+              <Link to="#" className="hover:opacity-100 transition-opacity">{t('footer.terms')}</Link>
             </div>
 
             <div className="flex items-center gap-2 order-3">
-              <span>Powered by</span>
+              <span>{t('footer.powered')}</span>
               <img src={logoMaxSell} alt="MaxSell" className="h-4 w-auto invert brightness-0 opacity-70" />
             </div>
 

@@ -1,0 +1,191 @@
+{
+  "hero": {
+    "estd": "ESTD 2025",
+    "title_main": "Strategic Investment",
+    "title_sub": "Conscious Growth",
+    "description": "Solara Project delivers tailored investment solutions and strategic consultancy, combining financial expertise with authentic vision for sustainable prosperity.",
+    "btn_services": "Explore Services",
+    "btn_vision": "Discover Vision Press"
+  },
+  "services": {
+    "label": "Our Expertise",
+    "title": "Investment Solutions",
+    "description": "Delivering excellence through specialized services designed to elevate your financial future.",
+    "discover_more": "Discover More →",
+    "cards": {
+      "real_estate_title": "Real Estate Investments",
+      "real_estate_desc": "Strategic property portfolio development with focus on sustainable value creation and long-term capital appreciation.",
+      "financial_title": "Financial Investments",
+      "financial_desc": "Diversified investment strategies tailored to individual goals, combining market expertise with conscious allocation.",
+      "consulting_title": "Strategic Consultancy",
+      "consulting_desc": "Comprehensive business guidance integrating investment vision, growth strategy, and operational excellence."
+    }
+  },
+  "vision": {
+    "label": "Creative Communication",
+    "title_main": "Amplifying Impact",
+    "title_sub": "Through",
+    "description": "Vision Press, our editorial and creative communication arm, transforms strategic insights into compelling narratives. Through thoughtful journalism, brand storytelling, and content excellence, we bridge investment vision with authentic communication.",
+    "recent_highlights": "Recent Highlights",
+    "no_articles": "No recent articles found.",
+    "btn_explore": "Explore Vision Press"
+  },
+  "about": {
+    "label": "Philosophy",
+    "title_main": "Investing with",
+    "title_sub": "Consciousness",
+    "p1": "At Solara Project, we believe that true prosperity emerges from the alignment of financial intelligence with authentic purpose. Our approach transcends traditional investment paradigms.",
+    "p2": "Founded on principles of integrity, strategic vision, and sustainable growth, we partner with clients who seek more than returns—they pursue meaningful impact and lasting legacy.",
+    "founder_role": "Founder",
+    "pillars_title": "Our Pillars",
+    "pillars": {
+      "vision": "Strategic Vision",
+      "integrity": "Financial Integrity",
+      "growth": "Sustainable Growth",
+      "partnership": "Client Partnership"
+    },
+    "stats": {
+      "experience": "Years Experience",
+      "assets": "Assets Under Advisory",
+      "satisfaction": "Client Satisfaction",
+      "projects": "Successful Projects"
+    }
+  },
+  "footer": {
+    "description": "Strategic investment consultancy integrated with market intelligence and conscious vision.",
+    "col_solara": "Solara Solutions",
+    "col_vision": "Vision Press",
+    "col_company": "Company",
+    "links": {
+      "real_estate": "Real Estate Investments",
+      "financial": "Financial Strategy",
+      "consultancy": "Strategic Consultancy",
+      "editorial": "Editorial & Market News",
+      "branding": "Branding & Agency",
+      "intelligence": "Market Intelligence",
+      "about": "About Us",
+      "contact": "Contact & Location"
+    },
+    "copyright": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "powered": "Powered by"
+  },
+  "financial": {
+    "hero": {
+      "badge": "Wealth Management",
+      "title_line1": "Architecting",
+      "title_line2": "Your Legacy",
+      "description": "Sophisticated financial engineering tailored to preserve, grow, and transfer your wealth across generations.",
+      "btn": "Schedule a Financial Review"
+    },
+    "philosophy": {
+      "title_line1": "More than Banking.",
+      "title_line2": "Strategic Stewardship.",
+      "p1": "In a complex global economy, standard investment products are often insufficient. True wealth preservation requires a bespoke approach that balances liquidity needs with long-term growth objectives.",
+      "p2": "We act as your financial architects. By leveraging our network of top-tier private banks and credit intermediaries, we design portfolios that are robust against volatility yet agile enough to capture emerging opportunities.",
+      "risk_title": "Risk Mitigation",
+      "risk_desc": "Advanced stress-testing of portfolios against market downturns and inflation.",
+      "asset_title": "Asset Allocation",
+      "asset_desc": "Diversification across equities, bonds, private equity, and alternative investments.",
+      "banking_title": "Private Banking Access",
+      "banking_desc": "Exclusive terms and credit facilities negotiated through our institutional partners."
+    },
+    "grid": {
+      "title": "Core Competencies",
+      "subtitle": "A comprehensive suite of financial services designed for high-net-worth individuals.",
+      "portfolio_title": "Portfolio Management",
+      "portfolio_desc": "Discretionary and advisory mandates tailored to your risk profile.",
+      "credit_title": "Credit Intermediation",
+      "credit_desc": "Optimizing leverage for real estate acquisition or business expansion.",
+      "estate_title": "Estate Planning",
+      "estate_desc": "Structuring assets to ensure efficient wealth transfer to future generations."
+    },
+    "cta": {
+      "title": "Secure Your Financial Future",
+      "description": "Let's build a strategy that works as hard as you do.",
+      "btn": "Start the Conversation"
+    }
+  },
+  "consultancy": {
+    "hero": {
+      "badge": "Strategic Advisory",
+      "title_line1": "Global Mobility",
+      "title_line2": "& Strategy",
+      "description": "Navigating the complexities of international relocation, tax optimization, and residency planning with precision.",
+      "btn": "Book a Consultation"
+    },
+    "concept": {
+      "title": "Seamless Borders. Strategic Living.",
+      "description": "Moving capital or residency across borders involves intricate legal and fiscal challenges. We provide the strategic roadmap to ensure your transition is compliant, tax-efficient, and aligned with your personal or business goals.",
+      "residency_title": "Residency & Citizenship",
+      "residency_desc": "Expert guidance on Golden Visa programs, D7 Visas, and Digital Nomad routes. We manage the entire bureaucracy, from initial application to final card issuance.",
+      "residency_list": {
+        "golden": "Golden Visa (Investment Funds)",
+        "d2": "D2 (Entrepreneur)",
+        "d7": "D7 (Passive Income)"
+      },
+      "tax_title": "Tax Optimization",
+      "tax_desc": "Structure your income and assets to benefit from regimes like the NHR (Non-Habitual Resident) status, ensuring maximum fiscal efficiency in your new tax residence.",
+      "tax_list": {
+        "nhr": "NHR Status Application",
+        "treaties": "Double Taxation Treaties",
+        "corporate": "Corporate Tax Structuring"
+      }
+    },
+    "relocation": {
+      "title": "Concierge Relocation",
+      "description": "We believe luxury is the absence of worry. Our concierge team handles the logistics of your move so you can focus on the excitement of arrival.",
+      "school_title": "School Search",
+      "school_desc": "Finding top international schools.",
+      "business_title": "Business Setup",
+      "business_desc": "Company incorporation & banking.",
+      "global_title": "Global Access",
+      "global_desc": "Serving clients from USA, Brazil, UK, and Middle East moving to Europe."
+    }
+  },
+  "contact": {
+    "hero": {
+      "label": "Contact Us",
+      "title_line1": "Let's start a",
+      "title_line2": "strategic conversation",
+      "description": "Whether for investment, consultancy, or communication, we are here to help."
+    },
+    "form": {
+      "title": "Send us a",
+      "title_highlight": "message",
+      "name_label": "Full Name",
+      "email_label": "Email",
+      "area_label": "Area of Interest",
+      "area_placeholder": "Select an option",
+      "area_options": {
+        "solara": "Solara — Investments & Consultancy",
+        "vision": "Vision Press — Communication & Content",
+        "both": "Both areas"
+      },
+      "message_label": "Message",
+      "btn_submit": "Send Message",
+      "btn_sending": "Sending...",
+      "btn_whatsapp": "WhatsApp"
+    },
+    "info": {
+      "title": "Contact",
+      "title_highlight": "Information",
+      "solara_desc": "Investments & Consultancy",
+      "vision_desc": "Communication & Content",
+      "social_title": "Social",
+      "social_highlight": "Media",
+      "schedule_title": "Opening Hours",
+      "schedule_days": "Monday to Friday: 9:00 AM - 6:00 PM",
+      "schedule_saturday": "Saturday: By appointment",
+      "schedule_sunday": "Sunday: Closed"
+    },
+    "messages": {
+      "success_title": "Message sent!",
+      "success_desc": "We will be in touch shortly.",
+      "error_title": "Error sending",
+      "error_desc": "There was a problem sending your message. Please try again or use WhatsApp.",
+      "whatsapp_body": "Hello! I would like to know more about"
+    }
+  }
+}

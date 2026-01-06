@@ -1,0 +1,191 @@
+{
+  "hero": {
+    "estd": "ESTD 2025",
+    "title_main": "Investimento Estratégico",
+    "title_sub": "Crescimento Consciente",
+    "description": "A Solara Project oferece soluções de investimento personalizadas e consultoria estratégica, combinando experiência financeira com uma visão autêntica para a prosperidade sustentável.",
+    "btn_services": "Explorar Serviços",
+    "btn_vision": "Conheça a Vision Press"
+  },
+  "services": {
+    "label": "A Nossa Expertise",
+    "title": "Soluções de Investimento",
+    "description": "Entregando excelência através de serviços especializados desenhados para elevar o seu futuro financeiro.",
+    "discover_more": "Descubra Mais →",
+    "cards": {
+      "real_estate_title": "Investimentos Imobiliários",
+      "real_estate_desc": "Desenvolvimento estratégico de portfólio imobiliário com foco na criação de valor sustentável e apreciação de capital a longo prazo.",
+      "financial_title": "Investimentos Financeiros",
+      "financial_desc": "Estratégias de investimento diversificadas e adaptadas a objetivos individuais, combinando expertise de mercado com alocação consciente.",
+      "consulting_title": "Consultoria Estratégica",
+      "consulting_desc": "Orientação empresarial abrangente integrando visão de investimento, estratégia de crescimento e excelência operacional."
+    }
+  },
+  "vision": {
+    "label": "Comunicação Criativa",
+    "title_main": "Amplificando Impacto",
+    "title_sub": "Através da",
+    "description": "A Vision Press, o nosso braço editorial e de comunicação criativa, transforma insights estratégicos em narrativas envolventes. Através de jornalismo cuidado, storytelling de marca e excelência de conteúdo, unimos a visão de investimento a uma comunicação autêntica.",
+    "recent_highlights": "Destaques Recentes",
+    "no_articles": "Nenhum artigo recente encontrado.",
+    "btn_explore": "Explorar Vision Press"
+  },
+  "about": {
+    "label": "Filosofia",
+    "title_main": "Investir com",
+    "title_sub": "Consciência",
+    "p1": "Na Solara Project, acreditamos que a verdadeira prosperidade emerge do alinhamento da inteligência financeira com um propósito autêntico. A nossa abordagem transcende os paradigmas tradicionais de investimento.",
+    "p2": "Fundada em princípios de integridade, visão estratégica e crescimento sustentável, fazemos parceria com clientes que procuram mais do que retornos—eles procuram impacto significativo e um legado duradouro.",
+    "founder_role": "Fundadora",
+    "pillars_title": "Os Nossos Pilares",
+    "pillars": {
+      "vision": "Visão Estratégica",
+      "integrity": "Integridade Financeira",
+      "growth": "Crescimento Sustentável",
+      "partnership": "Parceria com Cliente"
+    },
+    "stats": {
+      "experience": "Anos de Experiência",
+      "assets": "Ativos Sob Gestão",
+      "satisfaction": "Satisfação do Cliente",
+      "projects": "Projetos de Sucesso"
+    }
+  },
+  "footer": {
+    "description": "Consultoria estratégica de investimento integrada com inteligência de mercado e visão consciente.",
+    "col_solara": "Soluções Solara",
+    "col_vision": "Vision Press",
+    "col_company": "Empresa",
+    "links": {
+      "real_estate": "Investimentos Imobiliários",
+      "financial": "Estratégia Financeira",
+      "consultancy": "Consultoria Estratégica",
+      "editorial": "Editorial & Notícias",
+      "branding": "Branding & Agência",
+      "intelligence": "Inteligência de Mercado",
+      "about": "Sobre Nós",
+      "contact": "Contactos e Localização"
+    },
+    "copyright": "Todos os direitos reservados.",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos e Condições",
+    "powered": "Desenvolvido por"
+  },
+  "financial": {
+    "hero": {
+      "badge": "Gestão de Património",
+      "title_line1": "Arquitetando o",
+      "title_line2": "Seu Legado",
+      "description": "Engenharia financeira sofisticada desenhada para preservar, fazer crescer e transferir o seu património através de gerações.",
+      "btn": "Agendar Revisão Financeira"
+    },
+    "philosophy": {
+      "title_line1": "Mais que Banca.",
+      "title_line2": "Gestão Estratégica.",
+      "p1": "Numa economia global complexa, produtos de investimento padrão são muitas vezes insuficientes. A verdadeira preservação de riqueza requer uma abordagem personalizada que equilibra liquidez com objetivos de longo prazo.",
+      "p2": "Atuamos como os seus arquitetos financeiros. Alavancando a nossa rede de bancos privados de topo e intermediários de crédito, desenhamos portfólios robustos contra a volatilidade mas ágeis para capturar oportunidades emergentes.",
+      "risk_title": "Mitigação de Risco",
+      "risk_desc": "Testes de stress avançados aos portfólios contra quedas de mercado e inflação.",
+      "asset_title": "Alocação de Ativos",
+      "asset_desc": "Diversificação entre ações, obrigações, private equity e investimentos alternativos.",
+      "banking_title": "Acesso a Private Banking",
+      "banking_desc": "Termos exclusivos e facilidades de crédito negociadas através dos nossos parceiros institucionais."
+    },
+    "grid": {
+      "title": "Competências Centrais",
+      "subtitle": "Um conjunto abrangente de serviços financeiros desenhados para indivíduos de alto património.",
+      "portfolio_title": "Gestão de Portfólio",
+      "portfolio_desc": "Mandatos discricionários e de consultoria adaptados ao seu perfil de risco.",
+      "credit_title": "Intermediação de Crédito",
+      "credit_desc": "Otimização de alavancagem para aquisição imobiliária ou expansão empresarial.",
+      "estate_title": "Planeamento Sucessório",
+      "estate_desc": "Estruturação de ativos para garantir a transferência eficiente de riqueza para futuras gerações."
+    },
+    "cta": {
+      "title": "Garanta o Seu Futuro Financeiro",
+      "description": "Vamos construir uma estratégia que trabalha tanto quanto você.",
+      "btn": "Iniciar a Conversa"
+    }
+  },
+  "consultancy": {
+    "hero": {
+      "badge": "Consultoria Estratégica",
+      "title_line1": "Mobilidade Global",
+      "title_line2": "& Estratégia",
+      "description": "Navegando as complexidades da relocalização internacional, otimização fiscal e planeamento de residência com precisão.",
+      "btn": "Agendar Consultoria"
+    },
+    "concept": {
+      "title": "Fronteiras Sem Limites. Vida Estratégica.",
+      "description": "Mover capital ou residência através de fronteiras envolve desafios legais e fiscais complexos. Fornecemos o roteiro estratégico para garantir que a sua transição seja conforme, eficiente fiscalmente e alinhada com os seus objetivos.",
+      "residency_title": "Residência & Cidadania",
+      "residency_desc": "Orientação especializada em programas Golden Visa, Vistos D7 e rotas para Nómadas Digitais. Gerimos toda a burocracia, desde a candidatura inicial até à emissão final.",
+      "residency_list": {
+        "golden": "Golden Visa (Fundos de Investimento)",
+        "d2": "D2 (Empreendedor)",
+        "d7": "D7 (Rendimento Passivo)"
+      },
+      "tax_title": "Otimização Fiscal",
+      "tax_desc": "Estruture os seus rendimentos e ativos para beneficiar de regimes como o estatuto RNH (Residente Não Habitual), garantindo a máxima eficiência fiscal na sua nova residência.",
+      "tax_list": {
+        "nhr": "Candidatura Estatuto RNH",
+        "treaties": "Tratados de Dupla Tributação",
+        "corporate": "Estruturação Fiscal Corporativa"
+      }
+    },
+    "relocation": {
+      "title": "Relocalização Concierge",
+      "description": "Acreditamos que o luxo é a ausência de preocupação. A nossa equipa de concierge trata da logística da sua mudança para que se possa focar no entusiasmo da chegada.",
+      "school_title": "Procura de Escolas",
+      "school_desc": "Encontrar as melhores escolas internacionais.",
+      "business_title": "Configuração Empresarial",
+      "business_desc": "Constituição de empresas e abertura de contas.",
+      "global_title": "Acesso Global",
+      "global_desc": "Servindo clientes dos EUA, Brasil, Reino Unido e Médio Oriente em mudança para a Europa."
+    }
+  },
+  "contact": {
+    "hero": {
+      "label": "Fale Connosco",
+      "title_line1": "Vamos iniciar uma",
+      "title_line2": "conversa estratégica",
+      "description": "Seja para investimento, consultoria ou comunicação, estamos aqui para ajudar."
+    },
+    "form": {
+      "title": "Envie-nos uma",
+      "title_highlight": "mensagem",
+      "name_label": "Nome completo",
+      "email_label": "E-mail",
+      "area_label": "Área de interesse",
+      "area_placeholder": "Selecione uma opção",
+      "area_options": {
+        "solara": "Solara — Investimentos e Consultoria",
+        "vision": "Vision Press — Comunicação e Conteúdo",
+        "both": "Ambas as áreas"
+      },
+      "message_label": "Mensagem",
+      "btn_submit": "Enviar Mensagem",
+      "btn_sending": "A enviar...",
+      "btn_whatsapp": "WhatsApp"
+    },
+    "info": {
+      "title": "Informações de",
+      "title_highlight": "Contacto",
+      "solara_desc": "Investimentos & Consultoria",
+      "vision_desc": "Comunicação & Conteúdo",
+      "social_title": "Redes",
+      "social_highlight": "Sociais",
+      "schedule_title": "Horário de Atendimento",
+      "schedule_days": "Segunda a Sexta: 9h00 - 18h00",
+      "schedule_saturday": "Sábado: Sob marcação",
+      "schedule_sunday": "Domingo: Encerrado"
+    },
+    "messages": {
+      "success_title": "Mensagem enviada!",
+      "success_desc": "Entraremos em contacto brevemente.",
+      "error_title": "Erro ao enviar",
+      "error_desc": "Houve um problema ao enviar sua mensagem. Tente novamente ou use o WhatsApp.",
+      "whatsapp_body": "Olá! Gostaria de saber mais sobre"
+    }
+  }
+}

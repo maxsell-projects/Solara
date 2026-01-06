@@ -2,9 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import logoSolara from "@/assets/logo-solara-full.png";
-import logoVision from "@/assets/logo-vision.png";
+import { useTranslation } from "react-i18next"; // <--- 1. Importar i18n
 
 const Hero = () => {
+  const { t } = useTranslation(); // <--- 2. Inicializar hook
+  
   const [mousePosition, setMousePosition] = useState({
     x: 0,
     y: 0,
@@ -79,21 +81,12 @@ const Hero = () => {
                 />
               </div>
             </div>
-
-            {/* Logo Secundária: VISION */}
-            <div className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity duration-300">
-              <div className="h-px w-8 bg-neutral-300"></div>
-              <img
-                src={logoVision}
-                alt="Vision Press"
-                className="h-8 md:h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all"
-              />
-              <div className="h-px w-8 bg-neutral-300"></div>
-            </div>
+            
+            {/* REMOVIDO: Logo Vision pequena (estava aqui) */}
           </div>
 
           <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-semibold animate-fade-in">
-            ESTD 2025
+            {t('hero.estd')}
           </p>
 
           {/* TÍTULO */}
@@ -102,30 +95,29 @@ const Hero = () => {
             transition: 'transform 0.2s ease-out'
           }}>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-neutral-900 tracking-tight">
-              Strategic Investment
+              {t('hero.title_main')}
               <br />
               <span className="text-solara-vinho font-medium relative inline-block">
-                Conscious Growth
+                {t('hero.title_sub')}
               </span>
             </h1>
           </div>
 
           <p className="text-lg md:text-xl font-light text-neutral-600 max-w-2xl mx-auto leading-relaxed">
-            Solara Project delivers tailored investment solutions and strategic consultancy,
-            combining financial expertise with authentic vision for sustainable prosperity.
+            {t('hero.description')}
           </p>
 
           {/* BOTÕES */}
           <div className="flex flex-col sm:flex-row gap-5 justify-center pt-8">
             <Link to="/services">
               <Button size="lg" className="rounded-full text-base bg-solara-vinho hover:bg-[#4a1223] text-white border-none shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold">
-                Explore Services
+                {t('hero.btn_services')}
               </Button>
             </Link>
 
             <Link to="/vision">
               <Button size="lg" variant="outline" className="rounded-full text-base border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold">
-                Discover Vision Press
+                {t('hero.btn_vision')}
               </Button>
             </Link>
           </div>
