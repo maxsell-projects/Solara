@@ -18,23 +18,21 @@ const Footer = () => {
           {/* COLUNA 1: MARCAS & IDENTIDADE */}
           <div className="space-y-8">
             <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center">
-              {/* Logo Solara */}
+              {/* Logo Solara (Grande e Colorida) */}
               <Link to="/" className="hover:opacity-80 transition-opacity">
                 <img
                   src={logoSolara}
                   alt="Solara Project"
-                  // Aumentado e com cores originais (removido filtro invert/brightness)
                   className="h-20 w-auto object-contain"
                 />
               </Link>
               {/* Separator visual */}
               <div className="hidden sm:block h-10 w-px bg-neutral-700"></div>
-              {/* Logo Vision */}
+              {/* Logo Vision (Grande e Colorida) */}
               <Link to="/vision" className="hover:opacity-80 transition-opacity">
                 <img
                   src={logoVision}
                   alt="Vision Press"
-                  // Aumentado e com cores originais
                   className="h-16 w-auto object-contain"
                 />
               </Link>
@@ -120,8 +118,13 @@ const Footer = () => {
             </p>
 
             <div className="flex gap-6 order-1 md:order-2">
-              <Link to="#" className="hover:opacity-100 transition-opacity">{t('footer.privacy')}</Link>
-              <Link to="#" className="hover:opacity-100 transition-opacity">{t('footer.terms')}</Link>
+              {/* LINKS LEGAIS ATUALIZADOS AQUI 👇 */}
+              <Link to="/legal?section=privacy" className="hover:opacity-100 transition-opacity">
+                {t('footer.privacy')}
+              </Link>
+              <Link to="/legal?section=terms" className="hover:opacity-100 transition-opacity">
+                {t('footer.terms')}
+              </Link>
             </div>
 
             <div className="flex items-center gap-2 order-3">
