@@ -199,38 +199,6 @@
   },
   "real_estate": {
     "hero": {
-      "badge": "Premium Assets",
-      "title_line1": "Curated Property",
-      "title_line2": "Portfolio",
-      "description": "Exclusive access to off-market properties and high-yield real estate developments in Portugal's most sought-after locations.",
-      "btn": "View Collection"
-    },
-    "intro": {
-      "title": "Beyond Traditional Real Estate.",
-      "description": "We don't just sell properties; we source investment vehicles. Our focus is on assets that offer capital appreciation, rental yield potential, or unique lifestyle value."
-    },
-    "listings": {
-      "title": "Featured Opportunities",
-      "subtitle": "A selection of our current premium listings.",
-      "price_label": "Price",
-      "location_label": "Location",
-      "type_label": "Type",
-      "btn_details": "View Details"
-    },
-    "features": {
-        "title": "Why Invest with Solara?",
-        "cards": {
-            "off_market_title": "Off-Market Access",
-            "off_market_desc": "Many of our best properties never hit public portals.",
-            "yield_title": "Yield Focus",
-            "yield_desc": "Analysis of ROI and rental potential for every asset.",
-            "turnkey_title": "Turnkey Management",
-            "turnkey_desc": "From acquisition to renovation and property management."
-        }
-    }
-  },
-  "real_estate": {
-    "hero": {
       "badge": "Global Expertise",
       "title_line1": "Premium Real Estate",
       "title_line2": "Investment",
@@ -399,40 +367,39 @@
   "vision_services": {
     "hero": {
       "label": "Vision Press Agency",
-      "title_line1": "Communication, Journalism &",
-      "title_highlight": "Market Intelligence",
-      "description": "We transform information into authority. Our branding and content solutions position your brand at the center of conversations that matter."
+      "title_line1": "Stories that",
+      "title_highlight": "Ignite Stars",
+      "description": "A new architecture of communication where genuineness, courage, and respect meet to create infinities."
     },
-    "branding": {
-      "title": "Branding & Strategy",
-      "description": "Creating brands that breathe and connect. From visual design to tone of voice, we build solid identities that stand the test of time.",
-      "item1": "Market Positioning",
-      "item2": "Visual & Verbal Identity",
-      "item3": "Reputation Management",
-      "btn": "Start Branding Project"
+    "manifesto": {
+      "title": "Our Essence",
+      "p1": "Vision Press is born from a deep, infinite dive into the vastness, ideas, and professional adventures of journalist and writer Camila Montenegro. The Press brand, which once carried her personal signature, now takes on a life of its own, singing new stories intertwined in time and space.",
+      "p2": "In pulsing humanity and living democracy, the right to equality permeates differences in this magical spark of sharing: brilliance and strength gather, even amidst the crowd. Hearts beat in the world, in nature, in the fertile, prosperous, and nourishing ground that has the Sun as its main star.",
+      "p3": "Through each story, new infinities are found inhabiting a planet silently responding to a dance of welcoming our human condition. It is from genuineness, courage, and respect that a star is born, and one discovers there is no separation.",
+      "p4": "Each being is a unique star in its forms, paths, colors, flavors, and distinct shine, but only in the encounter do different lines and images of a whole reveal themselves. Each of us is an essential piece in the architecture and script of infinite stories."
     },
-    "marketing": {
-      "title": "Marketing & Performance",
-      "description": "Data-driven strategies to expand reach and conversion. We combine creativity with precise metrics.",
-      "item1": "Paid Traffic & SEO",
-      "item2": "Social Media & Automation",
-      "item3": "Influencer Marketing",
-      "btn": "Expand Your Reach"
-    },
-    "press": {
-      "title": "Press Office",
-      "description": "We connect your brand to major media outlets, managing crises and creating impactful narratives.",
-      "item1": "Public Relations (PR)",
-      "item2": "Media Training",
-      "item3": "Institutional Content",
-      "btn": "Consult Press Services"
+    "vertentes": {
+      "title": "Press Verticals",
+      "creative": {
+        "title": "Creative Communication",
+        "description": "Our sub-brand dedicated to giving voice, image, and identity to purpose-driven projects. We connect brands to their essence through inspiring narratives, branding, and content strategy."
+      },
+      "talent": {
+        "title": "Talent Agency",
+        "description": "We identify, strengthen, and promote individuals and organizations aligned with our cause. We elevate singular voices that need to be heard amidst the noise of the crowd."
+      },
+      "builder": {
+        "title": "Field Builder",
+        "description": "Strengthening and developing organizations through constant support. We create a robust philanthropic ecosystem to contribute to progress in vital areas of society."
+      },
+      "btn_saiba_mais": "Learn More"
     },
     "cta": {
-      "title": "Ready to elevate your communication?",
-      "description": "Schedule a strategic meeting with our editorial team and discover the power of a well-crafted narrative.",
+      "title": "Shall we tell your story?",
+      "description": "The future is closer and starts now. Join us on this journey of light and narrative.",
       "btn": "Talk to Vision Press"
     },
-    "whatsapp_msg": "Hello, I would like to know more about Vision Press services."
+    "whatsapp_msg": "Hello, I would like to know more about Vision Press verticals."
   },
   "index_page": {
     "whatsapp_msg": "Hello! I would like to know more about Solara."

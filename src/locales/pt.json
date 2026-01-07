@@ -92,7 +92,7 @@
       "title_line1": "Mais que Banca.",
       "title_line2": "Gestão Estratégica.",
       "p1": "Numa economia global complexa, produtos de investimento padrão são muitas vezes insuficientes. A verdadeira preservação de riqueza requer uma abordagem personalizada que equilibra liquidez com objetivos de longo prazo.",
-      "p2": "Atuamos como os seus arquitetos financeiros. Alavancando a nossa rede de bancos privados de topo e intermediários de crédito, desenhamos portfólios robustos contra a volatilidade mas ágeis para capturar oportunidades emergentes.",
+      "p2": "Atuamos como os seus arquitetos financeiros. Alavancando a nossa rede de bancos privados de topo e intermediários de crédito, desenhamos portfólio robustos contra a volatilidade mas ágeis para capturar oportunidades emergentes.",
       "risk_title": "Mitigação de Risco",
       "risk_desc": "Testes de stress avançados aos portfólios contra quedas de mercado e inflação.",
       "asset_title": "Alocação de Ativos",
@@ -195,38 +195,6 @@
       "error_title": "Erro ao enviar",
       "error_desc": "Houve um problema ao enviar sua mensagem. Tente novamente ou use o WhatsApp.",
       "whatsapp_body": "Olá! Gostaria de saber mais sobre"
-    }
-  },
-  "real_estate": {
-    "hero": {
-      "badge": "Ativos Premium",
-      "title_line1": "Portfólio Imobiliário",
-      "title_line2": "Curado",
-      "description": "Acesso exclusivo a propriedades off-market e empreendimentos imobiliários de alto rendimento nas localizações mais procuradas de Portugal.",
-      "btn": "Ver Coleção"
-    },
-    "intro": {
-      "title": "Além do Imobiliário Tradicional.",
-      "description": "Não vendemos apenas propriedades; encontramos veículos de investimento. O nosso foco está em ativos que oferecem valorização de capital, potencial de rendimento ou valor de estilo de vida único."
-    },
-    "listings": {
-      "title": "Oportunidades em Destaque",
-      "subtitle": "Uma seleção das nossas listagens premium atuais.",
-      "price_label": "Preço",
-      "location_label": "Localização",
-      "type_label": "Tipo",
-      "btn_details": "Ver Detalhes"
-    },
-    "features": {
-        "title": "Porquê Investir com a Solara?",
-        "cards": {
-            "off_market_title": "Acesso Off-Market",
-            "off_market_desc": "Muitas das nossas melhores propriedades nunca chegam aos portais públicos.",
-            "yield_title": "Foco no Rendimento",
-            "yield_desc": "Análise de ROI e potencial de arrendamento para cada ativo.",
-            "turnkey_title": "Gestão Chave-na-Mão",
-            "turnkey_desc": "Desde a aquisição até à renovação e gestão da propriedade."
-        }
     }
   },
   "real_estate": {
@@ -399,40 +367,39 @@
   "vision_services": {
     "hero": {
       "label": "Agência Vision Press",
-      "title_line1": "Comunicação, Jornalismo e",
-      "title_highlight": "Inteligência de Mercado",
-      "description": "Transformamos informação em autoridade. As nossas soluções de branding e conteúdo posicionam a sua marca no centro das conversas que importam."
+      "title_line1": "Histórias que",
+      "title_highlight": "Acendem Estrelas",
+      "description": "Uma nova arquitetura de comunicação onde a genuinidade, a coragem e o respeito se encontram para criar infinitos."
     },
-    "branding": {
-      "title": "Branding & Estratégia",
-      "description": "Criação de marcas que respiram e se conectam. Do design visual ao tom de voz, construímos identidades sólidas que resistem ao tempo.",
-      "item1": "Posicionamento de Mercado",
-      "item2": "Identidade Visual & Verbal",
-      "item3": "Gestão de Reputação",
-      "btn": "Iniciar Projeto de Branding"
+    "manifesto": {
+      "title": "A Nossa Essência",
+      "p1": "A Vision Press nasce do mergulho profundo e infinito nas imensidões, ideias e aventuras profissionais da jornalista e escritora Camila Montenegro. A marca Press, que antes levava a sua assinatura pessoal, hoje ganha vida própria, cantando novas histórias que se entrelaçam no tempo e no espaço.",
+      "p2": "Na humanidade pulsante e na democracia viva, o direito à igualdade permeia as diferenças, nesta faísca mágica da partilha: reúnem-se o brilho e a força, mesmo em meio à multidão. Os corações pulsam no mundo, na natureza, no terreno fértil, próspero e nutritivo que tem como essência a estrela principal, o Sol.",
+      "p3": "Através de cada história, encontram-se novos infinitos a habitar um planeta a responder silenciosamente a uma dança de acolhimento à nossa condição humana. É da genuinidade, coragem e respeito que nasce uma estrela e descobre-se não haver separação.",
+      "p4": "Cada ser é estrela única em suas formas, caminhos, cores, sabores e brilhos distintos, mas, apenas no encontro, revelam-se diferentes linhas e imagens de um todo. Cada um de nós é peça essencial na arquitetura e roteiro das histórias de infinitos infinitos."
     },
-    "marketing": {
-      "title": "Marketing & Performance",
-      "description": "Estratégias orientadas a dados para ampliar alcance e conversão. Unimos criatividade com métricas precisas.",
-      "item1": "Tráfego Pago & SEO",
-      "item2": "Social Media & Automação",
-      "item3": "Marketing de Influência",
-      "btn": "Ampliar o Seu Alcance"
-    },
-    "press": {
-      "title": "Assessoria de Imprensa",
-      "description": "Conectamos a sua marca aos principais veículos de comunicação, gerindo crises e criando narrativas de impacto.",
-      "item1": "Relações Públicas (PR)",
-      "item2": "Media Training",
-      "item3": "Conteúdos Institucionais",
-      "btn": "Consultar Assessoria"
+    "vertentes": {
+      "title": "Vertentes da Press",
+      "creative": {
+        "title": "Comunicação Criativa",
+        "description": "Nossa submarca dedicada a dar voz, imagem e identidade a projetos com propósito. Conectamos marcas à sua essência através de narrativas inspiradoras, branding e estratégia de conteúdo."
+      },
+      "talent": {
+        "title": "Agência de Talentos",
+        "description": "Identificamos, fortalecemos e promovemos indivíduos e organizações próximas à nossa causa. Elevamos vozes singulares que precisam ser ouvidas no ruído da multidão."
+      },
+      "builder": {
+        "title": "Construtor de Campo",
+        "description": "Fortalecimento e desenvolvimento de organizações com suporte constante. Criamos um ecossistema filantrópico robusto para contribuir com a progressão em áreas vitais da sociedade."
+      },
+      "btn_saiba_mais": "Saiba Mais"
     },
     "cta": {
-      "title": "Pronto para elevar a sua comunicação?",
-      "description": "Agende uma reunião estratégica com a nossa equipa editorial e descubra o poder de uma narrativa bem construída.",
+      "title": "Vamos contar a sua história?",
+      "description": "O futuro está mais perto e começa agora. Junte-se a nós nesta jornada de luz e narrativa.",
       "btn": "Fale com a Vision Press"
     },
-    "whatsapp_msg": "Olá, gostaria de saber mais sobre os serviços da Vision Press."
+    "whatsapp_msg": "Olá, gostaria de saber mais sobre as vertentes da Vision Press."
   },
   "index_page": {
     "whatsapp_msg": "Olá! Gostaria de saber mais sobre a Solara."

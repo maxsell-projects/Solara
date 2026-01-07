@@ -4,17 +4,17 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Megaphone, PenTool, Radio, ArrowRight } from "lucide-react";
+import { Sparkles, Users, Hammer, ArrowRight } from "lucide-react"; // Ícones novos
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next"; // <--- Import i18n
+import { useTranslation } from "react-i18next";
 
-// Importando imagens reais do seu projeto para dar vida aos serviços
-import brandingImg from "@/assets/vision-editorial.jpg";
-import marketingImg from "@/assets/service-consulting-premium.jpg";
-import pressImg from "@/assets/service-consulting.jpg";
+// Imagens (Mantenha as importações existentes ou ajuste conforme necessário)
+import creativeImg from "@/assets/vision-editorial.jpg";
+import talentImg from "@/assets/service-consulting-premium.jpg"; // Placeholder
+import builderImg from "@/assets/service-consulting.jpg"; // Placeholder
 
 const VisionServices = () => {
-  const { t } = useTranslation(); // <--- Hook
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-white font-sans text-neutral-900">
@@ -36,134 +36,107 @@ const VisionServices = () => {
         </div>
       </section>
 
-      {/* --- LISTA DE SERVIÇOS --- */}
-      <section className="py-24">
-        <div className="container mx-auto px-6 lg:px-8 space-y-32">
-
-          {/* SERVIÇO 1: BRANDING */}
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="order-2 md:order-1">
-              <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-8">
-                <PenTool className="w-7 h-7 text-emerald-700" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">{t('vision_services.branding.title')}</h2>
-              <p className="text-neutral-500 leading-relaxed mb-8 text-lg font-light">
-                {t('vision_services.branding.description')}
+      {/* --- MANIFESTO (TEXTO POÉTICO) --- */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto text-center space-y-8">
+            <h2 className="text-sm font-bold tracking-widest text-emerald-600 uppercase mb-8">
+              {t('vision_services.manifesto.title')}
+            </h2>
+            
+            <div className="prose prose-lg prose-neutral mx-auto font-light leading-loose text-neutral-600">
+              <p className="first-letter:text-5xl first-letter:font-serif first-letter:text-emerald-800 first-letter:float-left first-letter:mr-3">
+                {t('vision_services.manifesto.p1')}
               </p>
-              <ul className="space-y-4 text-neutral-600 font-light mb-8">
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.branding.item1')}
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.branding.item2')}
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.branding.item3')}
-                </li>
-              </ul>
-              <Link to="/contact">
-                <Button variant="link" className="text-emerald-700 p-0 hover:text-emerald-900 text-base">
-                  {t('vision_services.branding.btn')} <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-            </div>
-
-            <div className="order-1 md:order-2 relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-xl group">
-              <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-all duration-500 z-10" />
-              <img
-                src={brandingImg}
-                alt={t('vision_services.branding.title')}
-                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-              />
+              <p>{t('vision_services.manifesto.p2')}</p>
+              <p className="italic text-emerald-900/80 font-serif text-xl border-l-2 border-emerald-500 pl-6 my-8">
+                "{t('vision_services.manifesto.p3')}"
+              </p>
+              <p>{t('vision_services.manifesto.p4')}</p>
             </div>
           </div>
+        </div>
+      </section>
 
-          <Separator className="bg-neutral-100" />
+      <div className="container mx-auto px-6"><Separator className="bg-neutral-100" /></div>
 
-          {/* SERVIÇO 2: MARKETING */}
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="order-1 relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-xl group">
-              <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-all duration-500 z-10" />
-              <img
-                src={marketingImg}
-                alt={t('vision_services.marketing.title')}
-                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-              />
-            </div>
-
-            <div className="order-2">
-              <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-8">
-                <Megaphone className="w-7 h-7 text-emerald-700" />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">{t('vision_services.marketing.title')}</h2>
-              <p className="text-neutral-500 leading-relaxed mb-8 text-lg font-light">
-                {t('vision_services.marketing.description')}
-              </p>
-              <ul className="space-y-4 text-neutral-600 font-light mb-8">
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.marketing.item1')}
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.marketing.item2')}
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.marketing.item3')}
-                </li>
-              </ul>
-              <Link to="/contact">
-                <Button variant="link" className="text-emerald-700 p-0 hover:text-emerald-900 text-base">
-                  {t('vision_services.marketing.btn')} <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
-            </div>
+      {/* --- VERTENTES DA PRESS (CARDS) --- */}
+      <section className="py-24 bg-neutral-50/50">
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-light text-neutral-900">
+              {t('vision_services.vertentes.title')}
+            </h2>
           </div>
 
-          <Separator className="bg-neutral-100" />
-
-          {/* SERVIÇO 3: ASSESSORIA */}
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="order-2 md:order-1">
-              <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-8">
-                <Radio className="w-7 h-7 text-emerald-700" />
+          <div className="grid lg:grid-cols-3 gap-8">
+            
+            {/* CARD 1: COMUNICAÇÃO CRIATIVA */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:-translate-y-2 transition-all duration-300 border border-neutral-100 flex flex-col">
+              <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mb-6">
+                <Sparkles className="w-6 h-6 text-emerald-700" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">{t('vision_services.press.title')}</h2>
-              <p className="text-neutral-500 leading-relaxed mb-8 text-lg font-light">
-                {t('vision_services.press.description')}
+              <h3 className="text-2xl font-light mb-4 text-emerald-900">
+                {t('vision_services.vertentes.creative.title')}
+              </h3>
+              <p className="text-neutral-500 leading-relaxed font-light flex-grow">
+                {t('vision_services.vertentes.creative.description')}
               </p>
-              <ul className="space-y-4 text-neutral-600 font-light mb-8">
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.press.item1')}
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.press.item2')}
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-1.5 h-1.5 bg-emerald-600 rounded-full"></span> {t('vision_services.press.item3')}
-                </li>
-              </ul>
-              <Link to="/contact">
-                <Button variant="link" className="text-emerald-700 p-0 hover:text-emerald-900 text-base">
-                  {t('vision_services.press.btn')} <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
+              <div className="mt-8 pt-6 border-t border-neutral-100">
+                 <Link to="/contact">
+                  <Button variant="ghost" className="text-emerald-700 p-0 hover:text-emerald-900 hover:bg-transparent">
+                    {t('vision_services.vertentes.btn_saiba_mais')} <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </Link>
+              </div>
             </div>
 
-            <div className="order-1 md:order-2 relative h-[400px] md:h-[500px] rounded-3xl overflow-hidden shadow-xl group">
-              <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-all duration-500 z-10" />
-              <img
-                src={pressImg}
-                alt={t('vision_services.press.title')}
-                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-              />
+            {/* CARD 2: AGÊNCIA DE TALENTOS */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:-translate-y-2 transition-all duration-300 border border-neutral-100 flex flex-col">
+              <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mb-6">
+                <Users className="w-6 h-6 text-emerald-700" />
+              </div>
+              <h3 className="text-2xl font-light mb-4 text-emerald-900">
+                {t('vision_services.vertentes.talent.title')}
+              </h3>
+              <p className="text-neutral-500 leading-relaxed font-light flex-grow">
+                {t('vision_services.vertentes.talent.description')}
+              </p>
+              <div className="mt-8 pt-6 border-t border-neutral-100">
+                 <Link to="/contact">
+                  <Button variant="ghost" className="text-emerald-700 p-0 hover:text-emerald-900 hover:bg-transparent">
+                    {t('vision_services.vertentes.btn_saiba_mais')} <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </Link>
+              </div>
             </div>
+
+            {/* CARD 3: CONSTRUTOR DE CAMPO */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg hover:-translate-y-2 transition-all duration-300 border border-neutral-100 flex flex-col">
+              <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mb-6">
+                <Hammer className="w-6 h-6 text-emerald-700" />
+              </div>
+              <h3 className="text-2xl font-light mb-4 text-emerald-900">
+                {t('vision_services.vertentes.builder.title')}
+              </h3>
+              <p className="text-neutral-500 leading-relaxed font-light flex-grow">
+                {t('vision_services.vertentes.builder.description')}
+              </p>
+              <div className="mt-8 pt-6 border-t border-neutral-100">
+                 <Link to="/contact">
+                  <Button variant="ghost" className="text-emerald-700 p-0 hover:text-emerald-900 hover:bg-transparent">
+                    {t('vision_services.vertentes.btn_saiba_mais')} <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
           </div>
-
         </div>
       </section>
 
       {/* --- CTA --- */}
       <section className="py-24 bg-emerald-900 text-white text-center relative overflow-hidden">
-        {/* Elemento decorativo de fundo */}
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
           <div className="absolute right-0 top-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
           <div className="absolute left-0 bottom-0 w-64 h-64 bg-emerald-400 rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
