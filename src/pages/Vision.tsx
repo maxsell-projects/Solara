@@ -32,7 +32,7 @@ interface Post {
 
 // Configuração dinâmica da API baseada no ambiente
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-const BASE_URL = API_URL.replace('/api', '');
+// REMOVIDO: const BASE_URL = API_URL.replace('/api', '');
 
 const Vision = () => {
   const { t } = useTranslation(); // <--- Hook
@@ -89,7 +89,8 @@ const Vision = () => {
   const getImageUrl = (imagePath: string) => {
     if (!imagePath) return logoVision;
     if (imagePath.startsWith('http')) return imagePath;
-    return `${BASE_URL}${imagePath}`;
+    // CORREÇÃO AQUI: Usando API_URL direto, sem cortar o /api
+    return `${API_URL}${imagePath}`;
   };
 
   return (
