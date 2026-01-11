@@ -40,24 +40,51 @@
     "btn_explore": "Explorar Vision Press"
   },
   "about": {
-    "label": "Filosofia",
-    "title_main": "Investir com",
-    "title_sub": "Consciência",
-    "p1": "Na Solara Project, acreditamos que a verdadeira prosperidade emerge do alinhamento da inteligência financeira com um propósito autêntico. A nossa abordagem transcende os paradigmas tradicionais de investimento.",
-    "p2": "Fundada em princípios de integridade, visão estratégica e crescimento sustentável, fazemos parceria com clientes que procuram mais do que retornos—eles procuram impacto significativo e um legado duradouro.",
-    "founder_role": "Fundadora",
-    "pillars_title": "Os Nossos Pilares",
-    "pillars": {
-      "vision": "Visão Estratégica",
-      "integrity": "Integridade Financeira",
-      "growth": "Crescimento Sustentável",
-      "partnership": "Parceria com Cliente"
+    "hero": {
+      "label": "A Nossa História",
+      "title_line1": "O Sol, luz que guia",
+      "title_highlight": "os investimentos conscientes",
+      "description": "A Solara é uma consultoria que integra estratégia, comunicação e impacto."
     },
-    "stats": {
-      "experience": "Anos de Experiência",
-      "assets": "Ativos Sob Gestão",
-      "satisfaction": "Satisfação do Cliente",
-      "projects": "Projetos de Sucesso"
+    "manifesto": {
+      "title_start": "Investir com propósito",
+      "title_end": "significa iluminar",
+      "p1": "A Solara é a energia vital, ela comunica com alma e nasce da convicção de que a verdadeira prosperidade é enraizada na consciência.",
+      "p2": "Uma plataforma de investimentos imobiliários e financeiros, para quem busca além de retorno: significado, impacto, e crescimento iluminado por valores.",
+      "p3": "Inspirados na inteligência da natureza e na energia vital do Sol, acreditamos que investir é um gesto espiritual, uma escolha, um reflexo de quem somos e do mundo que construímos.",
+      "p4": "Na Solara, cultivamos e iluminamos caminhos no desenvolvimento sólido de patrimônios sustentáveis, projetos com alma, e futuros a brilhar com autenticidade. Porque quando propósito e estratégia caminham juntos, o resultado é luz em movimento.",
+      "p5": "Escolher investir com intenção é estar consciente de que o verdadeiro valor está na interdependência entre pessoas, ideias e territórios. Para quem entende que brilhar é partilhar luz.",
+      "highlight": "Solara. Onde o futuro é semeado com consciência e colhido com brilho.",
+      "role": "Camila Montenegro, Founder & CEO"
+    },
+    "verticals": {
+      "title": "Vertentes da Solara",
+      "item1_title": "Investimentos Conscientes",
+      "item1_desc": "Consultoria financeira e gestão de ativos com foco em ética, sustentabilidade, autenticidade e visão de longo prazo.",
+      "item2_title": "Imobiliária Essencial",
+      "item2_desc": "Curadoria boutique e desenvolvimento de projetos que valorizam o território, o bem-estar e o coletivo."
+    },
+    "philosophy": {
+      "title_start": "Nossa",
+      "title_end": "Filosofia",
+      "quote": "Investir é um ato de consciência.",
+      "cards": {
+        "clarity_title": "Clareza",
+        "clarity_desc": "Transparência total em processos, dados e comunicação com nossos clientes",
+        "sustainability_title": "Sustentabilidade",
+        "sustainability_desc": "Investimentos que geram valor de longo prazo e impacto positivo",
+        "connection_title": "Conexão",
+        "connection_desc": "Parcerias autênticas baseadas em confiança e objetivos partilhados",
+        "purpose_title": "Propósito",
+        "purpose_desc": "Cada investimento alinhado com valores e visão de futuro consciente"
+      }
+    },
+    "vision": {
+      "title_start": "A força da",
+      "title_highlight": "informação",
+      "p1": "A Solara acredita na força da informação. Por isso, criou a Vision Press, uma plataforma de análise, conteúdo e inteligência de mercado.",
+      "p2": "A Vision Press é o braço editorial e de comunicação estratégica da Solara, transformando insights de mercado em narrativas que educam, inspiram e ampliam a visão dos investidores conscientes.",
+      "btn": "Visite a Vision Press"
     }
   },
   "footer": {

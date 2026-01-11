@@ -7,14 +7,17 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { Lightbulb, Target, Users, Globe } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 // Assets
 import signatureCamila from "@/assets/signature-camila.png";
 import logoVision from "@/assets/logo-vision.png";
 import visionImg from "@/assets/vision-editorial.jpg";
-import camilaImg from "@/assets/camila.png"; // <--- Import da Foto
+import camilaImg from "@/assets/camila.png"; 
 
 const About = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen font-sans">
       <Header />
@@ -23,15 +26,15 @@ const About = () => {
       <section className="pt-32 pb-20 bg-gradient-to-b from-neutral-50 to-background">
         <div className="container mx-auto px-6 lg:px-8 text-center">
           <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground font-light mb-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
-            A Nossa História
+            {t('about.hero.label')}
           </p>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-light mb-6 leading-tight animate-in fade-in slide-in-from-bottom-5 duration-1000 delay-100">
-            O Sol, luz que guia
+            {t('about.hero.title_line1')}
             <br />
-            <span className="text-solara-vinho font-medium">os investimentos conscientes</span>
+            <span className="text-solara-vinho font-medium">{t('about.hero.title_highlight')}</span>
           </h1>
           <p className="text-lg md:text-xl font-light text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-200">
-            A Solara é uma consultoria que integra estratégia, comunicação e impacto.
+            {t('about.hero.description')}
           </p>
         </div>
       </section>
@@ -45,28 +48,18 @@ const About = () => {
             <div className="space-y-8">
               <div>
                 <h2 className="text-4xl md:text-5xl font-light mb-6 leading-tight text-neutral-900">
-                  Investir com propósito <span className="text-solara-vinho italic font-serif">significa iluminar</span>
+                  {t('about.manifesto.title_start')} <span className="text-solara-vinho italic font-serif">{t('about.manifesto.title_end')}</span>
                 </h2>
               </div>
 
               <div className="space-y-6 text-lg font-light text-muted-foreground leading-relaxed">
-                <p>
-                  A Solara é a energia vital, ela comunica com alma e nasce da convicção de que a verdadeira prosperidade é enraizada na consciência.
-                </p>
-                <p>
-                  Uma plataforma de investimentos imobiliários e financeiros, para quem busca além de retorno: significado, impacto, e crescimento iluminado por valores.
-                </p>
-                <p>
-                  Inspirados na inteligência da natureza e na energia vital do Sol, acreditamos que investir é um gesto espiritual, uma escolha, um reflexo de quem somos e do mundo que construímos.
-                </p>
-                <p>
-                  Na Solara, cultivamos e iluminamos caminhos no desenvolvimento sólido de patrimônios sustentáveis, projetos com alma, e futuros a brilhar com autenticidade. Porque quando propósito e estratégia caminham juntos, o resultado é luz em movimento.
-                </p>
-                <p>
-                  Escolher investir com intenção é estar consciente de que o verdadeiro valor está na interdependência entre pessoas, ideias e territórios. Para quem entende que brilhar é partilhar luz.
-                </p>
+                <p>{t('about.manifesto.p1')}</p>
+                <p>{t('about.manifesto.p2')}</p>
+                <p>{t('about.manifesto.p3')}</p>
+                <p>{t('about.manifesto.p4')}</p>
+                <p>{t('about.manifesto.p5')}</p>
                 <p className="text-solara-vinho font-medium italic border-l-2 border-solara-vinho pl-4 py-2 my-6">
-                  Solara. Onde o futuro é semeado com consciência e colhido com brilho.
+                  "{t('about.manifesto.highlight')}"
                 </p>
               </div>
 
@@ -77,7 +70,7 @@ const About = () => {
                   className="h-16 w-auto opacity-80 -ml-2"
                 />
                 <p className="text-sm text-muted-foreground font-light mt-2 uppercase tracking-widest">
-                  Camila Montenegro, Founder & CEO
+                  {t('about.manifesto.role')}
                 </p>
               </div>
             </div>
@@ -97,18 +90,18 @@ const About = () => {
 
               {/* 2. Card Vertentes (Logo abaixo da foto) */}
               <Card className="bg-neutral-50 border-0 p-8 shadow-sm hover:shadow-md transition-shadow">
-                <h3 className="text-2xl font-light mb-6 text-solara-vinho">Vertentes da Solara</h3>
+                <h3 className="text-2xl font-light mb-6 text-solara-vinho">{t('about.verticals.title')}</h3>
                 <div className="space-y-6">
                   <div className="border-l-4 border-solara-vinho pl-6">
-                    <h4 className="font-medium text-lg mb-2 text-neutral-900">Investimentos Conscientes</h4>
+                    <h4 className="font-medium text-lg mb-2 text-neutral-900">{t('about.verticals.item1_title')}</h4>
                     <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                      Consultoria financeira e gestão de ativos com foco em ética, sustentabilidade, autenticidade e visão de longo prazo.
+                      {t('about.verticals.item1_desc')}
                     </p>
                   </div>
                   <div className="border-l-4 border-solara-vinho pl-6">
-                    <h4 className="font-medium text-lg mb-2 text-neutral-900">Imobiliária Essencial</h4>
+                    <h4 className="font-medium text-lg mb-2 text-neutral-900">{t('about.verticals.item2_title')}</h4>
                     <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                      Curadoria boutique e desenvolvimento de projetos que valorizam o território, o bem-estar e o coletivo.
+                      {t('about.verticals.item2_desc')}
                     </p>
                   </div>
                 </div>
@@ -124,10 +117,10 @@ const About = () => {
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-light mb-6">
-              Nossa <span className="text-solara-vinho font-medium">Filosofia</span>
+              {t('about.philosophy.title_start')} <span className="text-solara-vinho font-medium">{t('about.philosophy.title_end')}</span>
             </h2>
             <p className="text-2xl md:text-3xl font-light text-muted-foreground italic max-w-3xl mx-auto font-serif">
-              "Investir é um ato de consciência."
+              "{t('about.philosophy.quote')}"
             </p>
           </div>
 
@@ -136,9 +129,9 @@ const About = () => {
               <div className="w-16 h-16 rounded-full bg-solara-vinho/10 flex items-center justify-center mx-auto mb-6">
                 <Lightbulb className="w-8 h-8 text-solara-vinho" />
               </div>
-              <h3 className="text-xl font-light mb-4">Clareza</h3>
+              <h3 className="text-xl font-light mb-4">{t('about.philosophy.cards.clarity_title')}</h3>
               <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                Transparência total em processos, dados e comunicação com nossos clientes
+                {t('about.philosophy.cards.clarity_desc')}
               </p>
             </Card>
 
@@ -146,9 +139,9 @@ const About = () => {
               <div className="w-16 h-16 rounded-full bg-solara-vinho/10 flex items-center justify-center mx-auto mb-6">
                 <Globe className="w-8 h-8 text-solara-vinho" />
               </div>
-              <h3 className="text-xl font-light mb-4">Sustentabilidade</h3>
+              <h3 className="text-xl font-light mb-4">{t('about.philosophy.cards.sustainability_title')}</h3>
               <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                Investimentos que geram valor de longo prazo e impacto positivo
+                {t('about.philosophy.cards.sustainability_desc')}
               </p>
             </Card>
 
@@ -156,9 +149,9 @@ const About = () => {
               <div className="w-16 h-16 rounded-full bg-solara-vinho/10 flex items-center justify-center mx-auto mb-6">
                 <Users className="w-8 h-8 text-solara-vinho" />
               </div>
-              <h3 className="text-xl font-light mb-4">Conexão</h3>
+              <h3 className="text-xl font-light mb-4">{t('about.philosophy.cards.connection_title')}</h3>
               <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                Parcerias autênticas baseadas em confiança e objetivos partilhados
+                {t('about.philosophy.cards.connection_desc')}
               </p>
             </Card>
 
@@ -166,9 +159,9 @@ const About = () => {
               <div className="w-16 h-16 rounded-full bg-solara-vinho/10 flex items-center justify-center mx-auto mb-6">
                 <Target className="w-8 h-8 text-solara-vinho" />
               </div>
-              <h3 className="text-xl font-light mb-4">Propósito</h3>
+              <h3 className="text-xl font-light mb-4">{t('about.philosophy.cards.purpose_title')}</h3>
               <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                Cada investimento alinhado com valores e visão de futuro consciente
+                {t('about.philosophy.cards.purpose_desc')}
               </p>
             </Card>
           </div>
@@ -201,18 +194,15 @@ const About = () => {
               </div>
 
               <h2 className="text-4xl md:text-5xl font-light leading-tight">
-                A força da <span className="font-serif italic text-emerald-600">informação</span>
+                {t('about.vision.title_start')} <span className="font-serif italic text-emerald-600">{t('about.vision.title_highlight')}</span>
               </h2>
 
               <p className="text-lg font-light text-muted-foreground leading-relaxed">
-                A Solara acredita na força da informação. Por isso, criou a Vision Press,
-                uma plataforma de análise, conteúdo e inteligência de mercado.
+                {t('about.vision.p1')}
               </p>
 
               <p className="text-lg font-light text-muted-foreground leading-relaxed">
-                A Vision Press é o braço editorial e de comunicação estratégica da Solara,
-                transformando insights de mercado em narrativas que educam, inspiram e
-                ampliam a visão dos investidores conscientes.
+                {t('about.vision.p2')}
               </p>
 
               <div className="pt-4">
@@ -222,7 +212,7 @@ const About = () => {
                     variant="outline"
                     className="rounded-full border-2 border-emerald-600 text-emerald-800 hover:bg-emerald-50 px-8 py-6 text-base"
                   >
-                    Visite a Vision Press
+                    {t('about.vision.btn')}
                   </Button>
                 </Link>
               </div>
@@ -234,7 +224,7 @@ const About = () => {
       <Footer />
       <WhatsAppButton
         phoneNumber="+351123456789"
-        message="Olá! Gostaria de saber mais sobre a Solara."
+        message={t('whatsapp_button.default_msg')}
         brand="solara"
       />
       <BackToTop />

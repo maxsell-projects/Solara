@@ -40,24 +40,51 @@
     "btn_explore": "Explore Vision Press"
   },
   "about": {
-    "label": "Philosophy",
-    "title_main": "Investing with",
-    "title_sub": "Consciousness",
-    "p1": "At Solara Project, we believe that true prosperity emerges from the alignment of financial intelligence with authentic purpose. Our approach transcends traditional investment paradigms.",
-    "p2": "Founded on principles of integrity, strategic vision, and sustainable growth, we partner with clients who seek more than returns—they pursue meaningful impact and lasting legacy.",
-    "founder_role": "Founder",
-    "pillars_title": "Our Pillars",
-    "pillars": {
-      "vision": "Strategic Vision",
-      "integrity": "Financial Integrity",
-      "growth": "Sustainable Growth",
-      "partnership": "Client Partnership"
+    "hero": {
+      "label": "Our History",
+      "title_line1": "The Sun, light that guides",
+      "title_highlight": "conscious investments",
+      "description": "Solara is a consultancy that integrates strategy, communication, and impact."
     },
-    "stats": {
-      "experience": "Years Experience",
-      "assets": "Assets Under Advisory",
-      "satisfaction": "Client Satisfaction",
-      "projects": "Successful Projects"
+    "manifesto": {
+      "title_start": "Investing with purpose",
+      "title_end": "means illuminating",
+      "p1": "Solara is vital energy; it communicates with soul and stems from the conviction that true prosperity is rooted in consciousness.",
+      "p2": "A real estate and financial investment platform for those seeking more than return: meaning, impact, and growth illuminated by values.",
+      "p3": "Inspired by nature's intelligence and the Sun's vital energy, we believe investing is a spiritual gesture, a choice, a reflection of who we are and the world we build.",
+      "p4": "At Solara, we cultivate and illuminate paths for the solid development of sustainable wealth, soulful projects, and futures shining with authenticity. Because when purpose and strategy walk together, the result is light in motion.",
+      "p5": "Choosing to invest with intention is being conscious that true value lies in the interdependence of people, ideas, and territories. For those who understand that to shine is to share light.",
+      "highlight": "Solara. Where the future is sown with consciousness and harvested with brilliance.",
+      "role": "Camila Montenegro, Founder & CEO"
+    },
+    "verticals": {
+      "title": "Solara Verticals",
+      "item1_title": "Conscious Investments",
+      "item1_desc": "Financial consultancy and asset management focused on ethics, sustainability, authenticity, and long-term vision.",
+      "item2_title": "Essential Real Estate",
+      "item2_desc": "Boutique curation and project development that value territory, well-being, and the collective."
+    },
+    "philosophy": {
+      "title_start": "Our",
+      "title_end": "Philosophy",
+      "quote": "Investing is an act of consciousness.",
+      "cards": {
+        "clarity_title": "Clarity",
+        "clarity_desc": "Total transparency in processes, data, and communication with our clients",
+        "sustainability_title": "Sustainability",
+        "sustainability_desc": "Investments that generate long-term value and positive impact",
+        "connection_title": "Connection",
+        "connection_desc": "Authentic partnerships based on trust and shared goals",
+        "purpose_title": "Purpose",
+        "purpose_desc": "Each investment aligned with values and a conscious future vision"
+      }
+    },
+    "vision": {
+      "title_start": "The power of",
+      "title_highlight": "information",
+      "p1": "Solara believes in the power of information. That is why we created Vision Press, a platform for analysis, content, and market intelligence.",
+      "p2": "Vision Press is Solara's editorial and strategic communication arm, transforming market insights into narratives that educate, inspire, and broaden the vision of conscious investors.",
+      "btn": "Visit Vision Press"
     }
   },
   "footer": {
@@ -464,7 +491,7 @@
     "notice_content": {
       "title": "Legal Notice",
       "sections": [
-        { "title": "1. Identification", "content": "Solar Project, Lda (NIF 508418534)." },
+        { "title": "1. Identification", "content": "Solar Project, Lda (NIF 508418534). Sede: Arcozelo, VN Gaia. Email: info@solarproject.pt." },
         { "title": "2. Content", "content": "General, non-binding information." },
         { "title": "3. Applicable Law", "content": "Governed by Portuguese law. Jurisdiction: Vila Nova de Gaia." }
       ]
