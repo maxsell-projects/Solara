@@ -2,10 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import logoSolara from "@/assets/logo-solara-full.png";
-import { useTranslation } from "react-i18next"; // <--- 1. Importar i18n
+import { useTranslation } from "react-i18next";
+import { HeroBackground } from "@/components/HeroBackground"; // <--- Import do Background Animado
 
 const Hero = () => {
-  const { t } = useTranslation(); // <--- 2. Inicializar hook
+  const { t } = useTranslation();
   
   const [mousePosition, setMousePosition] = useState({
     x: 0,
@@ -37,15 +38,9 @@ const Hero = () => {
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white perspective-1000"
     >
-      {/* --- FUNDO LIMPO (Branco com grão sutil) --- */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 opacity-[0.03] z-10 mix-blend-multiply"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-          }}
-        />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neutral-50 via-white to-white opacity-80"></div>
-      </div>
+      {/* --- FUNDO ANIMADO (HeroBackground) --- */}
+      {/* Substitui os divs estáticos anteriores. Configurado para SOLARA. */}
+      <HeroBackground brand="solara" />
 
       <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-20">
         <div className="max-w-5xl mx-auto space-y-12">
@@ -81,8 +76,6 @@ const Hero = () => {
                 />
               </div>
             </div>
-            
-            {/* REMOVIDO: Logo Vision pequena (estava aqui) */}
           </div>
 
           <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-semibold animate-fade-in">

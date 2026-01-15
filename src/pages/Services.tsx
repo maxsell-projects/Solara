@@ -5,14 +5,16 @@ import BackToTop from "@/components/BackToTop";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Building2, TrendingUp, Users, Briefcase, ChartLine, Shield } from "lucide-react";
+// Adicionei ArrowRight aos imports
+import { Building2, TrendingUp, Users, Briefcase, ChartLine, Shield, ArrowRight } from "lucide-react";
 import realEstateImg from "@/assets/service-real-estate.jpg";
 import financialImg from "@/assets/service-financial.jpg";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next"; // <--- Import i18n
+import { useTranslation } from "react-i18next";
+import { LeadModal } from "@/components/LeadModal"; // <--- Import do Modal
 
 const Services = () => {
-  const { t } = useTranslation(); // <--- Hook
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen">
@@ -85,6 +87,15 @@ const Services = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Botão Modal Adicionado */}
+              <div className="pt-6">
+                <LeadModal brand="solara" defaultService="Consultoria e Oportunidades" title={t('services_hub.real_estate.title')}>
+                    <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white px-8 h-12">
+                        Saiba Mais <ArrowRight className="ml-2 w-4 h-4"/>
+                    </Button>
+                </LeadModal>
+              </div>
             </div>
           </div>
 
@@ -126,6 +137,15 @@ const Services = () => {
                     </p>
                   </div>
                 </div>
+              </div>
+
+              {/* Botão Modal Adicionado */}
+              <div className="pt-6">
+                <LeadModal brand="solara" defaultService="Planeamento e Gestão de Carteira" title={t('services_hub.financial.title')}>
+                    <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white px-8 h-12">
+                        Saiba Mais <ArrowRight className="ml-2 w-4 h-4"/>
+                    </Button>
+                </LeadModal>
               </div>
             </div>
             <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
@@ -190,11 +210,12 @@ const Services = () => {
           </div>
 
           <div className="text-center">
-            <Link to="/contact">
-              <Button size="lg" className="text-base">
+            {/* Link substituído por Modal */}
+            <LeadModal brand="solara" title={t('services_hub.differentials.btn_study')}>
+              <Button size="lg" className="text-base px-8 h-12">
                 {t('services_hub.differentials.btn_study')}
               </Button>
-            </Link>
+            </LeadModal>
           </div>
         </div>
       </section>
@@ -208,11 +229,12 @@ const Services = () => {
           <p className="text-lg font-light text-muted-foreground mb-8 max-w-2xl mx-auto">
             {t('services_hub.cta.description')}
           </p>
-          <Link to="/contact">
-            <Button size="lg" className="text-base">
+          {/* Link substituído por Modal */}
+          <LeadModal brand="solara" title={t('services_hub.cta.title')}>
+            <Button size="lg" className="text-base px-10 h-14">
               {t('services_hub.cta.btn')}
             </Button>
-          </Link>
+          </LeadModal>
         </div>
       </section>
 
