@@ -185,15 +185,16 @@ const VisionArticleDetail = () => {
               
             </article>
 
-            {/* --- CARIMBO EDITORIAL (AUTOMÁTICO) --- */}
-            {/* Este bloco garante que o carimbo aparece no fim de TODO artigo */}
-            <div className="mt-16 pt-12 border-t border-vision-green/20 flex flex-col items-end animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards" style={{ animationDelay: '0.2s' }}>
-              <div className="text-right">
-                <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 mb-4 font-semibold">
+            {/* --- SEÇÃO UNIFICADA DE ENCERRAMENTO (CARIMBO + ASSINATURA) --- */}
+            {/* Bloco centralizado combinando validação editorial e bio do autor */}
+            <div className="mt-20 pt-16 border-t border-vision-green/20 flex flex-col items-center text-center animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards" style={{ animationDelay: '0.2s' }}>
+              
+              {/* 1. Carimbo Vision Press */}
+              <div className="mb-6">
+                <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 mb-3 font-semibold">
                   {t('article_detail.stamp_label')}
                 </p>
-                <div className="relative inline-block group cursor-pointer">
-                  {/* Carimbo Vision Press */}
+                <div className="relative inline-block group cursor-pointer hover:scale-105 transition-transform duration-500">
                   <img 
                     src={visionStamp} 
                     alt="Vision Press Stamp" 
@@ -204,23 +205,26 @@ const VisionArticleDetail = () => {
                   {t('article_detail.stamp_verified')}
                 </p>
               </div>
-            </div>
 
-            {/* --- BIO DO AUTOR --- */}
-            <div className="mt-12 pt-12 border-t border-vision-green/20">
-              <div className="flex flex-col gap-6">
+              {/* 2. Assinatura Proporcional */}
+              <div className="mb-8">
                 <img 
                   src={signatureCamila} 
                   alt="Assinatura Camila Montenegro" 
-                  className="h-24 w-auto object-contain self-start opacity-80"
+                  className="h-20 md:h-24 w-auto object-contain opacity-80 mx-auto" 
                 />
-                <div>
-                  <h4 className="font-serif text-xl mb-2 text-foreground">{t('article_detail.author_bio_title')}</h4>
-                  <p className="text-muted-foreground font-light text-sm max-w-md">
-                    {t('article_detail.author_bio_desc')}
-                  </p>
-                </div>
               </div>
+
+              {/* 3. Bio do Autor */}
+              <div className="max-w-md mx-auto">
+                <h4 className="font-serif text-xl mb-3 text-foreground tracking-wide">
+                  {t('article_detail.author_bio_title')}
+                </h4>
+                <p className="text-muted-foreground font-light text-sm leading-relaxed">
+                  {t('article_detail.author_bio_desc')}
+                </p>
+              </div>
+
             </div>
           </div>
            

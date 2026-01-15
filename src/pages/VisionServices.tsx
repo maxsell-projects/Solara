@@ -4,14 +4,10 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Sparkles, Users, Hammer, ArrowRight } from "lucide-react"; // Ícones novos
-import { Link } from "react-router-dom";
+import { Sparkles, Users, Hammer, ArrowRight } from "lucide-react"; 
+// Importação do Modal
+import { LeadModal } from "@/components/LeadModal"; 
 import { useTranslation } from "react-i18next";
-
-// Imagens (Mantenha as importações existentes ou ajuste conforme necessário)
-import creativeImg from "@/assets/vision-editorial.jpg";
-import talentImg from "@/assets/service-consulting-premium.jpg"; // Placeholder
-import builderImg from "@/assets/service-consulting.jpg"; // Placeholder
 
 const VisionServices = () => {
   const { t } = useTranslation();
@@ -60,7 +56,7 @@ const VisionServices = () => {
 
       <div className="container mx-auto px-6"><Separator className="bg-neutral-100" /></div>
 
-      {/* --- VERTENTES DA PRESS (CARDS) --- */}
+      {/* --- VERTENTES DA PRESS (CARDS COM MODAL) --- */}
       <section className="py-24 bg-neutral-50/50">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -83,11 +79,16 @@ const VisionServices = () => {
                 {t('vision_services.vertentes.creative.description')}
               </p>
               <div className="mt-8 pt-6 border-t border-neutral-100">
-                 <Link to="/contact">
-                  <Button variant="ghost" className="text-emerald-700 p-0 hover:text-emerald-900 hover:bg-transparent">
-                    {t('vision_services.vertentes.btn_saiba_mais')} <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </Link>
+                 {/* MODAL WRAPPER */}
+                 <LeadModal 
+                    brand="vision" 
+                    defaultService="Comunicação Criativa" 
+                    title={t('vision_services.vertentes.creative.title')}
+                 >
+                    <Button variant="ghost" className="text-emerald-700 p-0 hover:text-emerald-900 hover:bg-transparent">
+                        {t('vision_services.vertentes.btn_saiba_mais')} <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                 </LeadModal>
               </div>
             </div>
 
@@ -103,11 +104,16 @@ const VisionServices = () => {
                 {t('vision_services.vertentes.talent.description')}
               </p>
               <div className="mt-8 pt-6 border-t border-neutral-100">
-                 <Link to="/contact">
-                  <Button variant="ghost" className="text-emerald-700 p-0 hover:text-emerald-900 hover:bg-transparent">
-                    {t('vision_services.vertentes.btn_saiba_mais')} <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </Link>
+                 {/* MODAL WRAPPER */}
+                 <LeadModal 
+                    brand="vision" 
+                    defaultService="Agência de Talentos"
+                    title={t('vision_services.vertentes.talent.title')}
+                 >
+                    <Button variant="ghost" className="text-emerald-700 p-0 hover:text-emerald-900 hover:bg-transparent">
+                        {t('vision_services.vertentes.btn_saiba_mais')} <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                 </LeadModal>
               </div>
             </div>
 
@@ -123,11 +129,16 @@ const VisionServices = () => {
                 {t('vision_services.vertentes.builder.description')}
               </p>
               <div className="mt-8 pt-6 border-t border-neutral-100">
-                 <Link to="/contact">
-                  <Button variant="ghost" className="text-emerald-700 p-0 hover:text-emerald-900 hover:bg-transparent">
-                    {t('vision_services.vertentes.btn_saiba_mais')} <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
-                </Link>
+                 {/* MODAL WRAPPER */}
+                 <LeadModal 
+                    brand="vision" 
+                    defaultService="Construtor de Campo"
+                    title={t('vision_services.vertentes.builder.title')}
+                 >
+                    <Button variant="ghost" className="text-emerald-700 p-0 hover:text-emerald-900 hover:bg-transparent">
+                        {t('vision_services.vertentes.btn_saiba_mais')} <ArrowRight className="ml-2 w-4 h-4" />
+                    </Button>
+                 </LeadModal>
               </div>
             </div>
 
@@ -135,7 +146,7 @@ const VisionServices = () => {
         </div>
       </section>
 
-      {/* --- CTA --- */}
+      {/* --- CTA (COM MODAL) --- */}
       <section className="py-24 bg-emerald-900 text-white text-center relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
           <div className="absolute right-0 top-0 w-96 h-96 bg-white rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
@@ -147,11 +158,14 @@ const VisionServices = () => {
           <p className="text-emerald-100/80 mb-10 max-w-2xl mx-auto font-light text-lg">
             {t('vision_services.cta.description')}
           </p>
-          <Link to="/contact">
+          
+          {/* BOTÃO DO MODAL GERAL */}
+          <LeadModal brand="vision" title={t('vision_services.cta.title')}>
             <Button className="rounded-full bg-white text-emerald-900 hover:bg-emerald-50 px-10 py-6 text-lg font-medium shadow-lg hover:shadow-xl transition-all">
-              {t('vision_services.cta.btn')}
+                {t('vision_services.cta.btn')}
             </Button>
-          </Link>
+          </LeadModal>
+
         </div>
       </section>
 
@@ -162,4 +176,4 @@ const VisionServices = () => {
   );
 };
 
-export default VisionServices;
+export default VisionServices;  

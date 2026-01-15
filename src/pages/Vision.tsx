@@ -5,13 +5,13 @@ import BackToTop from "@/components/BackToTop";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, User, Loader2 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
-import { useTranslation } from "react-i18next"; // <--- Import i18n
+import { useTranslation } from "react-i18next"; 
+import { LeadForm } from "@/components/LeadForm"; 
 
 // --- IMPORTAÇÃO DE ASSETS ---
 import logoVision from "@/assets/logo-vision.png";
@@ -30,27 +30,21 @@ interface Post {
   author?: string;
 }
 
-// Configuração dinâmica da API baseada no ambiente
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-// REMOVIDO: const BASE_URL = API_URL.replace('/api', '');
 
 const Vision = () => {
-  const { t } = useTranslation(); // <--- Hook
+  const { t } = useTranslation();
   const [recentPosts, setRecentPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // --- ESTADOS PARA O EFEITO HERO 3D (Clean & Premium) ---
-  const [mousePosition, setMousePosition] = useState({
-    x: 0,
-    y: 0,
-  });
+  // --- ESTADOS PARA O EFEITO HERO 3D ---
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHoveringLogo, setIsHoveringLogo] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       const { innerWidth, innerHeight } = window;
-      // Coordenadas normalizadas (-1 a 1)
       const x = (event.clientX - innerWidth / 2) / (innerWidth / 2);
       const y = (event.clientY - innerHeight / 2) / (innerHeight / 2);
 
@@ -63,7 +57,6 @@ const Vision = () => {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  // Tilt suave da logo
   const logoTiltX = isHoveringLogo ? 0 : mousePosition.y * -15;
   const logoTiltY = isHoveringLogo ? 0 : mousePosition.x * 15;
 
@@ -89,7 +82,6 @@ const Vision = () => {
   const getImageUrl = (imagePath: string) => {
     if (!imagePath) return logoVision;
     if (imagePath.startsWith('http')) return imagePath;
-    // CORREÇÃO AQUI: Usando API_URL direto, sem cortar o /api
     return `${API_URL}${imagePath}`;
   };
 
@@ -97,20 +89,17 @@ const Vision = () => {
     <div className="min-h-screen font-sans selection:bg-emerald-100 selection:text-emerald-900 bg-white text-neutral-900">
       <Header />
 
-      {/* --- HERO SECTION CLEAN (Fundo Branco + Efeitos Físicos) --- */}
+      {/* --- HERO SECTION CLEAN --- */}
       <section
         ref={containerRef}
         className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white perspective-1000 pt-20"
       >
-        {/* CAMADA DE FUNDO LIMPA */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          {/* Textura de Grão Sutil */}
           <div className="absolute inset-0 opacity-[0.03] z-10 mix-blend-multiply"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
             }}
           />
-          {/* Gradiente Radial Suave */}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neutral-50 via-white to-white opacity-80"></div>
         </div>
 
@@ -119,8 +108,6 @@ const Vision = () => {
 
             {/* ÁREA DAS LOGOS */}
             <div className="flex flex-col items-center gap-8 mb-8">
-
-              {/* LOGO VISION EM DESTAQUE (HERO) */}
               <div className="block perspective-container relative group">
                 <div
                   className="flex items-center justify-center transition-all duration-500 ease-out will-change-transform relative"
@@ -130,7 +117,6 @@ const Vision = () => {
                     transform: `perspective(1000px) rotateX(${logoTiltX}deg) rotateY(${logoTiltY}deg) scale3d(${isHoveringLogo ? 1.02 : 1}, ${isHoveringLogo ? 1.02 : 1}, 1)`,
                   }}
                 >
-                  {/* GLOW VERDE NO HOVER */}
                   <div
                     className={`absolute inset-0 bg-emerald-500 rounded-full blur-[80px] transition-all duration-500 ${isHoveringLogo ? 'opacity-25 scale-125' : 'opacity-0 scale-50'}`}
                     style={{ zIndex: -1 }}
@@ -141,7 +127,6 @@ const Vision = () => {
                     alt="Vision Press"
                     className="h-40 md:h-56 w-auto object-contain transition-all duration-300 relative z-10"
                     style={{
-                      // Sombra Verde Esmeralda
                       filter: isHoveringLogo
                         ? `drop-shadow(0 0 30px rgba(16, 185, 129, 0.4))`
                         : `drop-shadow(${mousePosition.x * -10}px ${mousePosition.y * 10}px 15px rgba(0,0,0,0.05))`
@@ -150,7 +135,6 @@ const Vision = () => {
                 </div>
               </div>
 
-              {/* LOGO SOLARA (PARCEIRA) */}
               <div className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity duration-300">
                 <div className="h-px w-8 bg-neutral-300"></div>
                 <img
@@ -180,16 +164,8 @@ const Vision = () => {
               {t('vision_page.hero.description')}
             </p>
 
-            {/* BOTÕES ARREDONDADOS (Pill Shape) */}
             <div className="flex flex-col sm:flex-row gap-5 justify-center pt-8">
-              <Link to="/vision/articles">
-                <Button
-                  size="lg"
-                  className="rounded-full text-base bg-emerald-800 hover:bg-emerald-900 text-white border-none shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold"
-                >
-                  {t('vision_page.hero.btn_articles')}
-                </Button>
-              </Link>
+              {/* ORDEM TROCADA: SERVIÇOS PRIMEIRO */}
               <Link to="/vision/services">
                 <Button
                   size="lg"
@@ -197,6 +173,15 @@ const Vision = () => {
                   className="rounded-full text-base border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold"
                 >
                   {t('vision_page.hero.btn_services')}
+                </Button>
+              </Link>
+
+              <Link to="/vision/articles">
+                <Button
+                  size="lg"
+                  className="rounded-full text-base bg-emerald-800 hover:bg-emerald-900 text-white border-none shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold"
+                >
+                  {t('vision_page.hero.btn_articles')}
                 </Button>
               </Link>
             </div>
@@ -343,45 +328,29 @@ const Vision = () => {
         </div>
       </section>
 
-      {/* --- NEWSLETTER --- */}
+      {/* --- CTA / FORMULÁRIO DE CONTATO EMBUTIDO (Sem Modal) --- */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6 lg:px-8">
-          <Card className="border-0 shadow-2xl overflow-hidden bg-neutral-900 text-white rounded-3xl">
-            <CardContent className="p-12 md:p-20 text-center relative overflow-hidden">
-              {/* Decoração de fundo */}
-              <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500 rounded-full blur-[100px] opacity-20 -translate-y-1/2 translate-x-1/2"></div>
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-700 rounded-full blur-[100px] opacity-20 translate-y-1/2 -translate-x-1/2"></div>
+          <div className="max-w-2xl mx-auto">
+            {/* Cabeçalho do Formulário */}
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-light mb-6 text-neutral-900">
+                {t('vision_page.newsletter.title')} <span className="text-emerald-700 font-normal">{t('vision_page.newsletter.title_highlight')}</span>
+              </h2>
+              <p className="text-lg font-light text-neutral-500">
+                {t('vision_page.newsletter.description')}
+              </p>
+            </div>
 
-              <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-light mb-6">
-                  {t('vision_page.newsletter.title')} <span className="text-emerald-400 font-normal">{t('vision_page.newsletter.title_highlight')}</span>
-                </h2>
-                <p className="text-lg font-light text-neutral-400 mb-10 max-w-2xl mx-auto">
-                  {t('vision_page.newsletter.description')}
-                </p>
+            {/* Componente de Formulário Integrado */}
+            <div className="bg-neutral-50 rounded-3xl p-8 md:p-12 shadow-xl border border-neutral-100">
+                <LeadForm brand="vision" />
+            </div>
 
-                <form className="max-w-md mx-auto flex gap-4">
-                  <Input
-                    type="email"
-                    placeholder={t('vision_page.newsletter.placeholder')}
-                    className="h-14 flex-1 bg-white/10 border-white/10 text-white placeholder:text-white/40 focus-visible:ring-emerald-500 rounded-full px-6"
-                    required
-                  />
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="h-14 bg-emerald-600 hover:bg-emerald-500 text-white rounded-full px-8 transition-all duration-300"
-                  >
-                    {t('vision_page.newsletter.btn_subscribe')}
-                  </Button>
-                </form>
-
-                <p className="text-xs text-neutral-500 font-light mt-6">
-                  {t('vision_page.newsletter.disclaimer')}
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+            <p className="text-xs text-neutral-400 font-light mt-8 text-center">
+              {t('vision_page.newsletter.disclaimer')}
+            </p>
+          </div>
         </div>
       </section>
 
