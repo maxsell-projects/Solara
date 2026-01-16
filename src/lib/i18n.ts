@@ -2,26 +2,42 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-// Importa os teus ficheiros JSON que criaste antes
 import enTranslations from '../locales/en.json';
 import ptTranslations from '../locales/pt.json';
 
+
+
 i18n
-  .use(LanguageDetector) // Deteta o idioma do browser (se quiseres)
-  .use(initReactI18next) // Passa a instância para o react-i18next
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
+    debug: true, // Ativado para ajudar a ver erros no Console (F12)
+    
     resources: {
-      en: {
-        translation: enTranslations,
+      en: { 
+        translation: enTranslations 
       },
-      pt: {
-        translation: ptTranslations,
+      pt: { 
+        translation: ptTranslations 
       },
     },
-    fallbackLng: 'en', // Se falhar, vai para Inglês
-    lng: 'en', // Força o inicio em Inglês (podes tirar isto se quiseres detetar auto)
+    
+    fallbackLng: 'en', // Se der tudo errado, usa inglês
+    supportedLngs: ['en', 'pt'], // Lista oficial de idiomas
+    
+    // --- O PULO DO GATO ---
+    // Isso garante que se o navegador for 'pt-BR' ou 'pt-PT', ele use 'pt'
+    load: 'languageOnly', 
+    
+    detection: {
+      // 1. Procura no localStorage (se o usuário já escolheu antes)
+      // 2. Se não achar, vê o idioma do navegador
+      order: ['localStorage', 'navigator'],
+      caches: ['localStorage'], // Salva a escolha para a próxima vez
+    },
+
     interpolation: {
-      escapeValue: false, // React já protege contra XSS
+      escapeValue: false,
     },
   });
 
