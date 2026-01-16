@@ -8,6 +8,28 @@
     "solara_btn": "Back to Solara",
     "book_meeting": "Book a Meeting"
   },
+  "form": {
+    "name_label": "Full Name",
+    "name_placeholder": "Your name",
+    "email_label": "Email",
+    "email_placeholder": "you@email.com",
+    "phone_label": "Phone",
+    "phone_placeholder": "+351...",
+    "service_label": "Interest",
+    "service_placeholder": "Select a service",
+    "message_label": "Message (Optional)",
+    "message_placeholder": "Tell us a little about your goal...",
+    "submit_btn": "Request Contact",
+    "submitting_btn": "Sending...",
+    "success_msg": "Request received successfully!",
+    "error_msg": "Error sending. Please try again.",
+    "validation_name": "Name is required",
+    "validation_email": "Invalid email",
+    "validation_phone": "Invalid phone number",
+    "validation_service": "Select a service",
+    "modal_default_title": "Start Conversation",
+    "modal_default_description": "Fill out the form below and we will get in touch shortly."
+  },
   "hero": {
     "estd": "ESTD 2025",
     "title_main": "Strategic Investment",
@@ -40,6 +62,25 @@
     "btn_explore": "Explore Vision Press"
   },
   "about": {
+    "label": "About Us",
+    "title_main": "Who",
+    "title_sub": "We Are",
+    "founder_role": "Founder & CEO",
+    "p1": "We are a consultancy dedicated to transforming visions into reality through solid and innovative strategies, always guided by ethics and transparency.",
+    "p2": "Our approach integrates deep market knowledge with a human and personalized vision, ensuring that each project reaches its maximum potential.",
+    "stats": {
+      "experience": "Years of Experience",
+      "assets": "Assets Under Management",
+      "satisfaction": "Client Satisfaction",
+      "projects": "Projects Completed"
+    },
+    "pillars_title": "Our Pillars",
+    "pillars": {
+      "vision": "Strategic Vision",
+      "integrity": "Integrity",
+      "growth": "Sustainable Growth",
+      "partnership": "Long-term Partnership"
+    },
     "hero": {
       "label": "Our History",
       "title_line1": "The Sun, light that guides",

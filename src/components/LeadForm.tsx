@@ -25,15 +25,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { SERVICE_OPTIONS, BrandType } from "@/lib/constants";
 import { useState } from "react";
-
-// Schema de Validação
-const formSchema = z.object({
-  name: z.string().min(2, "Nome é obrigatório"),
-  email: z.string().email("E-mail inválido"),
-  phone: z.string().min(9, "Telefone inválido"),
-  service: z.string({ required_error: "Selecione um serviço" }),
-  message: z.string().optional(),
-});
+import { useTranslation } from "react-i18next"; // <--- Import do i18n
 
 interface LeadFormProps {
   brand: BrandType;
@@ -42,9 +34,18 @@ interface LeadFormProps {
 }
 
 export function LeadForm({ brand, defaultService, onSuccess }: LeadFormProps) {
+  const { t } = useTranslation(); // <--- Hook
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Definição de Cores Dinâmicas baseadas na Brand
+  // Schema de Validação (usando t dentro do componente para pegar a tradução atual)
+  const formSchema = z.object({
+    name: z.string().min(2, t('form.validation_name')),
+    email: z.string().email(t('form.validation_email')),
+    phone: z.string().min(9, t('form.validation_phone')),
+    service: z.string({ required_error: t('form.validation_service') }),
+    message: z.string().optional(),
+  });
+
   const styles = {
     solara: {
       btn: "bg-solara-vinho hover:bg-solara-vinho/90 text-white",
@@ -75,16 +76,16 @@ export function LeadForm({ brand, defaultService, onSuccess }: LeadFormProps) {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     
-    // Simulação de envio para API
     try {
+      // Simulação
       console.log("Enviando Lead:", { ...values, brand });
       await new Promise((resolve) => setTimeout(resolve, 1500));
       
-      toast.success("Solicitação recebida com sucesso!");
+      toast.success(t('form.success_msg'));
       form.reset();
       if (onSuccess) onSuccess();
     } catch (error) {
-      toast.error("Erro ao enviar. Tente novamente.");
+      toast.error(t('form.error_msg'));
     } finally {
       setIsSubmitting(false);
     }
@@ -99,9 +100,9 @@ export function LeadForm({ brand, defaultService, onSuccess }: LeadFormProps) {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nome Completo</FormLabel>
+              <FormLabel>{t('form.name_label')}</FormLabel>
               <FormControl>
-                <Input placeholder="Seu nome" {...field} className={currentStyle.ring} />
+                <Input placeholder={t('form.name_placeholder')} {...field} className={currentStyle.ring} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -114,9 +115,9 @@ export function LeadForm({ brand, defaultService, onSuccess }: LeadFormProps) {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>E-mail</FormLabel>
+                <FormLabel>{t('form.email_label')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="seu@email.com" {...field} className={currentStyle.ring} />
+                  <Input placeholder={t('form.email_placeholder')} {...field} className={currentStyle.ring} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -127,9 +128,9 @@ export function LeadForm({ brand, defaultService, onSuccess }: LeadFormProps) {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Telefone</FormLabel>
+                <FormLabel>{t('form.phone_label')}</FormLabel>
                 <FormControl>
-                  <Input placeholder="+351..." {...field} className={currentStyle.ring} />
+                  <Input placeholder={t('form.phone_placeholder')} {...field} className={currentStyle.ring} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -142,11 +143,11 @@ export function LeadForm({ brand, defaultService, onSuccess }: LeadFormProps) {
           name="service"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Interesse</FormLabel>
+              <FormLabel>{t('form.service_label')}</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger className={currentStyle.ring}>
-                    <SelectValue placeholder="Selecione o serviço" />
+                    <SelectValue placeholder={t('form.service_placeholder')} />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
@@ -174,10 +175,10 @@ export function LeadForm({ brand, defaultService, onSuccess }: LeadFormProps) {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Mensagem (Opcional)</FormLabel>
+              <FormLabel>{t('form.message_label')}</FormLabel>
               <FormControl>
                 <Textarea 
-                  placeholder="Conte-nos um pouco sobre o seu objetivo..." 
+                  placeholder={t('form.message_placeholder')} 
                   className={`resize-none min-h-[100px] ${currentStyle.ring}`} 
                   {...field} 
                 />
@@ -190,10 +191,10 @@ export function LeadForm({ brand, defaultService, onSuccess }: LeadFormProps) {
         <Button type="submit" className={`w-full ${currentStyle.btn}`} disabled={isSubmitting}>
           {isSubmitting ? (
             <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando...
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" /> {t('form.submitting_btn')}
             </>
           ) : (
-            "Solicitar Contacto"
+            t('form.submit_btn')
           )}
         </Button>
       </form>
