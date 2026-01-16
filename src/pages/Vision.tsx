@@ -12,11 +12,11 @@ import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next"; 
 import { LeadForm } from "@/components/LeadForm"; 
-import { HeroBackground } from "@/components/HeroBackground"; // <--- Import do Background Animado
+import { HeroBackground } from "@/components/HeroBackground"; 
 
 // --- IMPORTAÇÃO DE ASSETS ---
 import logoVision from "@/assets/logo-vision.png";
-import logoSolara from "@/assets/logo-solara-full.png";
+// REMOVIDO: import logoSolara from "@/assets/logo-solara-full.png"; (Não vamos mais usar aqui)
 import camilaImg from "@/assets/camila.png";
 import signatureCamila from "@/assets/signature-camila.png";
 
@@ -71,7 +71,7 @@ const Vision = () => {
         }
       } catch (error) {
         console.error(error);
-        toast.error("Erro ao carregar destaques.");
+        // Opcional: toast.error("Erro ao carregar destaques.");
       } finally {
         setIsLoading(false);
       }
@@ -95,14 +95,12 @@ const Vision = () => {
         ref={containerRef}
         className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white perspective-1000 pt-20"
       >
-        {/* --- FUNDO ANIMADO (HeroBackground) --- */}
-        {/* Substitui os divs estáticos anteriores pela animação configurada */}
         <HeroBackground brand="vision" />
 
         <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-10">
           <div className="max-w-5xl mx-auto space-y-12">
 
-            {/* ÁREA DAS LOGOS */}
+            {/* ÁREA DA LOGO (Sem o "Em parceria com") */}
             <div className="flex flex-col items-center gap-8 mb-8">
               <div className="block perspective-container relative group">
                 <div
@@ -130,16 +128,8 @@ const Vision = () => {
                   />
                 </div>
               </div>
-
-              <div className="flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity duration-300">
-                <div className="h-px w-8 bg-neutral-300"></div>
-                <img
-                  src={logoSolara}
-                  alt="Solara Project"
-                  className="h-8 md:h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all"
-                />
-                <div className="h-px w-8 bg-neutral-300"></div>
-              </div>
+              
+              {/* REMOVIDO: Bloco "em parceria com Solara" */}
             </div>
 
             {/* Título Magnético */}
