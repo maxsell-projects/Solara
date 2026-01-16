@@ -14,7 +14,6 @@ import { useTranslation } from "react-i18next";
 import visionImg from "@/assets/vision-editorial.jpg";
 import logoVision from "@/assets/logo-vision.png";
 import signatureCamila from "@/assets/signature-camila.png";
-// Importação do Carimbo (Certifica-te que o ficheiro está na pasta assets com este nome exato)
 import visionStamp from "@/assets/VisionPress-56.png"; 
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -206,12 +205,16 @@ const VisionArticleDetail = () => {
                 </p>
               </div>
 
-              {/* 2. Assinatura Proporcional */}
+              {/* 2. Assinatura Proporcional - AGORA VERDE E GIGANTE */}
               <div className="mb-8">
                 <img 
                   src={signatureCamila} 
                   alt="Assinatura Camila Montenegro" 
-                  className="h-20 md:h-24 w-auto object-contain opacity-80 mx-auto" 
+                  className="h-32 md:h-40 w-auto object-contain mx-auto" 
+                  style={{ 
+                    // Filtro CSS para "pintar" o PNG preto de verde
+                    filter: 'invert(38%) sepia(55%) saturate(709%) hue-rotate(106deg) brightness(93%) contrast(89%)' 
+                  }}
                 />
               </div>
 
