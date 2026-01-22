@@ -34,11 +34,11 @@ const Hero = () => {
   const logoTiltY = isHoveringLogo ? 0 : mousePosition.x * 15;
 
   // --- CONFIGURAÇÃO DAS SOMBRAS ---
-  // 1. Glow Branco (Para o Título Escuro)
-  const strongWhiteGlow = "0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.6)";
-  
-  // 2. Sombra Preta (Para os Textos Brancos)
-  const blackShadow = "0 4px 8px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.9)"; 
+  // Super White Glow: Camadas múltiplas para intensidade máxima e recorte perfeito
+  // 1. Camada fina e sólida (10px) para nitidez
+  // 2. Camada média (30px) para preenchimento
+  // 3. Camada larga (60px) para atmosfera
+  const intenseWhiteGlow = "0 0 10px rgba(255,255,255,0.9), 0 0 30px rgba(255,255,255,0.9), 0 0 60px rgba(255,255,255,0.7)";
 
   return (
     <section
@@ -52,8 +52,7 @@ const Hero = () => {
         className="absolute inset-0 w-full h-full object-cover"
       />
       
-      {/* --- OVERLAY: Camada escura de 10% --- */}
-      <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+      {/* Removi o overlay escuro para não apagar o contraste do preto */}
 
       <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-20">
         <div className="max-w-5xl mx-auto space-y-12">
@@ -83,29 +82,30 @@ const Hero = () => {
                   style={{
                     filter: isHoveringLogo
                       ? `drop-shadow(0 0 30px rgba(92, 6, 30, 0.4))`
-                      : `drop-shadow(0 0 20px rgba(255,255,255,0.5))`
+                      // Glow Branco no Logo para combinar com o texto
+                      : `drop-shadow(0 0 25px rgba(255,255,255,0.8))`
                   }}
                 />
               </div>
             </div>
           </div>
 
-          {/* ESTD - Reduzi de font-bold para font-semibold */}
+          {/* ESTD - Alterado para text-black puro */}
           <p 
-            className="text-xs uppercase tracking-[0.2em] text-white font-semibold animate-fade-in"
-            style={{ textShadow: blackShadow }}
+            className="text-xs uppercase tracking-[0.2em] text-black font-semibold animate-fade-in"
+            style={{ textShadow: intenseWhiteGlow }}
           >
             {t('hero.estd')}
           </p>
 
-          {/* TÍTULO - Escuro com Glow Branco */}
+          {/* TÍTULO - Alterado para text-black puro */}
           <div style={{
             transform: `translate(${mousePosition.x * 5}px, ${mousePosition.y * 5}px)`,
             transition: 'transform 0.2s ease-out'
           }}>
             <h1 
-              className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-neutral-900 tracking-tight"
-              style={{ textShadow: strongWhiteGlow }}
+              className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-black tracking-tight"
+              style={{ textShadow: intenseWhiteGlow }}
             >
               {t('hero.title_main')}
               <br />
@@ -115,10 +115,10 @@ const Hero = () => {
             </h1>
           </div>
 
-          {/* Descrição - Reduzi de font-medium para font-light */}
+          {/* Descrição - Alterado para text-black puro */}
           <p 
-            className="text-lg md:text-xl font-light text-white max-w-2xl mx-auto leading-relaxed"
-            style={{ textShadow: blackShadow }}
+            className="text-lg md:text-xl font-light text-black max-w-2xl mx-auto leading-relaxed"
+            style={{ textShadow: intenseWhiteGlow }}
           >
             {t('hero.description')}
           </p>
@@ -126,13 +126,13 @@ const Hero = () => {
           {/* BOTÕES */}
           <div className="flex flex-col sm:flex-row gap-5 justify-center pt-8">
             <Link to="/services">
-              <Button size="lg" className="rounded-full text-base bg-solara-vinho hover:bg-[#4a1223] text-white border-none shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold">
+              <Button size="lg" className="rounded-full text-base bg-solara-vinho hover:bg-[#4a1223] text-white border-none shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold shadow-white/50">
                 {t('hero.btn_services')}
               </Button>
             </Link>
 
             <Link to="/vision">
-              <Button size="lg" variant="outline" className="rounded-full text-base border-2 border-emerald-600 text-emerald-800 hover:bg-emerald-50 hover:text-emerald-900 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold bg-white/80 backdrop-blur-md">
+              <Button size="lg" variant="outline" className="rounded-full text-base border-2 border-emerald-600 text-emerald-800 hover:bg-emerald-50 hover:text-emerald-900 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold bg-white/70 backdrop-blur-md">
                 {t('hero.btn_vision')}
               </Button>
             </Link>
