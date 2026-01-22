@@ -2,9 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import logoSolara from "@/assets/logo-solara-full.png";
-import fundo from "@/assets/fundo.jpg"; // <--- Import da sua foto nova
+import fundo from "@/assets/fundo.jpg"; 
 import { useTranslation } from "react-i18next";
-// import { HeroBackground } from "@/components/HeroBackground"; // <--- Não precisamos mais disto
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -34,10 +33,17 @@ const Hero = () => {
   const logoTiltX = isHoveringLogo ? 0 : mousePosition.y * -15;
   const logoTiltY = isHoveringLogo ? 0 : mousePosition.x * 15;
 
+  // --- CONFIGURAÇÃO DAS SOMBRAS ---
+  // 1. Glow Branco (Para o Título Escuro)
+  const strongWhiteGlow = "0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.6)";
+  
+  // 2. Sombra Preta (Para os Textos Brancos)
+  const blackShadow = "0 4px 8px rgba(0,0,0,0.9), 0 0 40px rgba(0,0,0,0.9)"; 
+
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden perspective-1000" // <--- Removi 'bg-white' para a foto aparecer
+      className="relative min-h-screen flex items-center justify-center overflow-hidden perspective-1000"
     >
       {/* --- FUNDO: FOTO ESTÁTICA --- */}
       <img 
@@ -45,6 +51,9 @@ const Hero = () => {
         alt="Background" 
         className="absolute inset-0 w-full h-full object-cover"
       />
+      
+      {/* --- OVERLAY: Camada escura de 10% --- */}
+      <div className="absolute inset-0 bg-black/10 pointer-events-none" />
 
       <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-20">
         <div className="max-w-5xl mx-auto space-y-12">
@@ -72,26 +81,32 @@ const Hero = () => {
                   alt="Solara Project"
                   className="h-40 md:h-56 w-auto object-contain transition-all duration-300 relative z-10"
                   style={{
-                    // Drop shadow Vinho RGB(92, 6, 30)
                     filter: isHoveringLogo
                       ? `drop-shadow(0 0 30px rgba(92, 6, 30, 0.4))`
-                      : `drop-shadow(${mousePosition.x * -10}px ${mousePosition.y * 10}px 15px rgba(0,0,0,0.05))`
+                      : `drop-shadow(0 0 20px rgba(255,255,255,0.5))`
                   }}
                 />
               </div>
             </div>
           </div>
 
-          <p className="text-xs uppercase tracking-[0.2em] text-neutral-400 font-semibold animate-fade-in">
+          {/* ESTD - Texto Branco com Sombra Preta Forte */}
+          <p 
+            className="text-xs uppercase tracking-[0.2em] text-white font-bold animate-fade-in"
+            style={{ textShadow: blackShadow }}
+          >
             {t('hero.estd')}
           </p>
 
-          {/* TÍTULO */}
+          {/* TÍTULO - Escuro com Glow Branco */}
           <div style={{
             transform: `translate(${mousePosition.x * 5}px, ${mousePosition.y * 5}px)`,
             transition: 'transform 0.2s ease-out'
           }}>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-neutral-900 tracking-tight">
+            <h1 
+              className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-neutral-900 tracking-tight"
+              style={{ textShadow: strongWhiteGlow }}
+            >
               {t('hero.title_main')}
               <br />
               <span className="text-solara-vinho font-medium relative inline-block">
@@ -100,7 +115,11 @@ const Hero = () => {
             </h1>
           </div>
 
-          <p className="text-lg md:text-xl font-light text-neutral-600 max-w-2xl mx-auto leading-relaxed">
+          {/* Descrição - Texto Branco com Sombra Preta Forte */}
+          <p 
+            className="text-lg md:text-xl font-medium text-white max-w-2xl mx-auto leading-relaxed"
+            style={{ textShadow: blackShadow }}
+          >
             {t('hero.description')}
           </p>
 
@@ -113,7 +132,7 @@ const Hero = () => {
             </Link>
 
             <Link to="/vision">
-              <Button size="lg" variant="outline" className="rounded-full text-base border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold">
+              <Button size="lg" variant="outline" className="rounded-full text-base border-2 border-emerald-600 text-emerald-800 hover:bg-emerald-50 hover:text-emerald-900 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold bg-white/80 backdrop-blur-md">
                 {t('hero.btn_vision')}
               </Button>
             </Link>
