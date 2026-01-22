@@ -2,8 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import logoSolara from "@/assets/logo-solara-full.png";
+import fundo from "@/assets/fundo.jpg"; // <--- Import da sua foto nova
 import { useTranslation } from "react-i18next";
-import { HeroBackground } from "@/components/HeroBackground"; // <--- Import do Background Animado
+// import { HeroBackground } from "@/components/HeroBackground"; // <--- Não precisamos mais disto
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -36,11 +37,14 @@ const Hero = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white perspective-1000"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden perspective-1000" // <--- Removi 'bg-white' para a foto aparecer
     >
-      {/* --- FUNDO ANIMADO (HeroBackground) --- */}
-      {/* Substitui os divs estáticos anteriores. Configurado para SOLARA. */}
-      <HeroBackground brand="solara" />
+      {/* --- FUNDO: FOTO ESTÁTICA --- */}
+      <img 
+        src={fundo} 
+        alt="Background" 
+        className="absolute inset-0 w-full h-full object-cover"
+      />
 
       <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-20">
         <div className="max-w-5xl mx-auto space-y-12">
