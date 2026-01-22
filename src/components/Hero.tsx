@@ -90,9 +90,9 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* ESTD - Texto Branco com Sombra Preta Forte */}
+          {/* ESTD - Reduzi de font-bold para font-semibold */}
           <p 
-            className="text-xs uppercase tracking-[0.2em] text-white font-bold animate-fade-in"
+            className="text-xs uppercase tracking-[0.2em] text-white font-semibold animate-fade-in"
             style={{ textShadow: blackShadow }}
           >
             {t('hero.estd')}
@@ -115,9 +115,9 @@ const Hero = () => {
             </h1>
           </div>
 
-          {/* Descrição - Texto Branco com Sombra Preta Forte */}
+          {/* Descrição - Reduzi de font-medium para font-light */}
           <p 
-            className="text-lg md:text-xl font-medium text-white max-w-2xl mx-auto leading-relaxed"
+            className="text-lg md:text-xl font-light text-white max-w-2xl mx-auto leading-relaxed"
             style={{ textShadow: blackShadow }}
           >
             {t('hero.description')}
