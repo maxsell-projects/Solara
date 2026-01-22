@@ -33,11 +33,7 @@ const Hero = () => {
   const logoTiltX = isHoveringLogo ? 0 : mousePosition.y * -15;
   const logoTiltY = isHoveringLogo ? 0 : mousePosition.x * 15;
 
-  // --- CONFIGURAÇÃO DAS SOMBRAS ---
-  // Super White Glow: Camadas múltiplas para intensidade máxima e recorte perfeito
-  // 1. Camada fina e sólida (10px) para nitidez
-  // 2. Camada média (30px) para preenchimento
-  // 3. Camada larga (60px) para atmosfera
+  // Sombra intensa apenas para o Título e Logo
   const intenseWhiteGlow = "0 0 10px rgba(255,255,255,0.9), 0 0 30px rgba(255,255,255,0.9), 0 0 60px rgba(255,255,255,0.7)";
 
   return (
@@ -45,19 +41,17 @@ const Hero = () => {
       ref={containerRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden perspective-1000"
     >
-      {/* --- FUNDO: FOTO ESTÁTICA --- */}
+      {/* --- FUNDO --- */}
       <img 
         src={fundo} 
         alt="Background" 
         className="absolute inset-0 w-full h-full object-cover"
       />
-      
-      {/* Removi o overlay escuro para não apagar o contraste do preto */}
 
       <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-20">
         <div className="max-w-5xl mx-auto space-y-12">
 
-          {/* Logo Section Principal: SOLARA */}
+          {/* Logo Section */}
           <div className="flex flex-col items-center gap-8 mb-8">
             <div className="block perspective-container relative group">
               <div
@@ -68,13 +62,12 @@ const Hero = () => {
                   transform: `perspective(1000px) rotateX(${logoTiltX}deg) rotateY(${logoTiltY}deg) scale3d(${isHoveringLogo ? 1.02 : 1}, ${isHoveringLogo ? 1.02 : 1}, 1)`,
                 }}
               >
-                {/* EFEITO GLOW (BRILHO VINHO) NO HOVER */}
+                {/* Glow Vinho */}
                 <div
                   className={`absolute inset-0 bg-solara-vinho rounded-full blur-[80px] transition-all duration-500 ${isHoveringLogo ? 'opacity-25 scale-125' : 'opacity-0 scale-50'}`}
                   style={{ zIndex: -1 }}
                 />
 
-                {/* Logo Solara */}
                 <img
                   src={logoSolara}
                   alt="Solara Project"
@@ -82,7 +75,6 @@ const Hero = () => {
                   style={{
                     filter: isHoveringLogo
                       ? `drop-shadow(0 0 30px rgba(92, 6, 30, 0.4))`
-                      // Glow Branco no Logo para combinar com o texto
                       : `drop-shadow(0 0 25px rgba(255,255,255,0.8))`
                   }}
                 />
@@ -90,15 +82,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* ESTD - Alterado para text-black puro */}
-          <p 
-            className="text-xs uppercase tracking-[0.2em] text-black font-semibold animate-fade-in"
-            style={{ textShadow: intenseWhiteGlow }}
-          >
-            {t('hero.estd')}
-          </p>
-
-          {/* TÍTULO - Alterado para text-black puro */}
+          {/* TÍTULO (Mantido na Hero) */}
           <div style={{
             transform: `translate(${mousePosition.x * 5}px, ${mousePosition.y * 5}px)`,
             transition: 'transform 0.2s ease-out'
@@ -115,15 +99,7 @@ const Hero = () => {
             </h1>
           </div>
 
-          {/* Descrição - Alterado para text-black puro */}
-          <p 
-            className="text-lg md:text-xl font-light text-black max-w-2xl mx-auto leading-relaxed"
-            style={{ textShadow: intenseWhiteGlow }}
-          >
-            {t('hero.description')}
-          </p>
-
-          {/* BOTÕES */}
+          {/* BOTÕES (Mantidos para navegação rápida) */}
           <div className="flex flex-col sm:flex-row gap-5 justify-center pt-8">
             <Link to="/services">
               <Button size="lg" className="rounded-full text-base bg-solara-vinho hover:bg-[#4a1223] text-white border-none shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold shadow-white/50">
