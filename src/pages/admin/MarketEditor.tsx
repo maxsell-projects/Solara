@@ -14,12 +14,10 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
-// --- IMPORTAÇÃO DO NOVO COMPONENTE ---
 import { MarketPropertiesManager } from "@/components/admin/MarketPropertiesManager";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-// --- Configuração do ícone do Leaflet ---
 let DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
@@ -28,7 +26,6 @@ let DefaultIcon = L.icon({
 });
 L.Marker.prototype.options.icon = DefaultIcon;
 
-// --- Componente auxiliar para capturar cliques no mapa ---
 const MapClickCapture = ({ onLocationSelect }: { onLocationSelect: (lat: number, lng: number) => void }) => {
   useMapEvents({
     click(e) {
@@ -38,7 +35,7 @@ const MapClickCapture = ({ onLocationSelect }: { onLocationSelect: (lat: number,
   return null;
 };
 
-// --- Controlador do Mapa (Zoom e Centro Dinâmico) ---
+// --- MAP CONTROLLER BLINDADO ---
 const MapController = ({
   center,
   zoom,
@@ -53,18 +50,30 @@ const MapController = ({
   const map = useMap();
 
   useEffect(() => {
+    // Só executa se a aba for 'map'
     if (activeTab === 'map') {
-      setTimeout(() => {
-        map.invalidateSize();
-        const isValidCenter = !isNaN(center[0]) && !isNaN(center[1]);
-
-        if (pins.length > 0) {
-          const bounds = L.latLngBounds(pins.map(p => [p.lat, p.lng]));
-          map.fitBounds(bounds, { padding: [50, 50] });
-        } else if (isValidCenter) {
-          map.setView(center, zoom);
+      // Pequeno delay para garantir que o DOM renderizou
+      const timer = setTimeout(() => {
+        if (!map) return;
+        
+        try {
+          // Força o ajuste do tamanho, mas com proteção
+          map.invalidateSize(); 
+          
+          const isValidCenter = !isNaN(center[0]) && !isNaN(center[1]);
+          if (pins.length > 0) {
+            const bounds = L.latLngBounds(pins.map(p => [p.lat, p.lng]));
+            if (bounds.isValid()) map.fitBounds(bounds, { padding: [50, 50] });
+          } else if (isValidCenter) {
+            map.setView(center, zoom);
+          }
+        } catch (error) {
+          // Engole o erro do Leaflet se o container não estiver pronto
+          console.warn("Map resize ignorado (container oculto).");
         }
-      }, 200);
+      }, 300);
+
+      return () => clearTimeout(timer);
     }
   }, [map, activeTab, pins, center, zoom]);
 
@@ -149,18 +158,15 @@ const AdminMarketEditor = () => {
     }));
   };
 
-  // --- FUNÇÃO DE SALVAR CORRIGIDA COM TOKEN ---
   const handleSave = async () => {
     setIsLoading(true);
     const url = id ? `${API_URL}/markets/${id}` : `${API_URL}/markets`;
     const method = id ? 'PUT' : 'POST';
 
-    // 1. Recuperar o Token
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('solara_token');
     
-    // 2. Validar se existe (Segurança)
     if (!token) {
-        toast({ title: "Sessão Expirada", description: "Faça login novamente para salvar.", variant: "destructive" });
+        toast({ title: "Sessão Expirada", description: "Faça login novamente.", variant: "destructive" });
         navigate("/admin/login");
         return;
     }
@@ -177,7 +183,7 @@ const AdminMarketEditor = () => {
         method,
         headers: { 
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // <--- O PULO DO GATO
+            'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify(payload)
       });
@@ -186,12 +192,12 @@ const AdminMarketEditor = () => {
         toast({ title: "Salvo!", description: "Mercado atualizado com sucesso." });
         navigate("/admin/dashboard");
       } else {
-        if (res.status === 401) throw new Error("Não autorizado (Token inválido)");
+        if (res.status === 401) throw new Error("Não autorizado");
         throw new Error("Falha ao salvar");
       }
     } catch (error) {
       console.error(error);
-      toast({ title: "Erro", description: "Não foi possível salvar. Verifique o login.", variant: "destructive" });
+      toast({ title: "Erro", description: "Não foi possível salvar.", variant: "destructive" });
     } finally {
       setIsLoading(false);
     }
@@ -205,8 +211,6 @@ const AdminMarketEditor = () => {
   return (
     <div className="min-h-screen bg-gray-50/50 p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-8">
-
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Button variant="outline" size="icon" onClick={() => navigate("/admin/dashboard")}>
@@ -219,7 +223,6 @@ const AdminMarketEditor = () => {
               <p className="text-sm text-gray-500">Gerencie as informações e o mapa estratégico.</p>
             </div>
           </div>
-          {/* O botão de salvar só aparece se NÃO estivermos na aba de Imóveis (pois ela salva sozinha) */}
           {activeTab !== 'properties' && (
             <Button onClick={handleSave} disabled={isLoading} className="bg-solara-vinho hover:bg-solara-vinho/90">
               {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
@@ -228,26 +231,20 @@ const AdminMarketEditor = () => {
           )}
         </div>
 
-        {/* Abas */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
           <TabsList className="bg-white border p-1 h-12 w-full justify-start overflow-x-auto">
             <TabsTrigger value="general" className="px-6 h-9">Geral & Capa</TabsTrigger>
             <TabsTrigger value="content" className="px-6 h-9">Textos Descritivos</TabsTrigger>
             <TabsTrigger value="map" className="px-6 h-9">Mapa & Pins</TabsTrigger>
-            
-            {/* NOVA ABA: Só aparece se estiver editando (precisamos do ID para salvar imóveis) */}
             {id ? (
               <TabsTrigger value="properties" className="px-6 h-9 text-emerald-700 bg-emerald-50/50">
                 Imóveis à Venda
               </TabsTrigger>
             ) : (
-              <div className="px-6 text-xs text-gray-400 flex items-center">
-                (Salve o mercado para adicionar imóveis)
-              </div>
+              <div className="px-6 text-xs text-gray-400 flex items-center">(Salve o mercado para adicionar imóveis)</div>
             )}
           </TabsList>
 
-          {/* ABA GERAL */}
           <TabsContent value="general">
             <Card>
               <CardHeader><CardTitle>Informações Principais</CardTitle></CardHeader>
@@ -262,7 +259,6 @@ const AdminMarketEditor = () => {
                     <Input value={formData.slug} onChange={e => setFormData({ ...formData, slug: e.target.value })} placeholder="portugal" />
                   </div>
                 </div>
-
                 <div className="grid md:grid-cols-3 gap-6">
                   <div className="space-y-2">
                     <Label>Tag (Destaque)</Label>
@@ -277,7 +273,6 @@ const AdminMarketEditor = () => {
                     <Input value={formData.appreciationRate} onChange={e => setFormData({ ...formData, appreciationRate: e.target.value })} placeholder="Ex: Alta / Estável" />
                   </div>
                 </div>
-
                 <div className="space-y-2">
                   <Label>URL da Imagem de Capa</Label>
                   <Input value={formData.imageUrl} onChange={e => setFormData({ ...formData, imageUrl: e.target.value })} placeholder="https://..." />
@@ -291,176 +286,85 @@ const AdminMarketEditor = () => {
             </Card>
           </TabsContent>
 
-          {/* ABA CONTEÚDO */}
           <TabsContent value="content">
             <Card>
               <CardHeader><CardTitle>Conteúdo Editorial</CardTitle></CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-2">
-                  <Label>Descrição Curta (Aparece no Card)</Label>
-                  <Textarea
-                    rows={3}
-                    value={formData.shortDescription}
-                    onChange={e => setFormData({ ...formData, shortDescription: e.target.value })}
-                    placeholder="Um resumo atrativo de 2 ou 3 linhas."
-                  />
+                  <Label>Descrição Curta</Label>
+                  <Textarea rows={3} value={formData.shortDescription} onChange={e => setFormData({ ...formData, shortDescription: e.target.value })} placeholder="Resumo atrativo." />
                 </div>
-
                 <div className="space-y-2">
-                  <Label>Descrição Completa (Página Detalhada)</Label>
-                  <div className="text-xs text-gray-500 mb-1">Dica: Você pode usar tags HTML básicas aqui para negrito (&lt;b&gt;texto&lt;/b&gt;) ou parágrafos.</div>
-                  <Textarea
-                    rows={15}
-                    className="font-mono text-sm"
-                    value={formData.fullDescription}
-                    onChange={e => setFormData({ ...formData, fullDescription: e.target.value })}
-                    placeholder="Escreva todo o conteúdo detalhado sobre o mercado..."
-                  />
+                  <Label>Descrição Completa</Label>
+                  <Textarea rows={15} className="font-mono text-sm" value={formData.fullDescription} onChange={e => setFormData({ ...formData, fullDescription: e.target.value })} placeholder="Conteúdo detalhado..." />
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
 
-          {/* ABA MAPA */}
           <TabsContent value="map">
             <div className="grid lg:grid-cols-[1fr_350px] gap-6">
               <Card className="overflow-hidden flex flex-col h-[600px]">
                 <div className="bg-neutral-100 p-2 text-xs text-center border-b">
-                  Clique no mapa para pegar as coordenadas automaticamente para o centro ou para um novo PIN.
+                  Clique no mapa para pegar as coordenadas.
                 </div>
                 <div className="flex-grow relative z-0">
-                  <MapContainer
-                    center={safeMapCenter}
-                    zoom={formData.mapZoom}
-                    className="h-full w-full"
-                  >
-                    <MapController
-                      center={safeMapCenter}
-                      zoom={formData.mapZoom}
-                      pins={formData.pins}
-                      activeTab={activeTab}
-                    />
-
+                  <MapContainer center={safeMapCenter} zoom={formData.mapZoom} className="h-full w-full">
+                    <MapController center={safeMapCenter} zoom={formData.mapZoom} pins={formData.pins} activeTab={activeTab} />
                     <TileLayer url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" />
-
                     <MapClickCapture onLocationSelect={(lat, lng) => {
                       setNewPin(prev => ({ ...prev, lat, lng }));
-                      toast({ description: "Coordenadas capturadas! Digite o nome da cidade e clique em Adicionar." });
+                      toast({ description: "Coordenadas capturadas!" });
                     }} />
-
                     {formData.pins.map((pin, idx) => (
                       <Marker key={idx} position={[pin.lat, pin.lng]}>
                         <Popup>{pin.city}</Popup>
                       </Marker>
                     ))}
-
-                    {newPin.lat !== 0 && (
-                      <Marker position={[newPin.lat, newPin.lng]} opacity={0.6} />
-                    )}
+                    {newPin.lat !== 0 && <Marker position={[newPin.lat, newPin.lng]} opacity={0.6} />}
                   </MapContainer>
                 </div>
               </Card>
-
               <div className="space-y-6">
                 <Card>
-                  <CardHeader className="pb-3"><CardTitle className="text-sm font-medium">Configuração Inicial do Mapa</CardTitle></CardHeader>
+                  <CardHeader className="pb-3"><CardTitle className="text-sm font-medium">Configuração</CardTitle></CardHeader>
                   <CardContent className="space-y-3">
                     <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <Label className="text-xs">Latitude Centro</Label>
-                        <Input
-                          type="number"
-                          step="0.0001"
-                          value={formData.mapLat}
-                          onChange={e => {
-                            const val = parseFloat(e.target.value);
-                            setFormData({ ...formData, mapLat: isNaN(val) ? 0 : val });
-                          }}
-                        />
-                      </div>
-                      <div>
-                        <Label className="text-xs">Longitude Centro</Label>
-                        <Input
-                          type="number"
-                          step="0.0001"
-                          value={formData.mapLng}
-                          onChange={e => {
-                            const val = parseFloat(e.target.value);
-                            setFormData({ ...formData, mapLng: isNaN(val) ? 0 : val });
-                          }}
-                        />
-                      </div>
+                      <div><Label className="text-xs">Lat Centro</Label><Input type="number" step="0.0001" value={formData.mapLat} onChange={e => setFormData({ ...formData, mapLat: parseFloat(e.target.value) || 0 })} /></div>
+                      <div><Label className="text-xs">Lng Centro</Label><Input type="number" step="0.0001" value={formData.mapLng} onChange={e => setFormData({ ...formData, mapLng: parseFloat(e.target.value) || 0 })} /></div>
                     </div>
-                    <div>
-                      <Label className="text-xs">Zoom Inicial</Label>
-                      <Input
-                        type="number"
-                        value={formData.mapZoom}
-                        onChange={e => {
-                          const val = parseInt(e.target.value);
-                          setFormData({ ...formData, mapZoom: isNaN(val) ? 6 : val });
-                        }}
-                      />
-                    </div>
-                    <Button variant="secondary" size="sm" className="w-full text-xs" onClick={() => setFormData({ ...formData, mapLat: newPin.lat, mapLng: newPin.lng })}>
-                      Usar clique como Centro
-                    </Button>
+                    <div><Label className="text-xs">Zoom</Label><Input type="number" value={formData.mapZoom} onChange={e => setFormData({ ...formData, mapZoom: parseInt(e.target.value) || 6 })} /></div>
+                    <Button variant="secondary" size="sm" className="w-full text-xs" onClick={() => setFormData({ ...formData, mapLat: newPin.lat, mapLng: newPin.lng })}>Usar clique como Centro</Button>
                   </CardContent>
                 </Card>
-
                 <Card className="border-solara-vinho/20">
-                  <CardHeader className="pb-3 bg-solara-vinho/5"><CardTitle className="text-sm font-medium text-solara-vinho">Adicionar Cidade (Pin)</CardTitle></CardHeader>
+                  <CardHeader className="pb-3 bg-solara-vinho/5"><CardTitle className="text-sm font-medium text-solara-vinho">Novo Pin</CardTitle></CardHeader>
                   <CardContent className="space-y-3 pt-3">
-                    <div>
-                      <Label className="text-xs">Nome da Cidade</Label>
-                      <Input
-                        value={newPin.city}
-                        onChange={e => setNewPin({ ...newPin, city: e.target.value })}
-                        placeholder="Ex: Porto"
-                      />
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-xs text-gray-500">
-                      <div>Lat: {newPin.lat.toFixed(4)}</div>
-                      <div>Lng: {newPin.lng.toFixed(4)}</div>
-                    </div>
-                    <Button size="sm" className="w-full bg-solara-vinho" onClick={addPin}>
-                      <Plus className="w-4 h-4 mr-2" /> Adicionar Pin
-                    </Button>
-                    <p className="text-[10px] text-gray-400 text-center">Clique no mapa para pegar as coordenadas.</p>
+                    <div><Label className="text-xs">Cidade</Label><Input value={newPin.city} onChange={e => setNewPin({ ...newPin, city: e.target.value })} placeholder="Ex: Porto" /></div>
+                    <Button size="sm" className="w-full bg-solara-vinho" onClick={addPin}><Plus className="w-4 h-4 mr-2" /> Adicionar</Button>
                   </CardContent>
                 </Card>
-
                 <div className="space-y-2">
-                  <Label className="text-sm">Pins Ativos ({formData.pins.length})</Label>
+                  <Label className="text-sm">Pins ({formData.pins.length})</Label>
                   <div className="max-h-[200px] overflow-y-auto space-y-2 pr-2">
-                    {formData.pins.length === 0 && <div className="text-xs text-gray-400 text-center py-4 border border-dashed rounded">Nenhum pin adicionado.</div>}
                     {formData.pins.map((pin, idx) => (
                       <div key={idx} className="flex items-center justify-between bg-white p-2 rounded border shadow-sm text-sm">
-                        <div className="flex items-center gap-2">
-                          <MapPin className="w-3 h-3 text-solara-vinho" />
-                          <span>{pin.city}</span>
-                        </div>
-                        <Button variant="ghost" size="icon" className="h-6 w-6 text-red-500 hover:text-red-700 hover:bg-red-50" onClick={() => removePin(idx)}>
-                          <Trash2 className="w-3 h-3" />
-                        </Button>
+                        <div className="flex items-center gap-2"><MapPin className="w-3 h-3 text-solara-vinho" /><span>{pin.city}</span></div>
+                        <Button variant="ghost" size="icon" className="h-6 w-6 text-red-500" onClick={() => removePin(idx)}><Trash2 className="w-3 h-3" /></Button>
                       </div>
                     ))}
                   </div>
                 </div>
-
               </div>
             </div>
           </TabsContent>
 
-          {/* NOVA ABA: GESTÃO DE IMÓVEIS */}
           {id && (
             <TabsContent value="properties">
               <MarketPropertiesManager marketId={id} />
             </TabsContent>
           )}
-
         </Tabs>
-
       </div>
     </div>
   );

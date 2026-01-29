@@ -121,8 +121,13 @@ const Header = () => {
           </nav>
 
           {/* Mobile Menu & Switcher */}
-          <div className="flex items-center gap-2 md:hidden">
-            <LanguageSwitcher />
+          <div className="flex items-center md:hidden relative">
+            {/* CORREÇÃO AQUI: Adicionei 'mr-12' (margem direita) para afastar o globo do menu */}
+            <div className="mr-12">
+                <LanguageSwitcher />
+            </div>
+            
+            {/* O HamburgerMenu provavelmente tem 'absolute' interno, então ele vai ficar nesse espaço que criamos */}
             <HamburgerMenu />
           </div>
         </div>
