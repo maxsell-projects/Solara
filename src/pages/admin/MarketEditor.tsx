@@ -14,9 +14,12 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
+// --- IMPORTAÇÃO DO NOVO COMPONENTE ---
+import { MarketPropertiesManager } from "@/components/admin/MarketPropertiesManager";
+
 const API_URL = import.meta.env.VITE_API_URL;
 
-// --- Configuração do ícone do Leaflet para não bugar no build ---
+// --- Configuração do ícone do Leaflet ---
 let DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
@@ -52,9 +55,7 @@ const MapController = ({
   useEffect(() => {
     if (activeTab === 'map') {
       setTimeout(() => {
-        map.invalidateSize(); // Corrige problema de renderização em abas ocultas
-
-        // Verifica se o centro é válido antes de dar setView
+        map.invalidateSize();
         const isValidCenter = !isNaN(center[0]) && !isNaN(center[1]);
 
         if (pins.length > 0) {
@@ -77,7 +78,6 @@ const AdminMarketEditor = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("general");
 
-  // State inicial com valores numéricos seguros
   const [formData, setFormData] = useState({
     name: "",
     slug: "",
@@ -95,7 +95,6 @@ const AdminMarketEditor = () => {
 
   const [newPin, setNewPin] = useState({ city: "", lat: 0, lng: 0 });
 
-  // --- Carregar Dados (Edit Mode) ---
   useEffect(() => {
     if (id) {
       setIsLoading(true);
@@ -105,7 +104,6 @@ const AdminMarketEditor = () => {
           return res.json();
         })
         .then(data => {
-          // BLINDAGEM: Garante que lat/lng venham como números e pins como array
           setFormData({
             ...data,
             mapLat: Number(data.mapLat) || 38.7223,
@@ -122,7 +120,6 @@ const AdminMarketEditor = () => {
     }
   }, [id, toast]);
 
-  // --- Gerador de Slug Automático ---
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.value;
     const slug = name.toLowerCase()
@@ -133,7 +130,6 @@ const AdminMarketEditor = () => {
     setFormData(prev => ({ ...prev, name, slug: id ? prev.slug : slug }));
   };
 
-  // --- Gestão de Pins ---
   const addPin = () => {
     if (!newPin.city) return toast({ title: "Erro", description: "Digite o nome da cidade", variant: "destructive" });
     if (newPin.lat === 0 && newPin.lng === 0) return toast({ title: "Erro", description: "Selecione um local no mapa", variant: "destructive" });
@@ -153,16 +149,24 @@ const AdminMarketEditor = () => {
     }));
   };
 
-  // --- Salvar (BLINDADO) ---
+  // --- FUNÇÃO DE SALVAR CORRIGIDA COM TOKEN ---
   const handleSave = async () => {
     setIsLoading(true);
     const url = id ? `${API_URL}/markets/${id}` : `${API_URL}/markets`;
     const method = id ? 'PUT' : 'POST';
 
-    // Validação de Segurança antes de enviar
+    // 1. Recuperar o Token
+    const token = localStorage.getItem('token');
+    
+    // 2. Validar se existe (Segurança)
+    if (!token) {
+        toast({ title: "Sessão Expirada", description: "Faça login novamente para salvar.", variant: "destructive" });
+        navigate("/admin/login");
+        return;
+    }
+
     const payload = {
       ...formData,
-      // Se for NaN, usa um default seguro para não quebrar o banco/mapa
       mapLat: isNaN(Number(formData.mapLat)) ? 38.7223 : Number(formData.mapLat),
       mapLng: isNaN(Number(formData.mapLng)) ? -9.1393 : Number(formData.mapLng),
       mapZoom: isNaN(Number(formData.mapZoom)) ? 6 : Number(formData.mapZoom),
@@ -171,7 +175,10 @@ const AdminMarketEditor = () => {
     try {
       const res = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // <--- O PULO DO GATO
+        },
         body: JSON.stringify(payload)
       });
 
@@ -179,17 +186,17 @@ const AdminMarketEditor = () => {
         toast({ title: "Salvo!", description: "Mercado atualizado com sucesso." });
         navigate("/admin/dashboard");
       } else {
+        if (res.status === 401) throw new Error("Não autorizado (Token inválido)");
         throw new Error("Falha ao salvar");
       }
     } catch (error) {
       console.error(error);
-      toast({ title: "Erro", description: "Não foi possível salvar. Verifique se as colunas 'mapLat' existem no banco.", variant: "destructive" });
+      toast({ title: "Erro", description: "Não foi possível salvar. Verifique o login.", variant: "destructive" });
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Garante que o centro do mapa nunca seja NaN para renderização
   const safeMapCenter: [number, number] = [
     isNaN(formData.mapLat) ? 0 : formData.mapLat,
     isNaN(formData.mapLng) ? 0 : formData.mapLng
@@ -212,18 +219,32 @@ const AdminMarketEditor = () => {
               <p className="text-sm text-gray-500">Gerencie as informações e o mapa estratégico.</p>
             </div>
           </div>
-          <Button onClick={handleSave} disabled={isLoading} className="bg-solara-vinho hover:bg-solara-vinho/90">
-            {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-            Salvar Alterações
-          </Button>
+          {/* O botão de salvar só aparece se NÃO estivermos na aba de Imóveis (pois ela salva sozinha) */}
+          {activeTab !== 'properties' && (
+            <Button onClick={handleSave} disabled={isLoading} className="bg-solara-vinho hover:bg-solara-vinho/90">
+              {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+              Salvar Alterações
+            </Button>
+          )}
         </div>
 
         {/* Abas */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-          <TabsList className="bg-white border p-1 h-12">
+          <TabsList className="bg-white border p-1 h-12 w-full justify-start overflow-x-auto">
             <TabsTrigger value="general" className="px-6 h-9">Geral & Capa</TabsTrigger>
             <TabsTrigger value="content" className="px-6 h-9">Textos Descritivos</TabsTrigger>
             <TabsTrigger value="map" className="px-6 h-9">Mapa & Pins</TabsTrigger>
+            
+            {/* NOVA ABA: Só aparece se estiver editando (precisamos do ID para salvar imóveis) */}
+            {id ? (
+              <TabsTrigger value="properties" className="px-6 h-9 text-emerald-700 bg-emerald-50/50">
+                Imóveis à Venda
+              </TabsTrigger>
+            ) : (
+              <div className="px-6 text-xs text-gray-400 flex items-center">
+                (Salve o mercado para adicionar imóveis)
+              </div>
+            )}
           </TabsList>
 
           {/* ABA GERAL */}
@@ -303,7 +324,6 @@ const AdminMarketEditor = () => {
           {/* ABA MAPA */}
           <TabsContent value="map">
             <div className="grid lg:grid-cols-[1fr_350px] gap-6">
-
               <Card className="overflow-hidden flex flex-col h-[600px]">
                 <div className="bg-neutral-100 p-2 text-xs text-center border-b">
                   Clique no mapa para pegar as coordenadas automaticamente para o centro ou para um novo PIN.
@@ -342,7 +362,6 @@ const AdminMarketEditor = () => {
               </Card>
 
               <div className="space-y-6">
-
                 <Card>
                   <CardHeader className="pb-3"><CardTitle className="text-sm font-medium">Configuração Inicial do Mapa</CardTitle></CardHeader>
                   <CardContent className="space-y-3">
@@ -353,7 +372,6 @@ const AdminMarketEditor = () => {
                           type="number"
                           step="0.0001"
                           value={formData.mapLat}
-                          // PROTEÇÃO: Se der NaN (input vazio), assume 0 para não quebrar a UI
                           onChange={e => {
                             const val = parseFloat(e.target.value);
                             setFormData({ ...formData, mapLat: isNaN(val) ? 0 : val });
@@ -433,6 +451,14 @@ const AdminMarketEditor = () => {
               </div>
             </div>
           </TabsContent>
+
+          {/* NOVA ABA: GESTÃO DE IMÓVEIS */}
+          {id && (
+            <TabsContent value="properties">
+              <MarketPropertiesManager marketId={id} />
+            </TabsContent>
+          )}
+
         </Tabs>
 
       </div>
