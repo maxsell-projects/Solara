@@ -9,6 +9,7 @@ import { ArrowLeft, Calendar, Clock, Share2, Bookmark, Loader2 } from "lucide-re
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import { MagazineCarousel } from "@/components/MagazineCarousel"; // <--- NOVO IMPORT
 
 // --- ASSETS ---
 import visionImg from "@/assets/vision-editorial.jpg";
@@ -185,7 +186,6 @@ const VisionArticleDetail = () => {
             </article>
 
             {/* --- SEÇÃO UNIFICADA DE ENCERRAMENTO (CARIMBO + ASSINATURA) --- */}
-            {/* Bloco centralizado combinando validação editorial e bio do autor */}
             <div className="mt-20 pt-16 border-t border-vision-green/20 flex flex-col items-center text-center animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards" style={{ animationDelay: '0.2s' }}>
               
               {/* 1. Carimbo Vision Press */}
@@ -205,14 +205,13 @@ const VisionArticleDetail = () => {
                 </p>
               </div>
 
-              {/* 2. Assinatura Proporcional - AGORA VERDE E GIGANTE */}
+              {/* 2. Assinatura Proporcional */}
               <div className="mb-8">
                 <img 
                   src={signatureCamila} 
                   alt="Assinatura Camila Montenegro" 
                   className="h-32 md:h-40 w-auto object-contain mx-auto" 
                   style={{ 
-                    // Filtro CSS para "pintar" o PNG preto de verde
                     filter: 'invert(38%) sepia(55%) saturate(709%) hue-rotate(106deg) brightness(93%) contrast(89%)' 
                   }}
                 />
@@ -230,22 +229,14 @@ const VisionArticleDetail = () => {
 
             </div>
           </div>
-           
+            
           <div className="lg:col-span-2"></div>
         </div>
       </main>
 
-      {/* Footer de Navegação */}
-      <section className="bg-neutral-50 py-16 border-t border-border">
-        <div className="container mx-auto px-6 text-center">
-          <h3 className="font-serif text-2xl mb-6 text-muted-foreground italic">{t('article_detail.continue_reading')}</h3>
-          <Link to="/vision/articles">
-            <Button size="lg" variant="outline" className="border-vision-green text-vision-green hover:bg-vision-green hover:text-white px-8 transition-all duration-300">
-              {t('article_detail.btn_back_list')}
-            </Button>
-          </Link>
-        </div>
-      </section>
+      {/* --- RECOMENDAÇÕES INTELIGENTES --- */}
+      {/* Aqui entra o novo MagazineCarousel substituindo o footer estático */}
+      <MagazineCarousel currentArticleId={article.id} />
 
       <Footer />
     </div>

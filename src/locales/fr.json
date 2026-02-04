@@ -1,0 +1,547 @@
+{
+  "header": {
+    "home": "Accueil",
+    "services": "Services",
+    "about": "À Propos",
+    "contact": "Contact",
+    "vision_btn": "Découvrir Vision Press",
+    "solara_btn": "Retour à Solara",
+    "book_meeting": "Prendre Rendez-vous"
+  },
+  "form": {
+    "name_label": "Nom Complet",
+    "name_placeholder": "Votre nom",
+    "email_label": "Email",
+    "email_placeholder": "vous@email.com",
+    "phone_label": "Téléphone",
+    "phone_placeholder": "+33...",
+    "service_label": "Intérêt",
+    "service_placeholder": "Sélectionnez un service",
+    "message_label": "Message (Optionnel)",
+    "message_placeholder": "Parlez-nous un peu de votre projet...",
+    "submit_btn": "Demander un Contact",
+    "submitting_btn": "Envoi en cours...",
+    "success_msg": "Demande reçue avec succès !",
+    "error_msg": "Erreur lors de l'envoi. Veuillez réessayer.",
+    "validation_name": "Le nom est requis",
+    "validation_email": "Email invalide",
+    "validation_phone": "Numéro de téléphone invalide",
+    "validation_service": "Sélectionnez un service",
+    "modal_default_title": "Démarrer la Conversation",
+    "modal_default_description": "Remplissez le formulaire ci-dessous et nous vous contacterons sous peu."
+  },
+  "hero": {
+    "estd": "ESTD 2025",
+    "title_main": "Investissement Stratégique",
+    "title_sub": "Croissance Consciente",
+    "description": "Solara Project propose des solutions d'investissement sur mesure et des conseils stratégiques, alliant expertise financière et vision authentique pour une prospérité durable.",
+    "btn_services": "Explorer les Services",
+    "btn_vision": "Découvrir Vision Press"
+  },
+  "services": {
+    "label": "Notre Expertise",
+    "title": "Solutions d'Investissement",
+    "description": "Offrir l'excellence grâce à des services spécialisés conçus pour élever votre avenir financier.",
+    "discover_more": "En Savoir Plus →",
+    "cards": {
+      "real_estate_title": "Investissements Immobiliers",
+      "real_estate_desc": "Développement stratégique de portefeuilles immobiliers axé sur la création de valeur durable et l'appréciation du capital à long terme.",
+      "financial_title": "Investissements Financiers",
+      "financial_desc": "Stratégies d'investissement diversifiées adaptées aux objectifs individuels, alliant expertise du marché et allocation consciente.",
+      "consulting_title": "Conseil Stratégique",
+      "consulting_desc": "Orientation commerciale complète intégrant vision d'investissement, stratégie de croissance et excellence opérationnelle."
+    }
+  },
+  "vision": {
+    "label": "Communication Créative",
+    "title_main": "Amplifier l'Impact",
+    "title_sub": "À Travers",
+    "description": "Vision Press, notre branche éditoriale et de communication créative, transforme les insights stratégiques en récits convaincants. Grâce à un journalisme réfléchi, au storytelling de marque et à l'excellence du contenu, nous relions la vision d'investissement à une communication authentique.",
+    "recent_highlights": "Faits Saillants Récents",
+    "no_articles": "Aucun article récent trouvé.",
+    "btn_explore": "Explorer Vision Press"
+  },
+  "about": {
+    "label": "À Propos de Nous",
+    "title_main": "Qui",
+    "title_sub": "Sommes-Nous",
+    "founder_role": "Fondatrice & PDG",
+    "p1": "Nous sommes un cabinet de conseil dédié à transformer les visions en réalité grâce à des stratégies solides et innovantes, toujours guidées par l'éthique et la transparence.",
+    "p2": "Notre approche intègre une connaissance approfondie du marché avec une vision humaine et personnalisée, garantissant que chaque projet atteint son plein potentiel.",
+    "stats": {
+      "experience": "Années d'Expérience",
+      "assets": "Actifs sous Gestion",
+      "satisfaction": "Satisfaction Client",
+      "projects": "Projets Réalisés"
+    },
+    "pillars_title": "Nos Piliers",
+    "pillars": {
+      "vision": "Vision Stratégique",
+      "integrity": "Intégrité",
+      "growth": "Croissance Durable",
+      "partnership": "Partenariat à Long Terme"
+    },
+    "hero": {
+      "label": "Notre Histoire",
+      "title_line1": "Le Soleil, lumière qui guide",
+      "title_highlight": "les investissements conscients",
+      "description": "Solara est un cabinet de conseil qui intègre stratégie, communication et impact."
+    },
+    "manifesto": {
+      "title_start": "Investir avec un but",
+      "title_end": "signifie illuminer",
+      "p1": "Solara est énergie vitale ; elle communique avec l'âme et naît de la conviction que la véritable prospérité s'enracine dans la conscience.",
+      "p2": "Une plateforme d'investissement immobilier et financier pour ceux qui cherchent plus que du rendement : du sens, de l'impact et une croissance illuminée par des valeurs.",
+      "p3": "Inspirés par l'intelligence de la nature et l'énergie vitale du Soleil, nous croyons qu'investir est un geste spirituel, un choix, un reflet de qui nous sommes et du monde que nous construisons.",
+      "p4": "Chez Solara, nous cultivons et illuminons des chemins pour le développement solide d'une richesse durable, de projets avec une âme et d'avenirs brillant d'authenticité. Car lorsque le but et la stratégie marchent ensemble, le résultat est la lumière en mouvement.",
+      "p5": "Choisir d'investir avec intention, c'est être conscient que la vraie valeur réside dans l'interdépendance des personnes, des idées et des territoires. Pour ceux qui comprennent que briller, c'est partager la lumière.",
+      "highlight": "Solara. Où l'avenir est semé avec conscience et récolté avec éclat.",
+      "role": "Camila Montenegro, Fondatrice & PDG"
+    },
+    "verticals": {
+      "title": "Verticales Solara",
+      "item1_title": "Investissements Conscients",
+      "item1_desc": "Conseil financier et gestion d'actifs axés sur l'éthique, la durabilité, l'authenticité et la vision à long terme.",
+      "item2_title": "Immobilier Essentiel",
+      "item2_desc": "Curation boutique et développement de projets valorisant le territoire, le bien-être et le collectif."
+    },
+    "philosophy": {
+      "title_start": "Notre",
+      "title_end": "Philosophie",
+      "quote": "Investir est un acte de conscience.",
+      "cards": {
+        "clarity_title": "Clarté",
+        "clarity_desc": "Transparence totale dans les processus, les données et la communication avec nos clients",
+        "sustainability_title": "Durabilité",
+        "sustainability_desc": "Des investissements générant de la valeur à long terme et un impact positif",
+        "connection_title": "Connexion",
+        "connection_desc": "Des partenariats authentiques basés sur la confiance et des objectifs partagés",
+        "purpose_title": "But",
+        "purpose_desc": "Chaque investissement aligné avec des valeurs et une vision d'avenir consciente"
+      }
+    },
+    "vision": {
+      "title_start": "Le pouvoir de",
+      "title_highlight": "l'information",
+      "p1": "Solara croit au pouvoir de l'information. C'est pourquoi nous avons créé Vision Press, une plateforme d'analyse, de contenu et d'intelligence de marché.",
+      "p2": "Vision Press est la branche éditoriale et de communication stratégique de Solara, transformant les insights du marché en récits qui éduquent, inspirent et élargissent la vision des investisseurs conscients.",
+      "btn": "Visiter Vision Press"
+    }
+  },
+  "footer": {
+    "description": "Cabinet de conseil en investissement stratégique intégré à l'intelligence de marché et à une vision consciente.",
+    "col_solara": "Solutions Solara",
+    "col_vision": "Vision Press",
+    "col_company": "Entreprise",
+    "links": {
+      "real_estate": "Investissements Immobiliers",
+      "financial": "Stratégie Financière",
+      "consultancy": "Conseil Stratégique",
+      "editorial": "Éditorial & Actualités",
+      "branding": "Branding & Agence",
+      "intelligence": "Intelligence de Marché",
+      "about": "À Propos de Nous",
+      "contact": "Contact & Localisation"
+    },
+    "copyright": "Tous droits réservés.",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions Générales",
+    "powered": "Propulsé par"
+  },
+  "financial": {
+    "hero": {
+      "badge": "Gestion de Patrimoine",
+      "title_line1": "Architecture de",
+      "title_line2": "Votre Héritage",
+      "description": "Ingénierie financière sophistiquée conçue pour préserver, faire croître et transférer votre patrimoine à travers les générations.",
+      "btn": "Planifier une Revue Financière"
+    },
+    "philosophy": {
+      "title_line1": "Plus que la Banque.",
+      "title_line2": "Intendance Stratégique.",
+      "p1": "Dans une économie mondiale complexe, les produits d'investissement standard sont souvent insuffisants. La véritable préservation du patrimoine nécessite une approche sur mesure qui équilibre les besoins de liquidité avec les objectifs de croissance à long terme.",
+      "p2": "Nous agissons comme vos architectes financiers. En tirant parti de notre réseau de banques privées de premier plan et d'intermédiaires de crédit, nous concevons des portefeuilles robustes face à la volatilité mais agiles pour saisir les opportunités émergentes.",
+      "risk_title": "Atténuation des Risques",
+      "risk_desc": "Stress-tests avancés des portefeuilles contre les ralentissements du marché et l'inflation.",
+      "asset_title": "Allocation d'Actifs",
+      "asset_desc": "Diversification en actions, obligations, capital-investissement et investissements alternatifs.",
+      "banking_title": "Accès Banque Privée",
+      "banking_desc": "Conditions exclusives et facilités de crédit négociées via nos partenaires institutionnels."
+    },
+    "grid": {
+      "title": "Compétences Clés",
+      "subtitle": "Une suite complète de services financiers conçus pour les particuliers fortunés.",
+      "portfolio_title": "Gestion de Portefeuille",
+      "portfolio_desc": "Mandats discrétionnaires et de conseil adaptés à votre profil de risque.",
+      "credit_title": "Intermédiation de Crédit",
+      "credit_desc": "Optimisation de l'effet de levier pour l'acquisition immobilière ou l'expansion commerciale.",
+      "estate_title": "Planification Successorale",
+      "estate_desc": "Structuration des actifs pour assurer un transfert efficace du patrimoine aux générations futures."
+    },
+    "cta": {
+      "title": "Sécurisez Votre Avenir Financier",
+      "description": "Construisons une stratégie qui travaille aussi dur que vous.",
+      "btn": "Lancer la Conversation"
+    }
+  },
+  "consultancy": {
+    "hero": {
+      "badge": "Conseil Stratégique",
+      "title_line1": "Mobilité Mondiale",
+      "title_line2": "& Stratégie",
+      "description": "Naviguer dans les complexités de la relocalisation internationale, de l'optimisation fiscale et de la planification de résidence avec précision.",
+      "btn": "Réserver une Consultation"
+    },
+    "concept": {
+      "title": "Frontières Fluides. Vie Stratégique.",
+      "description": "Déplacer des capitaux ou une résidence à travers les frontières implique des défis juridiques et fiscaux complexes. Nous fournissons la feuille de route stratégique pour garantir que votre transition est conforme, fiscalement efficace et alignée avec vos objectifs personnels ou commerciaux.",
+      "residency_title": "Résidence & Citoyenneté",
+      "residency_desc": "Conseils d'experts sur les programmes Golden Visa, les visas D7 et les parcours Nomade Numérique. Nous gérons toute la bureaucratie, de la demande initiale à la délivrance finale de la carte.",
+      "residency_list": {
+        "golden": "Golden Visa (Fonds d'Investissement)",
+        "d2": "D2 (Entrepreneur)",
+        "d7": "D7 (Revenus Passifs)"
+      },
+      "tax_title": "Optimisation Fiscale",
+      "tax_desc": "Structurez vos revenus et actifs pour bénéficier de régimes comme le statut RNH (Résident Non Habituel), assurant une efficacité fiscale maximale dans votre nouvelle résidence fiscale.",
+      "tax_list": {
+        "nhr": "Demande de Statut RNH",
+        "treaties": "Conventions de Double Imposition",
+        "corporate": "Structuration Fiscale des Entreprises"
+      }
+    },
+    "relocation": {
+      "title": "Relocalisation Conciergerie",
+      "description": "Nous croyons que le luxe est l'absence de souci. Notre équipe de conciergerie gère la logistique de votre déménagement pour que vous puissiez vous concentrer sur l'excitation de l'arrivée.",
+      "school_title": "Recherche d'École",
+      "school_desc": "Trouver les meilleures écoles internationales.",
+      "business_title": "Création d'Entreprise",
+      "business_desc": "Constitution de société & services bancaires.",
+      "global_title": "Accès Mondial",
+      "global_desc": "Au service de clients des USA, du Brésil, du Royaume-Uni et du Moyen-Orient s'installant en Europe."
+    }
+  },
+  "contact": {
+    "hero": {
+      "label": "Contactez-nous",
+      "title_line1": "Commençons une",
+      "title_line2": "conversation stratégique",
+      "description": "Que ce soit pour l'investissement, le conseil ou la communication, nous sommes là pour vous aider."
+    },
+    "form": {
+      "title": "Envoyez-nous un",
+      "title_highlight": "message",
+      "name_label": "Nom Complet",
+      "email_label": "Email",
+      "area_label": "Domaine d'Intérêt",
+      "area_placeholder": "Sélectionnez une option",
+      "area_options": {
+        "solara": "Solara — Investissements & Conseil",
+        "vision": "Vision Press — Communication & Contenu",
+        "both": "Les deux domaines"
+      },
+      "message_label": "Message",
+      "btn_submit": "Envoyer le Message",
+      "btn_sending": "Envoi...",
+      "btn_whatsapp": "WhatsApp"
+    },
+    "info": {
+      "title": "Informations de",
+      "title_highlight": "Contact",
+      "solara_desc": "Investissements & Conseil",
+      "vision_desc": "Communication & Contenu",
+      "social_title": "Réseaux",
+      "social_highlight": "Sociaux",
+      "schedule_title": "Heures d'Ouverture",
+      "schedule_days": "Lundi au Vendredi : 9h00 - 18h00",
+      "schedule_saturday": "Samedi : Sur rendez-vous",
+      "schedule_sunday": "Dimanche : Fermé"
+    },
+    "messages": {
+      "success_title": "Message envoyé !",
+      "success_desc": "Nous vous contacterons sous peu.",
+      "error_title": "Erreur d'envoi",
+      "error_desc": "Un problème est survenu lors de l'envoi de votre message. Veuillez réessayer ou utiliser WhatsApp.",
+      "whatsapp_body": "Bonjour ! J'aimerais en savoir plus sur"
+    }
+  },
+  "real_estate": {
+    "hero": {
+      "badge": "Expertise Mondiale",
+      "title_line1": "Investissement Immobilier",
+      "title_line2": "Premium",
+      "description": "Accès exclusif à des opportunités hors marché et à des développements à haut rendement dans les régions les plus dynamiques du monde.",
+      "btn_markets": "Voir les Marchés",
+      "btn_contact": "Contacter un Conseiller"
+    },
+    "vision": {
+      "title": "Au-delà de la Gestion d'Actifs Traditionnelle",
+      "p1": "Chez Solara, nous pensons que l'immobilier est la pierre angulaire d'une stratégie résiliente de préservation du patrimoine. Il ne s'agit pas simplement d'acquérir des mètres carrés ; il s'agit de sécuriser une position dans des économies qui démontrent des cadres juridiques solides, une appréciation constante et une haute qualité de vie.",
+      "p2": "Notre approche transcende les frontières. Nous analysons méticuleusement les indicateurs macroéconomiques, les incitations fiscales (comme les Golden Visas ou les régimes RNH) et les plans de développement urbain pour identifier les marchés avant qu'ils ne saturent. Cela permet à nos clients de capitaliser sur l'avantage du précurseur tout en maintenant la sécurité des actifs tangibles.",
+      "p3": "Que vous recherchiez des revenus passifs grâce à des locations à haut rendement ou une appréciation du capital à long terme pour un transfert de patrimoine générationnel, notre portefeuille curé est conçu pour performer dans divers climats économiques.",
+      "icons": {
+        "appreciation_title": "Appréciation du Capital",
+        "appreciation_desc": "Croissance de la valeur à long terme stimulée par un emplacement stratégique et le développement urbain.",
+        "yield_title": "Rendement Passif",
+        "yield_desc": "Génération constante de flux de trésorerie grâce aux marchés locatifs premium.",
+        "hedge_title": "Couverture contre l'Inflation",
+        "hedge_desc": "Actifs réels qui protègent le pouvoir d'achat contre la dévaluation de la monnaie.",
+        "diversification_title": "Diversification",
+        "diversification_desc": "Répartition géographique des actifs pour atténuer les risques géopolitiques."
+      }
+    },
+    "listings": {
+      "title": "Marchés Mondiaux Curés",
+      "subtitle": "Nous sélectionnons strictement les juridictions offrant l'équilibre idéal entre sécurité juridique, qualité de vie et rendement financier.",
+      "stat_active": "Régions Actives",
+      "loading": "Chargement des opportunités...",
+      "empty": "Aucun marché disponible pour le moment.",
+      "card_yield": "Rendement Est.",
+      "card_appreciation": "Appréciation",
+      "btn_explore": "Explorer les Opportunités"
+    },
+    "cta": {
+      "title": "Prêt à élargir votre portefeuille ?",
+      "description": "Notre équipe de conseillers experts est prête à vous guider à travers les meilleures opportunités immobilières internationales adaptées à vos objectifs d'investissement.",
+      "btn": "Planifier une Consultation"
+    }
+  },
+  "market_detail": {
+    "btn_back": "Retour aux Marchés",
+    "section_vision": "Vision Stratégique",
+    "why_invest": "Pourquoi investir à",
+    "reason_demand": "Forte demande pour des propriétés premium dans les zones cartographiées.",
+    "reason_tax": "Avantages fiscaux exclusifs pour les investisseurs étrangers.",
+    "map_active": "Villes avec Opération Active",
+    "map_area": "Zone de Couverture Solara",
+    "loading": "Chargement des données du marché...",
+    "not_found": "Marché non trouvé.",
+    "whatsapp_msg": "Bonjour, j'aimerais en savoir plus sur les investissements à"
+  },
+  "services_hub": {
+    "hero": {
+      "label": "Conseil & Investissement",
+      "title_line1": "Conseil & Investissement",
+      "title_line2": "avec un But",
+      "description": "De la stratégie aux résultats — des solutions complètes pour ceux qui investissent avec vision."
+    },
+    "real_estate": {
+      "title": "Investissement",
+      "title_highlight": "Immobilier",
+      "description": "Nous transformons les opportunités immobilières en investissements rentables et durables, avec une analyse stratégique et une vision à long terme.",
+      "item1_title": "Conseil & Opportunités",
+      "item1_desc": "Identification et analyse de propriétés à potentiel d'appréciation",
+      "item2_title": "Études de Rendement",
+      "item2_desc": "Analyses complètes du ROI, des flux de trésorerie et des projections de marché",
+      "item3_title": "Sourcing & Médiation",
+      "item3_desc": "Connexion avec les investisseurs et gestion complète de projets immobiliers"
+    },
+    "financial": {
+      "title": "Investissements",
+      "title_highlight": "Financiers",
+      "description": "Stratégies d'investissement personnalisées alliant sécurité, rentabilité et diversification intelligente de portefeuille.",
+      "item1_title": "Planification & Gestion de Portefeuille",
+      "item1_desc": "Construction de portefeuilles diversifiés alignés avec vos objectifs",
+      "item2_title": "Partenariats Stratégiques",
+      "item2_desc": "Collaboration avec des intermédiaires de crédit et des institutions financières de confiance",
+      "item3_title": "Outils & Simulateurs",
+      "item3_desc": "Accès à une technologie avancée pour l'analyse et le suivi des investissements"
+    },
+    "differentials": {
+      "title": "Différentiels",
+      "title_highlight": "Solara",
+      "subtitle": "Ce qui nous rend uniques sur le marché du conseil et de l'investissement",
+      "card1_title": "Analyse Stratégique",
+      "card1_desc": "Évaluation approfondie du marché avec des données réelles et des projections fondées",
+      "card2_title": "Transparence Totale",
+      "card2_desc": "Communication claire, processus transparents et partenariat de confiance",
+      "card3_title": "Réseau International",
+      "card3_desc": "Accès à des opportunités mondiales et expertise sur les marchés internationaux",
+      "btn_study": "Demander une Étude Personnalisée"
+    },
+    "cta": {
+      "title": "Prêt à",
+      "title_highlight": "Investir avec Conscience ?",
+      "description": "Planifiez une consultation stratégique et découvrez les meilleures opportunités pour votre profil.",
+      "btn": "Planifier une Consultation"
+    },
+    "whatsapp_msg": "Bonjour ! J'aimerais en savoir plus sur les services de Solara."
+  },
+  "vision_page": {
+    "hero": {
+      "title_main": "L'Information est",
+      "title_highlight": "Votre Nouvel Actif",
+      "description": "Découvrir les tendances du marché, façonner des récits et renforcer les décisions avec une clarté basée sur les données.",
+      "btn_articles": "Lire les Articles",
+      "btn_services": "Services d'Agence"
+    },
+    "highlights": {
+      "title": "Faits Saillants",
+      "title_highlight": "Récents",
+      "subtitle": "Insights et analyses transformant l'information en vision stratégique",
+      "no_articles": "Aucun article publié pour le moment.",
+      "btn_view_all": "Voir Tous les Articles"
+    },
+    "about": {
+      "label": "À Propos de Moi",
+      "p1": "Vision Press est née de la conviction que la communication est le pont le plus fort entre la valeur financière et la valeur humaine.",
+      "p2": "Elle symbolise la transparence, la croissance organique et une connexion profonde avec le but. Ce n'est pas seulement une marque graphique ; c'est l'engagement que chaque mot écrit porte l'intention de construire un avenir plus conscient.",
+      "role": "Associée Fondatrice & Rédactrice en Chef"
+    },
+    "newsletter": {
+      "title": "Recevez des insights",
+      "title_highlight": "clés",
+      "description": "Abonnez-vous à la newsletter de Vision Press et recevez des analyses de marché exclusives directement dans votre boîte de réception.",
+      "placeholder": "Votre email",
+      "btn_subscribe": "S'abonner",
+      "disclaimer": "En vous abonnant, vous acceptez notre Politique de Confidentialité."
+    },
+    "whatsapp_msg": "Bonjour ! J'aimerais en savoir plus sur Vision Press."
+  },
+  "article_detail": {
+    "not_found_title": "Article non trouvé",
+    "btn_back_articles": "Retour aux Articles",
+    "read_time": "min de lecture",
+    "stamp_label": "Éditorial Vision Press",
+    "stamp_verified": "Vérifié & Publié",
+    "author_name": "Camila Montenegro",
+    "author_role": "Associée Fondatrice",
+    "author_bio_title": "Camila Montenegro",
+    "author_bio_desc": "Spécialiste en investissement stratégique et communication d'entreprise. Associée Fondatrice de Solara Project et Rédactrice en Chef de Vision Press.",
+    "continue_reading": "Continuer la lecture",
+    "btn_back_list": "Retour à la Liste des Articles",
+    "loading": "Chargement de l'article...",
+    "error_loading": "Erreur lors du chargement de l'article."
+  },
+  "vision_articles": {
+    "header_label": "Journal Vision Press",
+    "title_main": "Articles &",
+    "title_highlight": "Insights",
+    "description": "Contenu éditorial transformant l'information en vision stratégique",
+    "search_placeholder": "Rechercher des articles...",
+    "categories": {
+      "all": "Tous",
+      "business": "Affaires",
+      "real_estate": "Immobilier",
+      "finance": "Finance",
+      "society": "Société",
+      "trends": "Tendances"
+    },
+    "loading": "Chargement des articles...",
+    "empty_state": "Aucun article trouvé.",
+    "read_time": "min de lecture",
+    "error_loading": "Impossible de charger les articles."
+  },
+  "vision_services": {
+    "hero": {
+      "label": "Agence Vision Press",
+      "title_line1": "Des Histoires qui",
+      "title_line2": "Allument des Étoiles",
+      "description": "Une nouvelle architecture de communication où l'authenticité, le courage et le respect se rencontrent pour créer des infinis."
+    },
+    "manifesto": {
+      "title": "Notre Essence",
+      "p1": "Vision Press naît d'une plongée profonde et infinie dans l'immensité, les idées et les aventures professionnelles de la journaliste et écrivaine Camila Montenegro. La marque Press, qui portait autrefois sa signature personnelle, prend désormais sa propre vie, chantant de nouvelles histoires entrelacées dans le temps et l'espace.",
+      "p2": "Dans l'humanité pulsante et la démocratie vivante, le droit à l'égalité imprègne les différences dans cette étincelle magique de partage : l'éclat et la force se rassemblent, même au milieu de la foule. Les cœurs battent dans le monde, dans la nature, dans le sol fertile, prospère et nourrissant qui a le Soleil comme étoile principale.",
+      "p3": "À travers chaque histoire, de nouveaux infinis se trouvent habitant une planète répondant silencieusement à une danse d'accueil de notre condition humaine. C'est de l'authenticité, du courage et du respect que naît une étoile, et l'on découvre qu'il n'y a pas de séparation.",
+      "p4": "Chaque être est une étoile unique dans ses formes, ses chemins, ses couleurs, ses saveurs et son éclat distinct, mais ce n'est que dans la rencontre que se révèlent les différentes lignes et images d'un tout. Chacun de nous est une pièce essentielle dans l'architecture et le scénario d'histoires infinies."
+    },
+    "vertentes": {
+      "title": "Verticales de Press",
+      "creative": {
+        "title": "Communication Créative",
+        "description": "Notre sous-marque dédiée à donner une voix, une image et une identité aux projets à but. Nous connectons les marques à leur essence grâce à des récits inspirants, au branding et à la stratégie de contenu."
+      },
+      "talent": {
+        "title": "Agence de Talents",
+        "description": "Nous identifions, renforçons et promouvons les individus et organisations alignés avec notre cause. Nous élevons les voix singulières qui doivent être entendues au milieu du bruit de la foule."
+      },
+      "builder": {
+        "title": "Bâtisseur de Terrain",
+        "description": "Renforcement et développement des organisations grâce à un soutien constant. Nous créons un écosystème philanthropique robuste pour contribuer au progrès dans les domaines vitaux de la société."
+      },
+      "btn_saiba_mais": "En Savoir Plus"
+    },
+    "cta": {
+      "title": "On raconte votre histoire ?",
+      "description": "L'avenir est plus proche et commence maintenant. Rejoignez-nous dans ce voyage de lumière et de récit.",
+      "btn": "Parler à Vision Press"
+    },
+    "whatsapp_msg": "Bonjour, j'aimerais en savoir plus sur les verticales de Vision Press."
+  },
+  "index_page": {
+    "whatsapp_msg": "Bonjour ! J'aimerais en savoir plus sur Solara."
+  },
+  "not_found": {
+    "title": "404",
+    "subtitle": "Oups ! Page non trouvée",
+    "btn_home": "Retour à l'Accueil"
+  },
+  "exit_popup": {
+    "title": "Avant de partir...",
+    "text_solara": "Découvrez comment nous pouvons illuminer vos investissements avec conscience et but.",
+    "text_vision": "Explorez des histoires qui allument des étoiles et transforment les perspectives.",
+    "btn_stay": "Continuer l'exploration",
+    "btn_back": "Retourner"
+  },
+  "whatsapp_button": {
+    "default_msg": "Bonjour ! J'aimerais recevoir plus d'informations."
+  },
+  "legal": {
+    "title": "Informations Légales",
+    "tabs": {
+      "privacy": "Confidentialité",
+      "terms": "Conditions d'Utilisation",
+      "cookies": "Cookies",
+      "notice": "Mentions Légales"
+    },
+    "privacy_content": {
+      "title": "Politique de Confidentialité",
+      "intro": "Cette Politique de Confidentialité régit le traitement des données personnelles collectées par Solar Project, Lda concernant le site web https://solarproject.pt, assurant la conformité avec le RGPD.",
+      "sections": [
+        { "title": "1. Données Collectées", "content": "Nous pouvons collecter : Nom, Email, Téléphone et données du formulaire de contact." },
+        { "title": "2. But", "content": "Les données sont traitées pour répondre aux demandes, fournir des services et améliorer l'expérience utilisateur." },
+        { "title": "3. Base Légale", "content": "Le traitement est basé sur le consentement, l'exécution du contrat ou l'intérêt légitime." },
+        { "title": "4. Rétention", "content": "Les données ne sont conservées que pour la période nécessaire." },
+        { "title": "5. Tiers", "content": "Nous ne vendons pas de données à des tiers." },
+        { "title": "6. Droits", "content": "Les utilisateurs peuvent accéder, rectifier ou supprimer leurs données." },
+        { "title": "7. Sécurité", "content": "Nous mettons en œuvre des mesures techniques pour protéger les données." }
+      ]
+    },
+    "terms_content": {
+      "title": "Conditions d'Utilisation",
+      "intro": "Ces Conditions régissent l'utilisation du site web solarproject.pt.",
+      "sections": [
+        { "title": "1. Entité Responsable", "content": "Solar Project, Lda — NIF 508418534." },
+        { "title": "2. Objet", "content": "Site web institutionnel et informatif sur l'énergie solaire." },
+        { "title": "3. Acceptation", "content": "L'utilisation implique l'acceptation totale de ces Conditions." },
+        { "title": "4. Contenu", "content": "Les informations sont informatives et ne constituent pas un avis juridique." },
+        { "title": "5. Propriété Intellectuelle", "content": "Tout le contenu appartient à Solar Project." },
+        { "title": "6. Responsabilité", "content": "Solar Project n'est pas responsable des dommages résultant de l'utilisation du site web." }
+      ]
+    },
+    "cookies_content": {
+      "title": "Politique de Cookies",
+      "intro": "Ce site web utilise des cookies pour améliorer l'expérience utilisateur.",
+      "sections": [
+        { "title": "1. Définition", "content": "Les cookies sont de petits fichiers stockés sur votre appareil." },
+        { "title": "2. Types", "content": "Essentiels, Analytiques et Fonctionnels." },
+        { "title": "3. Gestion", "content": "Vous pouvez désactiver les cookies dans les paramètres du navigateur." }
+      ]
+    },
+    "notice_content": {
+      "title": "Mentions Légales",
+      "sections": [
+        { "title": "1. Identification", "content": "Solar Project, Lda (NIF 508418534). Siège : Arcozelo, VN Gaia. Email : info@solarproject.pt." },
+        { "title": "2. Contenu", "content": "Informations générales, non contraignantes." },
+        { "title": "3. Loi Applicable", "content": "Régie par la loi portugaise. Juridiction : Vila Nova de Gaia." }
+      ]
+    }
+  },
+  "cookie_banner": {
+    "text": "Nous utilisons des cookies pour améliorer votre expérience. En continuant à naviguer, vous acceptez notre Politique de Cookies.",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "policy_link": "Lire la Politique"
+  }
+}

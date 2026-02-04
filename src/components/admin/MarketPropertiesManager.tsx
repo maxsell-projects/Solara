@@ -1,25 +1,46 @@
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input"; // <--- NOVO
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Plus, Trash2, Image as ImageIcon, X, UploadCloud } from "lucide-react";
+import { Loader2, Plus, Trash2, Image as ImageIcon, X, UploadCloud, MapPin, Calendar, TrendingUp } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription, // <--- ADICIONADO AQUI
+  DialogDescription,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"; // <--- NOVO
+import { Badge } from "@/components/ui/badge"; // <--- NOVO (Para visualização)
 
 const API_URL = import.meta.env.VITE_API_URL;
+
+// Enum deve bater com o Backend
+enum PropertyStatus {
+  PLANTA = 'Na Planta',
+  CONSTRUCAO = 'Em Construção',
+  PRONTO = 'Pronto para Morar'
+}
 
 interface Property {
   id: number;
   description: string;
   images: string[];
+  location?: string;
+  typology?: string;
+  status?: string;
+  estimatedProfitability?: string;
+  deliveryDate?: string;
 }
 
 interface MarketPropertiesManagerProps {
@@ -31,9 +52,16 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
   const [properties, setProperties] = useState<Property[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-
   const [isSaving, setIsSaving] = useState(false);
+
+  // --- ESTADOS DO FORMULÁRIO ---
   const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const [typology, setTypology] = useState("");
+  const [status, setStatus] = useState<string>(PropertyStatus.PLANTA);
+  const [profitability, setProfitability] = useState("");
+  const [deliveryDate, setDeliveryDate] = useState("");
+  
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
 
@@ -70,6 +98,19 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
     setPreviewUrls((prev) => prev.filter((_, i) => i !== index));
   };
 
+  // Função para limpar o form
+  const resetForm = () => {
+    setDescription("");
+    setLocation("");
+    setTypology("");
+    setStatus(PropertyStatus.PLANTA);
+    setProfitability("");
+    setDeliveryDate("");
+    setSelectedFiles([]);
+    setPreviewUrls([]);
+    setIsDialogOpen(false);
+  };
+
   const handleSave = async () => {
     if (!description) return toast({ title: "Atenção", description: "Adicione uma descrição.", variant: "destructive" });
     if (selectedFiles.length === 0) return toast({ title: "Atenção", description: "Adicione pelo menos uma imagem.", variant: "destructive" });
@@ -89,22 +130,22 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
           body: formData,
         });
         
-        if (!res.ok) {
-            // Log do erro se falhar
-            const err = await res.text();
-            console.error("Erro upload:", err);
-            throw new Error(`Falha no upload: ${err}`);
-        }
+        if (!res.ok) throw new Error("Falha no upload");
         const data = await res.json();
         return data.url; 
       });
 
       const uploadedUrls = await Promise.all(uploadPromises);
 
-      // 2. Criar a Propriedade
+      // 2. Payload Completo
       const payload = {
         description,
         images: uploadedUrls,
+        location,
+        typology,
+        status,
+        estimatedProfitability: profitability,
+        deliveryDate: deliveryDate ? new Date(deliveryDate) : null, // Envia como Date object ou null
       };
 
       const res = await fetch(`${API_URL}/markets/${marketId}/properties`, {
@@ -118,10 +159,7 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
 
       if (res.ok) {
         toast({ title: "Sucesso!", description: "Imóvel adicionado com sucesso." });
-        setIsDialogOpen(false);
-        setDescription("");
-        setSelectedFiles([]);
-        setPreviewUrls([]);
+        resetForm(); // Limpa tudo e fecha
         fetchProperties();
       } else {
         throw new Error("Falha ao salvar imóvel");
@@ -166,7 +204,7 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
       <div className="flex justify-between items-center">
         <div>
           <h3 className="text-lg font-medium">Imóveis Disponíveis</h3>
-          <p className="text-sm text-gray-500">Gerencie as oportunidades de investimento neste país.</p>
+          <p className="text-sm text-gray-500">Gerencie as oportunidades de investimento.</p>
         </div>
         
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -175,18 +213,95 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
               <Plus className="w-4 h-4 mr-2" /> Adicionar Imóvel
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Novo Imóvel no Mercado</DialogTitle>
-              {/* DESCRIÇÃO ADICIONADA AQUI */}
               <DialogDescription>
-                Adicione fotos de alta qualidade e uma descrição técnica atrativa para o imóvel.
+                Preencha todos os dados técnicos para atrair investidores qualificados.
               </DialogDescription>
             </DialogHeader>
             
             <div className="space-y-6 py-4">
+              
+              {/* --- BLOCO DE INFORMAÇÕES TÉCNICAS --- */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label>Localização (Bairro/Região)</Label>
+                  <div className="relative">
+                    <MapPin className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+                    <Input 
+                      placeholder="Ex: Business Bay, Dubai" 
+                      className="pl-9"
+                      value={location}
+                      onChange={(e) => setLocation(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Tipologia</Label>
+                  <Input 
+                    placeholder="Ex: Studio, 1 Bedroom, Penthouse..." 
+                    value={typology}
+                    onChange={(e) => setTypology(e.target.value)}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Status da Obra</Label>
+                  <Select value={status} onValueChange={setStatus}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione o status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value={PropertyStatus.PLANTA}>Na Planta</SelectItem>
+                      <SelectItem value={PropertyStatus.CONSTRUCAO}>Em Construção</SelectItem>
+                      <SelectItem value={PropertyStatus.PRONTO}>Pronto para Morar</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label>Previsão de Entrega</Label>
+                  <div className="relative">
+                    <Calendar className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+                    <Input 
+                      type="date"
+                      className="pl-9"
+                      value={deliveryDate}
+                      onChange={(e) => setDeliveryDate(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2 md:col-span-2">
+                  <Label>Rentabilidade Estimada (ROI/Yield)</Label>
+                  <div className="relative">
+                    <TrendingUp className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
+                    <Input 
+                      placeholder="Ex: 8% a.a. garantido por 3 anos" 
+                      className="pl-9"
+                      value={profitability}
+                      onChange={(e) => setProfitability(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* --- BLOCO DE DESCRIÇÃO --- */}
               <div className="space-y-2">
-                <Label>Fotos do Imóvel</Label>
+                <Label>Descrição Detalhada</Label>
+                <Textarea 
+                  value={description} 
+                  onChange={(e) => setDescription(e.target.value)} 
+                  placeholder="Descreva os diferenciais do projeto..." 
+                  rows={4} 
+                />
+              </div>
+
+              {/* --- BLOCO DE UPLOAD --- */}
+              <div className="space-y-2">
+                <Label>Galeria de Imagens</Label>
                 <div className="grid grid-cols-4 gap-4">
                   <label className="border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center aspect-square cursor-pointer hover:bg-gray-50 transition-colors">
                     <UploadCloud className="w-8 h-8 text-gray-400 mb-2" />
@@ -202,11 +317,6 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
                     </div>
                   ))}
                 </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label>Descrição / Ficha Técnica</Label>
-                <Textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Ex: T2 no Centro de Lisboa, Yield 6%..." rows={5} />
               </div>
 
               <Button onClick={handleSave} disabled={isSaving} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
@@ -228,22 +338,43 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {properties.map((prop) => (
-            <Card key={prop.id} className="group overflow-hidden">
+            <Card key={prop.id} className="group overflow-hidden flex flex-col h-full">
               <div className="aspect-video bg-gray-100 relative overflow-hidden">
                 {prop.images && prop.images.length > 0 ? (
                   <img src={getFullImageUrl(prop.images[0])} alt="Capa" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 ) : (
                   <div className="flex items-center justify-center h-full text-gray-400"><ImageIcon /></div>
                 )}
+                
+                {/* Badges Flutuantes */}
+                <div className="absolute top-2 left-2 flex flex-col gap-1">
+                  {prop.status && <Badge className="bg-black/70 backdrop-blur-sm text-xs hover:bg-black/90">{prop.status}</Badge>}
+                  {prop.typology && <Badge variant="secondary" className="backdrop-blur-sm opacity-90 text-xs">{prop.typology}</Badge>}
+                </div>
+
                 <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
                   <Button variant="destructive" size="icon" className="h-8 w-8 shadow-lg" onClick={() => handleDelete(prop.id)}><Trash2 className="w-4 h-4" /></Button>
                 </div>
               </div>
-              <CardContent className="p-4">
-                <p className="text-sm text-gray-600 line-clamp-3 font-light">{prop.description}</p>
-                <div className="mt-3 pt-3 border-t flex justify-between items-center text-xs text-gray-400">
-                  <span>{prop.images?.length || 0} fotos</span>
-                  <span>ID: {prop.id}</span>
+              <CardContent className="p-4 flex-1 flex flex-col">
+                <div className="flex items-center text-xs text-solara-gold font-semibold mb-2 uppercase tracking-wide">
+                  <MapPin className="w-3 h-3 mr-1" />
+                  {prop.location || "Localização não inf."}
+                </div>
+                
+                <p className="text-sm text-gray-600 line-clamp-2 font-light flex-1 mb-4">{prop.description}</p>
+                
+                <div className="mt-auto pt-3 border-t grid grid-cols-2 gap-2 text-xs text-gray-500">
+                  <div className="flex flex-col">
+                     <span className="text-gray-400">Entrega</span>
+                     <span className="font-medium text-gray-700">
+                        {prop.deliveryDate ? new Date(prop.deliveryDate).toLocaleDateString() : '-'}
+                     </span>
+                  </div>
+                  <div className="flex flex-col text-right">
+                     <span className="text-gray-400">Yield Est.</span>
+                     <span className="font-medium text-emerald-600">{prop.estimatedProfitability || '-'}</span>
+                  </div>
                 </div>
               </CardContent>
             </Card>
