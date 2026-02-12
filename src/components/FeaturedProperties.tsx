@@ -10,44 +10,52 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 const MOCK_PROPERTIES = [
   {
     id: 101,
-    title: "MANSÃO CLIFFSIDE",
-    description: "Uma obra-prima arquitetônica com vista infinita para o oceano.",
-    country: "PORTUGAL",
+    title: "ISLANDS",
+    subtitle: "DAMAC",
+    description: "Living para 5 ambientes",
+    details: "Apartamentos T2, T3, T4 e Penthouse",
+    additionalInfo: "Where smart investment meets inspired living. DAMAC Islands is a forward-thinking portfolio and your key to Dubai.",
+    country: "Dubai",
     image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=1600&auto=format&fit=crop",
     slug: "#",
+    tag: "Empreendimento"
   },
   {
     id: 102,
     title: "VILLA TOSCANA",
-    description: "O charme rústico italiano combinado com o luxo moderno.",
+    subtitle: "LUXURY",
+    description: "O charme rústico italiano",
+    details: "Villas exclusivas com piscina",
+    additionalInfo: "O charme rústico italiano combinado com o luxo moderno em uma das regiões mais belas da Itália.",
     country: "ITÁLIA",
     image: "https://images.unsplash.com/photo-1523217582562-09d0def993a6?q=80&w=1600&auto=format&fit=crop",
     slug: "#",
+    tag: "Empreendimento"
   },
   {
     id: 103,
     title: "PENTHOUSE DUBAI",
-    description: "O auge da exclusividade no coração de Dubai.",
+    subtitle: "EXCLUSIVE",
+    description: "O auge da exclusividade",
+    details: "Penthouses de alto padrão",
+    additionalInfo: "O auge da exclusividade no coração de Dubai com vista panorâmica incomparável.",
     country: "EMIRADOS ÁRABES",
     image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1600&auto=format&fit=crop",
     slug: "#",
+    tag: "Empreendimento"
   },
 ];
 
-// Helper corrigido para evitar caminhos duplicados
 const getImageUrl = (img?: string) => {
   if (!img) return MOCK_PROPERTIES[0].image;
   if (img.startsWith("http")) return img;
 
-  // Remove a barra inicial se existir e normaliza o path
   const path = img.startsWith('/') ? img.substring(1) : img;
   
-  // Se o banco já salvou com 'uploads/', apenas concatenamos com a API_URL
   if (path.startsWith('uploads/')) {
     return `${API_URL}/${path}`;
   }
   
-  // Caso contrário, adicionamos o prefixo uploads
   return `${API_URL}/uploads/${path}`;
 };
 
@@ -65,10 +73,14 @@ const FeaturedProperties = () => {
           const realProperties = data.map((p: any) => ({
             id: p.id,
             title: p.title || p.market?.name || "IMÓVEL EXCLUSIVO",
-            description: p.description ? (p.description.substring(0, 100) + "...") : "Descrição indisponível.",
+            subtitle: p.subtitle || "",
+            description: p.description ? (p.description.substring(0, 50) + "...") : "Descrição indisponível.",
+            details: p.details || "",
+            additionalInfo: p.additionalInfo || "",
             country: p.location || "GLOBAL",
             image: getImageUrl(p.images?.[0]),
             slug: p.market?.slug || "#",
+            tag: p.tag || "Empreendimento"
           }));
           setProperties(realProperties);
         } else {
@@ -92,12 +104,13 @@ const FeaturedProperties = () => {
 
   return (
     <section ref={targetRef} className="relative h-[500vh] bg-neutral-900">
-      <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-[#7A1818]">
-        <div className="absolute top-0 left-0 right-0 z-20 flex justify-between items-center px-4 md:px-8 py-4 md:py-6 bg-[#7A1818]/90 backdrop-blur-sm border-b border-white/30">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-light tracking-widest uppercase text-white">
-            IMÓVEIS
+      <div className="sticky top-0 flex h-screen items-center overflow-hidden bg-[#8B3A3A]">
+        {/* Header */}
+        <div className="absolute top-0 left-0 right-0 z-20 flex justify-between items-center px-4 md:px-16 py-4 md:py-6 bg-[#8B3A3A] border-b border-white/20">
+          <h2 className="text-2xl md:text-4xl font-light tracking-wide text-white">
+            Imóveis
           </h2>
-          <div className="w-16 md:w-24 lg:w-32">
+          <div className="w-12 md:w-20">
             <img
               src={logoNovaSolara}
               alt="Solara Logo"
@@ -111,37 +124,67 @@ const FeaturedProperties = () => {
           {properties.map((property) => (
             <div
               key={property.id}
-              className="relative h-screen w-screen flex-shrink-0 flex flex-col items-center justify-center pt-20 pb-4 px-4 md:px-16"
+              className="relative h-screen w-screen flex-shrink-0 flex items-center justify-center pt-24 pb-8 px-4 md:px-8"
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full max-w-7xl items-center h-full max-h-[85vh]">
-                <div className="relative order-1 md:order-2 h-[40vh] md:h-[75vh] w-full flex items-center justify-center">
-                  <div className="absolute inset-0 bg-white/5 blur-3xl rounded-full scale-90" />
-                  <img
-                    src={property.image}
-                    alt={property.title}
-                    className="h-full w-full object-cover rounded-[2rem] md:rounded-[4rem] shadow-2xl border-2 md:border-4 border-white/10 relative z-10"
-                  />
-                  <div className="hidden md:block absolute top-6 left-6 w-full h-full border-2 border-white/10 rounded-[4rem] -z-0" />
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 w-full max-w-7xl h-full max-h-[80vh]">
+                {/* Sidebar Esquerda */}
+                <div className="md:col-span-4 flex flex-col justify-between text-white space-y-4 md:space-y-6 py-4 md:py-8">
+                  {/* Localização */}
+                  <div className="flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 w-fit backdrop-blur-sm">
+                    <MapPin className="w-4 h-4" />
+                    <span className="text-sm font-light">{property.country}</span>
+                  </div>
+
+                  {/* Título e Informações */}
+                  <div className="space-y-3 md:space-y-4 flex-1">
+                    <div>
+                      <p className="text-sm md:text-base font-light tracking-wider uppercase text-white/80">
+                        {property.subtitle}
+                      </p>
+                      <h3 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-wide uppercase leading-tight mt-1">
+                        {property.title}
+                      </h3>
+                    </div>
+
+                    <p className="text-base md:text-lg font-light text-white/90">
+                      {property.description}
+                    </p>
+
+                    <p className="text-sm md:text-base font-light text-white/80">
+                      {property.details}
+                    </p>
+
+                    <div className="pt-2 md:pt-4">
+                      <p className="text-xs md:text-sm font-light text-white/70 leading-relaxed">
+                        {property.additionalInfo}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Botão */}
+                  <div className="pt-4">
+                    <Button
+                      className="w-full md:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-[#8B3A3A] rounded-md px-8 py-3 text-sm md:text-base font-light tracking-wider uppercase transition-all duration-300"
+                    >
+                      SABER MAIS
+                    </Button>
+                  </div>
                 </div>
 
-                <div className="flex flex-col justify-center order-2 md:order-1 space-y-4 md:space-y-8 text-white z-10 md:pl-12 text-center md:text-left">
-                  <div className="flex items-center justify-center md:justify-start gap-2 md:gap-3 text-white/90 uppercase tracking-[0.2em] text-sm md:text-lg font-bold md:border-l-4 md:border-white md:pl-4">
-                    <MapPin className="w-4 h-4 md:w-5 md:h-5" />
-                    {property.country}
-                  </div>
-                  <h3 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-playfair leading-none tracking-tight">
-                    {property.title}
-                  </h3>
-                  <p className="text-sm md:text-xl lg:text-2xl text-white/80 max-w-xl font-light leading-relaxed md:border-l border-white/20 md:pl-6 mx-auto md:mx-0">
-                    {property.description}
-                  </p>
-                  <div className="pt-2 md:pt-8">
-                    <Button
-                      className="group bg-white text-[#7A1818] hover:bg-neutral-100 rounded-full px-6 py-4 md:px-10 md:py-8 text-base md:text-xl font-medium transition-all duration-300 shadow-xl"
-                    >
-                      SAIBA MAIS
-                      <ArrowRight className="ml-2 md:ml-3 w-4 h-4 md:w-6 md:h-6 group-hover:translate-x-2 transition-transform" />
-                    </Button>
+                {/* Imagem à Direita */}
+                <div className="md:col-span-8 relative h-[50vh] md:h-full flex items-center justify-center">
+                  <div className="relative w-full h-full">
+                    {/* Tag Empreendimento */}
+                    <div className="absolute top-4 left-4 z-10 bg-[#8B3A3A] text-white px-4 py-2 rounded-full text-xs md:text-sm font-light tracking-wide">
+                      {property.tag}
+                    </div>
+
+                    {/* Imagem */}
+                    <img
+                      src={property.image}
+                      alt={property.title}
+                      className="w-full h-full object-cover rounded-2xl md:rounded-3xl shadow-2xl"
+                    />
                   </div>
                 </div>
               </div>
