@@ -6,8 +6,8 @@ import logoSolara from "@/assets/logo-solara-full.png";
 import logoVision from "@/assets/logo-vision.png";
 import HamburgerMenu from "@/components/HamburgerMenu";
 // Novos Imports para Tradução
-import LanguageSwitcher from "@/components/LanguageSwitcher"; 
-import { useTranslation } from "react-i18next"; 
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { t } = useTranslation(); // <--- Hook de tradução
@@ -40,33 +40,16 @@ const Header = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? "bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm py-2"
-          : "bg-transparent border-transparent py-4"
+        ? "bg-white border-b border-gray-100 shadow-md py-2" // Fundo sólido e sombra mais forte
+        : "bg-transparent border-transparent py-4"
         }`}
     >
       <div className="container mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 transition-all duration-300">
 
           {/* LÓGICA DO LOGO: Muda a imagem e o link dependendo da secção */}
-          <Link to={homeLink} className="flex items-center group">
-            <div className="flex items-center justify-center transition-transform group-hover:scale-105">
-              {isVisionSection ? (
-                // Logo Vision Press
-                <img
-                  src={logoVision}
-                  alt="Vision Press"
-                  className="h-20 md:h-28 w-auto object-contain"
-                />
-              ) : (
-                // Logo Solara
-                <img
-                  src={logoSolara}
-                  alt="Solara Project"
-                  className="h-24 w-auto object-contain"
-                />
-              )}
-            </div>
-          </Link>
+          {/* LÓGICA DO LOGO: REMOVIDO CONFORME SOLICITADO */}
+          <div></div>
 
           <nav className="hidden md:flex items-center gap-8">
             {/* LINK HOME DINÂMICO */}
@@ -124,9 +107,9 @@ const Header = () => {
           <div className="flex items-center md:hidden relative">
             {/* CORREÇÃO AQUI: Adicionei 'mr-12' (margem direita) para afastar o globo do menu */}
             <div className="mr-12">
-                <LanguageSwitcher />
+              <LanguageSwitcher />
             </div>
-            
+
             {/* O HamburgerMenu provavelmente tem 'absolute' interno, então ele vai ficar nesse espaço que criamos */}
             <HamburgerMenu />
           </div>

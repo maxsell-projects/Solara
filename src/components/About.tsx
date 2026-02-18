@@ -20,24 +20,25 @@ const About = () => {
                 <span className="text-primary">{t('about.title_sub')}</span>
               </h2>
             </div>
-            
+
             <div className="space-y-6 text-lg font-light text-muted-foreground leading-relaxed">
               <p>{t('about.p1')}</p>
               <p>{t('about.p2')}</p>
             </div>
-            
+
             <div className="pt-6">
-              <img 
-                src={signatureCamila} 
-                alt="Camila Montenegro signature" 
-                className="h-24 w-auto opacity-100 -ml-2" // Aumentado para h-24, sem opacidade, e pequeno ajuste de margem à esquerda para alinhar visualmente o início da escrita
+              <img
+                src={signatureCamila}
+                alt="Camila Montenegro signature"
+                className="h-40 w-auto opacity-100 -ml-2"
+                style={{ filter: 'invert(19%) sepia(51%) saturate(2250%) hue-rotate(319deg) brightness(95%) contrast(94%)' }}
               />
               <p className="text-sm text-muted-foreground font-light mt-3">
                 Camila Montenegro, {t('about.founder_role')}
               </p>
             </div>
           </div>
-          
+
           <div className="space-y-8">
             <div className="grid grid-cols-2 gap-8">
               <div className="space-y-2">
@@ -57,7 +58,7 @@ const About = () => {
                 <p className="text-sm font-light text-muted-foreground">{t('about.stats.projects')}</p>
               </div>
             </div>
-            
+
             <Card className="bg-neutral-50 border-0 p-8">
               <div className="space-y-4">
                 <h3 className="text-xl font-light">{t('about.pillars_title')}</h3>

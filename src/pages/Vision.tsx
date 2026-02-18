@@ -10,9 +10,9 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Calendar, User, Loader2 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "sonner";
-import { useTranslation } from "react-i18next"; 
-import { LeadForm } from "@/components/LeadForm"; 
-import { HeroBackground } from "@/components/HeroBackground"; 
+import { useTranslation } from "react-i18next";
+import { LeadForm } from "@/components/LeadForm";
+import { HeroBackground } from "@/components/HeroBackground";
 
 // --- IMPORTAÇÃO DE ASSETS ---
 import logoVision from "@/assets/logo-vision.png";
@@ -128,7 +128,7 @@ const Vision = () => {
                   />
                 </div>
               </div>
-              
+
               {/* REMOVIDO: Bloco "em parceria com Solara" */}
             </div>
 
@@ -294,7 +294,8 @@ const Vision = () => {
                   <img
                     src={signatureCamila}
                     alt="Assinatura Camila Montenegro"
-                    className="h-20 w-auto object-contain opacity-80"
+                    className="h-32 w-auto object-contain"
+                    style={{ filter: 'invert(21%) sepia(16%) saturate(3054%) hue-rotate(106deg) brightness(93%) contrast(92%)' }}
                   />
                   <p className="text-xs text-neutral-400 mt-2 tracking-widest uppercase">{t('vision_page.about.role')}</p>
                 </div>
@@ -330,7 +331,7 @@ const Vision = () => {
 
             {/* Componente de Formulário Integrado */}
             <div className="bg-neutral-50 rounded-3xl p-8 md:p-12 shadow-xl border border-neutral-100">
-                <LeadForm brand="vision" />
+              <LeadForm brand="vision" />
             </div>
 
             <p className="text-xs text-neutral-400 font-light mt-8 text-center">

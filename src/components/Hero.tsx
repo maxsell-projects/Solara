@@ -2,12 +2,11 @@ import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import logoSolara from "@/assets/logo-solara-full.png";
-import fundo from "@/assets/fundo.jpg"; 
 import { useTranslation } from "react-i18next";
 
 const Hero = () => {
   const { t } = useTranslation();
-  
+
   const [mousePosition, setMousePosition] = useState({
     x: 0,
     y: 0,
@@ -33,26 +32,16 @@ const Hero = () => {
   const logoTiltX = isHoveringLogo ? 0 : mousePosition.y * -15;
   const logoTiltY = isHoveringLogo ? 0 : mousePosition.x * 15;
 
-  // Sombra intensa apenas para o Título e Logo
-  const intenseWhiteGlow = "0 0 10px rgba(255,255,255,0.9), 0 0 30px rgba(255,255,255,0.9), 0 0 60px rgba(255,255,255,0.7)";
-
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden perspective-1000"
+      className="relative min-h-screen flex items-start justify-center overflow-hidden perspective-1000 pt-32"
     >
-      {/* --- FUNDO --- */}
-      <img 
-        src={fundo} 
-        alt="Background" 
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+      <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center">
+        <div className="max-w-5xl mx-auto space-y-2">
 
-      <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-20">
-        <div className="max-w-5xl mx-auto space-y-12">
-
-          {/* Logo Section */}
-          <div className="flex flex-col items-center gap-8 mb-8">
+          {/* Logo Section - AUMENTADA E MAIS ALTA */}
+          <div className="flex flex-col items-center gap-8">
             <div className="block perspective-container relative group">
               <div
                 className="flex items-center justify-center transition-all duration-500 ease-out will-change-transform relative"
@@ -71,7 +60,7 @@ const Hero = () => {
                 <img
                   src={logoSolara}
                   alt="Solara Project"
-                  className="h-40 md:h-56 w-auto object-contain transition-all duration-300 relative z-10"
+                  className="h-64 md:h-80 lg:h-96 w-auto object-contain transition-all duration-300 relative z-10"
                   style={{
                     filter: isHoveringLogo
                       ? `drop-shadow(0 0 30px rgba(92, 6, 30, 0.4))`
@@ -82,33 +71,27 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* TÍTULO (Mantido na Hero) */}
-          <div style={{
-            transform: `translate(${mousePosition.x * 5}px, ${mousePosition.y * 5}px)`,
-            transition: 'transform 0.2s ease-out'
-          }}>
-            <h1 
-              className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-black tracking-tight"
-              style={{ textShadow: intenseWhiteGlow }}
-            >
-              {t('hero.title_main')}
-              <br />
-              <span className="text-solara-vinho font-medium relative inline-block">
-                {t('hero.title_sub')}
-              </span>
-            </h1>
-          </div>
+          {/* ESTD */}
+          <p className="text-xs uppercase tracking-[0.3em] text-solara-vinho font-bold">
+            {t('hero.estd')}
+          </p>
 
-          {/* BOTÕES (Mantidos para navegação rápida) */}
-          <div className="flex flex-col sm:flex-row gap-5 justify-center pt-8">
+          {/* BOTÕES - MAIS PRÓXIMOS M E FINOS */}
+          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-0">
             <Link to="/services">
-              <Button size="lg" className="rounded-full text-base bg-solara-vinho hover:bg-[#4a1223] text-white border-none shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold shadow-white/50">
+              <Button
+                size="sm"
+                className="rounded-full text-xs bg-white text-solara-vinho border-2 border-solara-vinho hover:bg-solara-vinho hover:text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-6 py-3 uppercase tracking-widest font-bold"
+              >
                 {t('hero.btn_services')}
               </Button>
             </Link>
 
             <Link to="/vision">
-              <Button size="lg" variant="outline" className="rounded-full text-base border-2 border-emerald-600 text-emerald-800 hover:bg-emerald-50 hover:text-emerald-900 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold bg-white/70 backdrop-blur-md">
+              <Button
+                size="sm"
+                className="rounded-full text-xs bg-white text-emerald-800 border-2 border-emerald-600 hover:bg-emerald-600 hover:text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-6 py-3 uppercase tracking-widest font-bold"
+              >
                 {t('hero.btn_vision')}
               </Button>
             </Link>

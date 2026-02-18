@@ -5,11 +5,12 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import About from "@/components/About";
 import VisionConnection from "@/components/VisionConnection";
-import FeaturedProperties from "@/components/FeaturedProperties"; // [!code ++] Importação da nova dobra
+import FeaturedProperties from "@/components/FeaturedProperties";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
+import retanguloImg from "@/assets/Retangulo.jpeg";
 
 const Index = () => {
   const { t } = useTranslation();
@@ -21,10 +22,17 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
-      
+
       <main className="flex-grow">
-        <Hero />
-        
+        {/* Hero com imagem de fundo */}
+        <div
+          className="relative w-full bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${retanguloImg})` }}
+        >
+          <Hero />
+        </div>
+
+        {/* Services com fundo próprio (SEM a imagem) */}
         <div id="services">
           <Services />
         </div>
@@ -37,18 +45,16 @@ const Index = () => {
           <VisionConnection />
         </div>
 
-        {/* NOVA DOBRA: Imóveis (Efeito Baralho / Scroll Horizontal) */}
-        {/* Posicionado como a última dobra antes do footer, conforme solicitado */}
         <div id="properties-showcase">
-          <FeaturedProperties /> {/* [!code ++] */}
+          <FeaturedProperties />
         </div>
       </main>
 
       <Footer />
-      
-      <WhatsAppButton 
-        phoneNumber="+351123456789" 
-        message={t('index_page.whatsapp_msg')} 
+
+      <WhatsAppButton
+        phoneNumber="+351123456789"
+        message={t('index_page.whatsapp_msg')}
         brand="solara"
       />
       <BackToTop />

@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import signatureCamila from "@/assets/signature-camila.png";
 import logoVision from "@/assets/logo-vision.png";
 import visionImg from "@/assets/vision-editorial.jpg";
-import camilaImg from "@/assets/camila.png"; 
+import camilaImg from "@/assets/camila.png";
 
 const About = () => {
   const { t } = useTranslation();
@@ -43,7 +43,7 @@ const About = () => {
       <section className="py-24">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-start">
-            
+
             {/* Coluna Esquerda: Manifesto & Assinatura */}
             <div className="space-y-8">
               <div>
@@ -67,7 +67,8 @@ const About = () => {
                 <img
                   src={signatureCamila}
                   alt="Camila Montenegro signature"
-                  className="h-16 w-auto opacity-80 -ml-2"
+                  className="h-32 w-auto opacity-100 -ml-2"
+                  style={{ filter: 'invert(19%) sepia(51%) saturate(2250%) hue-rotate(319deg) brightness(95%) contrast(94%)' }}
                 />
                 <p className="text-sm text-muted-foreground font-light mt-2 uppercase tracking-widest">
                   {t('about.manifesto.role')}
@@ -77,15 +78,15 @@ const About = () => {
 
             {/* Coluna Direita: Foto da Camila + Card Vertentes */}
             <div className="space-y-8 flex flex-col">
-              
+
               {/* 1. Foto Humanizada */}
               <div className="relative aspect-[4/5] w-full max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl group">
-                 <img 
-                   src={camilaImg} 
-                   alt="Camila Montenegro" 
-                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
-                 />
-                 <div className="absolute inset-0 bg-solara-vinho/10 mix-blend-multiply group-hover:bg-transparent transition-all duration-1000"></div>
+                <img
+                  src={camilaImg}
+                  alt="Camila Montenegro"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
+                />
+                <div className="absolute inset-0 bg-solara-vinho/10 mix-blend-multiply group-hover:bg-transparent transition-all duration-1000"></div>
               </div>
 
               {/* 2. Card Vertentes (Logo abaixo da foto) */}
@@ -172,7 +173,7 @@ const About = () => {
       <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            
+
             <div className="order-2 lg:order-1 relative group">
               <div className="absolute inset-0 bg-emerald-900/10 rounded-3xl transform rotate-3 group-hover:rotate-0 transition-transform duration-500"></div>
               <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl relative bg-white transform -rotate-2 group-hover:rotate-0 transition-transform duration-500">

@@ -15,7 +15,7 @@ import { MagazineCarousel } from "@/components/MagazineCarousel"; // <--- NOVO I
 import visionImg from "@/assets/vision-editorial.jpg";
 import logoVision from "@/assets/logo-vision.png";
 import signatureCamila from "@/assets/signature-camila.png";
-import visionStamp from "@/assets/VisionPress-56.png"; 
+import visionStamp from "@/assets/VisionPress-56.png";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -39,10 +39,10 @@ const VisionArticleDetail = () => {
   useEffect(() => {
     const fetchArticle = async () => {
       if (!slug) return;
-      
+
       try {
         const response = await fetch(`${API_URL}/posts/${slug}`);
-        
+
         if (response.ok) {
           const data = await response.json();
           setArticle(data);
@@ -104,11 +104,11 @@ const VisionArticleDetail = () => {
               {article.category}
             </Badge>
           </div>
-          
+
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-foreground mb-6 leading-tight">
             {article.title}
           </h1>
-          
+
           <p className="text-xl md:text-2xl text-muted-foreground font-light leading-relaxed mb-8">
             {article.excerpt}
           </p>
@@ -140,9 +140,9 @@ const VisionArticleDetail = () => {
         {/* Hero Image */}
         <div className="container mx-auto px-6 lg:px-8 mb-16">
           <div className="aspect-[21/9] overflow-hidden rounded-sm shadow-xl max-w-6xl mx-auto group">
-            <img 
-              src={getImageUrl(article.image)} 
-              alt={article.title} 
+            <img
+              src={getImageUrl(article.image)}
+              alt={article.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
             />
           </div>
@@ -150,7 +150,7 @@ const VisionArticleDetail = () => {
 
         {/* Content Area */}
         <div className="container mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-6xl">
-          
+
           {/* Sidebar Esquerda (Desktop) */}
           <div className="lg:col-span-2 hidden lg:flex flex-col items-end gap-4 sticky top-32 h-fit">
             <Link to="/vision/articles">
@@ -180,23 +180,23 @@ const VisionArticleDetail = () => {
               prose-p:text-muted-foreground prose-p:leading-8 prose-p:font-light
               prose-blockquote:border-l-4 prose-blockquote:border-vision-green prose-blockquote:text-vision-green prose-blockquote:bg-vision-green/5 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:rounded-r-lg
               prose-strong:text-foreground prose-strong:font-medium">
-              
+
               <div dangerouslySetInnerHTML={{ __html: article.content }} />
-              
+
             </article>
 
             {/* --- SEÇÃO UNIFICADA DE ENCERRAMENTO (CARIMBO + ASSINATURA) --- */}
             <div className="mt-20 pt-16 border-t border-vision-green/20 flex flex-col items-center text-center animate-in fade-in slide-in-from-bottom-4 duration-1000 fill-mode-forwards" style={{ animationDelay: '0.2s' }}>
-              
+
               {/* 1. Carimbo Vision Press */}
               <div className="mb-6">
                 <p className="text-[10px] uppercase tracking-[0.3em] text-neutral-400 mb-3 font-semibold">
                   {t('article_detail.stamp_label')}
                 </p>
                 <div className="relative inline-block group cursor-pointer hover:scale-105 transition-transform duration-500">
-                  <img 
-                    src={visionStamp} 
-                    alt="Vision Press Stamp" 
+                  <img
+                    src={visionStamp}
+                    alt="Vision Press Stamp"
                     className="w-32 md:w-40 h-auto opacity-80 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-out"
                   />
                 </div>
@@ -207,12 +207,12 @@ const VisionArticleDetail = () => {
 
               {/* 2. Assinatura Proporcional */}
               <div className="mb-8">
-                <img 
-                  src={signatureCamila} 
-                  alt="Assinatura Camila Montenegro" 
-                  className="h-32 md:h-40 w-auto object-contain mx-auto" 
-                  style={{ 
-                    filter: 'invert(38%) sepia(55%) saturate(709%) hue-rotate(106deg) brightness(93%) contrast(89%)' 
+                <img
+                  src={signatureCamila}
+                  alt="Assinatura Camila Montenegro"
+                  className="h-40 md:h-56 w-auto object-contain mx-auto"
+                  style={{
+                    filter: 'invert(21%) sepia(16%) saturate(3054%) hue-rotate(106deg) brightness(93%) contrast(92%)'
                   }}
                 />
               </div>
@@ -229,7 +229,7 @@ const VisionArticleDetail = () => {
 
             </div>
           </div>
-            
+
           <div className="lg:col-span-2"></div>
         </div>
       </main>
