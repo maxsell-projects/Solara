@@ -37,14 +37,14 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Routes>
           {/* Rotas Públicas */}
           <Route path="/" element={<Index />} />
-          
+
           {/* HUB de Serviços */}
           <Route path="/services" element={<Services />} />
-          
+
           {/* Sub-páginas de Serviços */}
           <Route path="/services/real-estate" element={<RealEstate />} />
           <Route path="/services/real-estate/:slug" element={<RealEstateDetail />} />
@@ -64,12 +64,12 @@ const App = () => (
 
           {/* Rota de Login Admin */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          
+
           {/* Rotas Protegidas (Dashboard) */}
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            
+
             <Route path="/admin/posts/new" element={<AdminPostEditor />} />
             <Route path="/admin/posts/edit/:id" element={<AdminPostEditor />} />
 
@@ -82,7 +82,7 @@ const App = () => (
 
         {/* Banner de Cookies (Aparece globalmente) */}
         <CookieConsent />
-        
+
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

@@ -60,6 +60,11 @@ const getImageUrl = (img?: string) => {
   return `${API_URL}/uploads/${path}`;
 };
 
+const truncate = (text: string, length: number) => {
+  if (!text) return "";
+  return text.length > length ? text.substring(0, length) + "..." : text;
+};
+
 const FeaturedProperties = () => {
   const [properties, setProperties] = useState<any[]>([]);
   const targetRef = useRef<HTMLDivElement | null>(null);
@@ -75,11 +80,9 @@ const FeaturedProperties = () => {
             id: p.id,
             title: p.title || p.market?.name || "IMÓVEL EXCLUSIVO",
             subtitle: p.subtitle || "",
-            description: p.description
-              ? p.description.substring(0, 50) + "..."
-              : "Descrição indisponível.",
-            details: p.details || "",
-            additionalInfo: p.additionalInfo || "",
+            description: truncate(p.description, 300) || "Descrição indisponível.",
+            details: truncate(p.details, 300) || "",
+            additionalInfo: truncate(p.additionalInfo, 300),
             country: p.location || "GLOBAL",
             image: getImageUrl(p.images?.[0]),
             slug: p.market?.slug || "#",
@@ -87,21 +90,43 @@ const FeaturedProperties = () => {
           }));
           setProperties(realProperties);
         } else {
-          setProperties(MOCK_PROPERTIES);
+          setProperties(
+            MOCK_PROPERTIES.map((p) => ({
+              ...p,
+              description: truncate(p.description, 300),
+              details: truncate(p.details, 300),
+              additionalInfo: truncate(p.additionalInfo, 300),
+            }))
+          );
         }
       } catch (error) {
-        setProperties(MOCK_PROPERTIES);
+        setProperties(
+          MOCK_PROPERTIES.map((p) => ({
+            ...p,
+            description: truncate(p.description, 300),
+            details: truncate(p.details, 300),
+            additionalInfo: truncate(p.additionalInfo, 300),
+          }))
+        );
       }
     };
 
     fetchProperties();
   }, []);
 
-  const { scrollYProgress } = useScroll({ target: targetRef });
+  // "10" telas adicionais antes de começar o movimento horizontal
+  const totalScreens = properties.length + 10;
+  const lockStart = 10 / totalScreens;
+
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ["start start", "end end"],
+  });
+
   const x = useTransform(
     scrollYProgress,
-    [0, 1],
-    ["0%", `-${(properties.length - 1) * 100}%`]
+    [0, lockStart, 1],
+    ["0%", "0%", `-${(properties.length - 1) * 100}%`]
   );
 
   if (properties.length === 0) return null;
@@ -109,20 +134,19 @@ const FeaturedProperties = () => {
   return (
     <section
       ref={targetRef}
-      style={{ height: `${properties.length * 100}vh` }}
+      style={{ height: `${totalScreens * 100}vh` }}
       className="relative bg-[#832C35]"
     >
-      {/* ── STICKY VIEWPORT ── */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#832C35] flex flex-col">
-
+      {/* ── STICKY VIEWPORT (100dvh para mobile) ── */}
+      <div className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-[#832C35] flex flex-col">
         {/* ── HEADER ── */}
-        <div className="relative z-20 flex-shrink-0 flex justify-between items-center px-6 md:px-16 pt-5 pb-3 md:pt-6 md:pb-4">
+        <div className="relative z-20 flex-shrink-0 flex justify-between items-center px-6 md:px-16 pt-5 pb-2 md:pt-6 md:pb-3">
           <h2 className="text-2xl md:text-4xl font-light tracking-[0.2em] text-white">
             Imóveis
           </h2>
 
           {/* Logo maior, desce sobre a linha */}
-          <div className="relative z-30 w-20 md:w-40 translate-y-3 md:translate-y-4">
+          <div className="relative z-30 w-20 md:w-44 translate-y-3 md:translate-y-4">
             <img
               src={logoNovaSolara}
               alt="Solara Logo"
@@ -142,12 +166,10 @@ const FeaturedProperties = () => {
               key={property.id}
               className="h-full w-screen flex-shrink-0 flex items-center px-6 md:px-16 py-4 md:py-6"
             >
-              {/* ── GRID PRINCIPAL ── */}
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 w-full max-w-[1600px] mx-auto h-full">
-
+              {/* ── GRID PRINCIPAL (mobile em coluna) ── */}
+              <div className="flex flex-col md:grid md:grid-cols-12 gap-0 md:gap-10 w-full max-w-[1600px] mx-auto h-full overflow-hidden">
                 {/* ── LEFT: conteúdo ── */}
-                <div className="md:col-span-4 flex flex-col justify-between text-white h-full py-2">
-
+                <div className="order-2 md:order-1 flex-1 md:col-span-4 flex flex-col justify-between text-white h-full py-2 min-h-0">
                   {/* Location tag — branca, texto/pin na cor do fundo */}
                   <div className="flex items-center gap-2 bg-white rounded-full px-4 py-2 w-fit">
                     <MapPin className="w-4 h-4 text-[#832C35]" />
@@ -159,24 +181,23 @@ const FeaturedProperties = () => {
                   {/* Texto central */}
                   <div className="space-y-3 flex-1 mt-4">
                     <div>
-                      <p className="text-xs md:text-sm tracking-[0.2em] uppercase text-white/70">
+                      <p className="text-sm md:text-base tracking-[0.2em] uppercase text-white/75">
                         {property.subtitle}
                       </p>
-                      <h3 className="text-4xl md:text-5xl lg:text-6xl font-light uppercase leading-[1.05] mt-1 text-white">
+                      <h3 className="text-5xl md:text-6xl lg:text-7xl font-light uppercase leading-[1.03] mt-1 text-white">
                         {property.title}
                       </h3>
                     </div>
 
-                    <div className="border-t border-white/25 pt-3 space-y-2">
-                      <p className="text-base md:text-lg font-light text-white">
+                    <div className="border-t border-white/25 pt-3 space-y-3">
+                      <p className="text-lg md:text-xl font-light text-white">
                         {property.description}
                       </p>
-                      <p className="text-sm md:text-base font-light text-white">
+                      <p className="text-base md:text-lg font-light text-white">
                         {property.details}
                       </p>
                       <div className="pt-1">
-                        <p className="text-xs text-white/70 mb-1">Descrição:</p>
-                        <p className="text-xs md:text-sm font-light text-white/80 leading-relaxed">
+                        <p className="text-sm md:text-base font-light text-white/80 leading-relaxed line-clamp-4">
                           {property.additionalInfo}
                         </p>
                       </div>
@@ -185,7 +206,7 @@ const FeaturedProperties = () => {
 
                   {/* Botão */}
                   <div className="mt-4">
-                    <Button className="bg-transparent border border-white text-white hover:bg-white hover:text-[#832C35] rounded-md px-8 py-3 text-sm font-light tracking-[0.2em] uppercase transition-all duration-300">
+                    <Button className="bg-transparent border border-white text-white hover:bg-white hover:text-[#832C35] rounded-md px-9 py-3 text-sm md:text-base font-light tracking-[0.2em] uppercase transition-all duration-300">
                       SABER MAIS
                     </Button>
                   </div>
@@ -209,7 +230,7 @@ const FeaturedProperties = () => {
                 </div>
 
                 {/* ── RIGHT: imagem — mobile ── */}
-                <div className="md:hidden w-full flex-shrink-0" style={{ height: "38vh" }}>
+                <div className="md:hidden order-1 w-full flex-shrink-0 relative h-[42vh] min-h-[260px] mb-4">
                   <div className="relative w-full h-full">
                     <div className="absolute top-3 left-3 z-10 bg-[#832C35] text-white px-4 py-1.5 rounded-full text-xs border border-white/20">
                       {property.tag}
@@ -221,7 +242,6 @@ const FeaturedProperties = () => {
                     />
                   </div>
                 </div>
-
               </div>
             </div>
           ))}
