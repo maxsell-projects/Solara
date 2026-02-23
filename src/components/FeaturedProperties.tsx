@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import { motion, useTransform, useScroll } from "framer-motion";
 import { MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 import logoNovaSolara from "@/assets/logo-nova-solara.png";
@@ -68,6 +68,7 @@ const truncate = (text: string, length: number) => {
 const FeaturedProperties = () => {
   const [properties, setProperties] = useState<any[]>([]);
   const targetRef = useRef<HTMLDivElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -114,20 +115,48 @@ const FeaturedProperties = () => {
     fetchProperties();
   }, []);
 
-  // "10" telas adicionais antes de começar o movimento horizontal
-  const totalScreens = properties.length + 10;
-  const lockStart = 10 / totalScreens;
+  useEffect(() => {
+    let animationFrameId: number;
+    let lastScrollY = window.scrollY;
 
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-    offset: ["start start", "end end"],
-  });
+    const handleScroll = () => {
+      if (!targetRef.current || !scrollContainerRef.current || properties.length === 0) return;
 
-  const x = useTransform(
-    scrollYProgress,
-    [0, lockStart, 1],
-    ["0%", "0%", `-${(properties.length - 1) * 100}%`]
-  );
+      const { top, height } = targetRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      const scrollableDistance = height - windowHeight;
+      if (scrollableDistance <= 0) return;
+
+      let progress = 0;
+      if (top <= 0) {
+        progress = Math.min(1, Math.max(0, -top / scrollableDistance));
+      }
+
+      const tx = -(progress * (properties.length - 1) * 100);
+      scrollContainerRef.current.style.transform = `translateX(${tx}vw)`;
+    };
+
+    const loop = () => {
+      if (lastScrollY !== window.scrollY) {
+        lastScrollY = window.scrollY;
+        handleScroll();
+      }
+      animationFrameId = requestAnimationFrame(loop);
+    };
+
+    loop();
+    handleScroll(); // Garantir posicionamento inicial
+
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [properties.length]);
+
+  const totalScreens = properties.length;
 
   if (properties.length === 0) return null;
 
@@ -139,65 +168,86 @@ const FeaturedProperties = () => {
     >
       {/* ── STICKY VIEWPORT (100dvh para mobile) ── */}
       <div className="sticky top-0 h-[100dvh] w-full overflow-hidden bg-[#832C35] flex flex-col">
-        {/* ── HEADER ── */}
-        <div className="relative z-20 flex-shrink-0 flex justify-between items-center px-6 md:px-16 pt-5 pb-2 md:pt-6 md:pb-3">
-          <h2 className="text-2xl md:text-4xl font-light tracking-[0.2em] text-white">
-            Imóveis
-          </h2>
+        {/* ── HEADER (Alinhado com a grelha de conteúdo) ── */}
+        <div className="relative z-20 flex-shrink-0 container mx-auto px-6 lg:px-8 mt-24 pt-2 pb-2 border-b-2 md:border-b-[3px] border-white">
+          {/* Desktop Grid */}
+          <div className="hidden md:grid grid-cols-12 gap-10 items-end w-full pb-3">
+            <div className="col-span-5 lg:col-span-4 flex items-end">
+              <h2 className="text-2xl lg:text-3xl font-light tracking-[0.2em] text-white">
+                Imóveis
+              </h2>
+            </div>
+            <div className="col-span-7 lg:col-span-8 flex justify-end">
+              <div className="w-24 lg:w-32 translate-y-3">
+                <img
+                  src={logoNovaSolara}
+                  alt="Solara Logo"
+                  className="w-full h-auto object-contain brightness-0 invert"
+                  onError={(e) => (e.currentTarget.style.display = "none")}
+                />
+              </div>
+            </div>
+          </div>
 
-          {/* Logo maior, desce sobre a linha */}
-          <div className="relative z-30 w-20 md:w-44 translate-y-3 md:translate-y-4">
-            <img
-              src={logoNovaSolara}
-              alt="Solara Logo"
-              className="w-full h-auto object-contain brightness-0 invert"
-              onError={(e) => (e.currentTarget.style.display = "none")}
-            />
+          {/* Mobile Flex */}
+          <div className="flex md:hidden justify-between items-end w-full pb-2">
+            <h2 className="text-xl font-light tracking-[0.2em] text-white">
+              Imóveis
+            </h2>
+            <div className="w-16 translate-y-2">
+              <img
+                src={logoNovaSolara}
+                alt="Solara Logo"
+                className="w-full h-auto object-contain brightness-0 invert"
+                onError={(e) => (e.currentTarget.style.display = "none")}
+              />
+            </div>
           </div>
         </div>
 
-        {/* ── LINHA SEPARADORA — branca forte, 3px ── */}
-        <div className="flex-shrink-0 w-full h-[3px] bg-white" />
+
 
         {/* ── CARDS COM SCROLL HORIZONTAL ── */}
-        <motion.div style={{ x }} className="flex flex-1 min-h-0">
+        <div ref={scrollContainerRef} className="flex flex-1 min-h-0 will-change-transform">
           {properties.map((property) => (
             <div
               key={property.id}
-              className="h-full w-screen flex-shrink-0 flex items-center px-6 md:px-16 py-4 md:py-6"
+              className="h-full w-screen flex-shrink-0 flex items-center py-4 md:py-6"
             >
               {/* ── GRID PRINCIPAL (mobile em coluna) ── */}
-              <div className="flex flex-col md:grid md:grid-cols-12 gap-0 md:gap-10 w-full max-w-[1600px] mx-auto h-full overflow-hidden">
-                {/* ── LEFT: conteúdo ── */}
-                <div className="order-2 md:order-1 flex-1 md:col-span-4 flex flex-col justify-between text-white h-full py-2 min-h-0">
-                  {/* Location tag — branca, texto/pin na cor do fundo */}
-                  <div className="flex items-center gap-2 bg-white rounded-full px-4 py-2 w-fit">
-                    <MapPin className="w-4 h-4 text-[#832C35]" />
-                    <span className="text-sm font-light tracking-wide text-[#832C35]">
-                      {property.country}
-                    </span>
-                  </div>
-
-                  {/* Texto central */}
-                  <div className="space-y-3 flex-1 mt-4">
-                    <div>
-                      <p className="text-sm md:text-base tracking-[0.2em] uppercase text-white/75">
-                        {property.subtitle}
-                      </p>
-                      <h3 className="text-5xl md:text-6xl lg:text-7xl font-light uppercase leading-[1.03] mt-1 text-white">
-                        {property.title}
-                      </h3>
+              <div className="flex flex-col md:grid md:grid-cols-12 gap-0 md:gap-10 w-full container mx-auto px-6 lg:px-8 h-full overflow-hidden">
+                {/* ── LEFT: conteúdo (Melhor diagramado e centralizado verticalmente) ── */}
+                <div className="order-2 md:order-1 flex-1 md:col-span-5 lg:col-span-4 flex flex-col justify-center gap-6 md:gap-8 lg:gap-12 text-white h-full py-6 md:py-8 min-h-0">
+                  <div>
+                    {/* Location tag */}
+                    <div className="flex items-center gap-2 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-5 py-2 w-fit mb-6 md:mb-8">
+                      <MapPin className="w-4 h-4 text-white" />
+                      <span className="text-xs md:text-sm font-light tracking-widest text-white uppercase">
+                        {property.country || "Localização Global"}
+                      </span>
                     </div>
 
-                    <div className="border-t border-white/25 pt-3 space-y-3">
-                      <p className="text-lg md:text-xl font-light text-white">
-                        {property.description}
-                      </p>
-                      <p className="text-base md:text-lg font-light text-white">
-                        {property.details}
-                      </p>
-                      <div className="pt-1">
-                        <p className="text-sm md:text-base font-light text-white/80 leading-relaxed line-clamp-4">
+                    {/* Texto central */}
+                    <div className="space-y-4">
+                      <div>
+                        <p className="text-xs md:text-sm tracking-[0.3em] uppercase text-white/70 mb-2">
+                          {property.subtitle}
+                        </p>
+                        <h3 className="text-5xl md:text-6xl lg:text-7xl font-light uppercase leading-[1.05] text-white">
+                          {property.title}
+                        </h3>
+                      </div>
+
+                      <div className="h-[1px] w-full bg-white/20 my-6 md:my-8" />
+
+                      <div className="space-y-4 pr-0 md:pr-6">
+                        <p className="text-lg md:text-xl font-light text-white leading-relaxed">
+                          {property.description}
+                        </p>
+                        <p className="text-base md:text-lg font-light text-white/90">
+                          {property.details}
+                        </p>
+                        <p className="text-sm md:text-base font-light text-white/70 leading-relaxed line-clamp-3">
                           {property.additionalInfo}
                         </p>
                       </div>
@@ -205,15 +255,17 @@ const FeaturedProperties = () => {
                   </div>
 
                   {/* Botão */}
-                  <div className="mt-4">
-                    <Button className="bg-transparent border border-white text-white hover:bg-white hover:text-[#832C35] rounded-md px-9 py-3 text-sm md:text-base font-light tracking-[0.2em] uppercase transition-all duration-300">
-                      SABER MAIS
-                    </Button>
+                  <div className="mt-2 md:mt-4 pointer-events-auto relative z-50">
+                    <Link to={property.slug} className="inline-block relative z-50 group">
+                      <Button className="bg-transparent border border-white text-white hover:bg-white hover:text-[#832C35] rounded-none px-8 py-6 md:px-10 md:py-7 text-xs md:text-sm font-light tracking-[0.2em] uppercase transition-all duration-300">
+                        SABER MAIS
+                      </Button>
+                    </Link>
                   </div>
                 </div>
 
                 {/* ── RIGHT: imagem — desktop ── */}
-                <div className="md:col-span-8 hidden md:flex items-center justify-center h-full">
+                <div className="md:col-span-7 lg:col-span-8 hidden md:flex items-center justify-center h-full">
                   <div className="relative w-full h-[85%]">
                     {/* Tag */}
                     <div className="absolute top-4 left-4 z-10 bg-[#832C35] text-white px-5 py-2 rounded-full text-sm border border-white/20">
@@ -245,7 +297,7 @@ const FeaturedProperties = () => {
               </div>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

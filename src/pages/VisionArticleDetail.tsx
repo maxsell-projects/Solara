@@ -210,9 +210,9 @@ const VisionArticleDetail = () => {
                 <img
                   src={signatureCamila}
                   alt="Assinatura Camila Montenegro"
-                  className="h-40 md:h-56 w-auto object-contain mx-auto"
+                  className="h-48 md:h-64 w-auto object-contain mx-auto"
                   style={{
-                    filter: 'invert(21%) sepia(16%) saturate(3054%) hue-rotate(106deg) brightness(93%) contrast(92%)'
+                    filter: 'invert(37%) sepia(30%) saturate(836%) hue-rotate(113deg) brightness(93%) contrast(89%)' // Emerald-700 Equivalent
                   }}
                 />
               </div>

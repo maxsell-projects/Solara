@@ -294,8 +294,10 @@ const Vision = () => {
                   <img
                     src={signatureCamila}
                     alt="Assinatura Camila Montenegro"
-                    className="h-32 w-auto object-contain"
-                    style={{ filter: 'invert(21%) sepia(16%) saturate(3054%) hue-rotate(106deg) brightness(93%) contrast(92%)' }}
+                    className="h-44 md:h-52 w-auto object-contain -ml-2"
+                    style={{
+                      filter: 'invert(37%) sepia(30%) saturate(836%) hue-rotate(113deg) brightness(93%) contrast(89%)' // Emerald-700 Equivalent
+                    }}
                   />
                   <p className="text-xs text-neutral-400 mt-2 tracking-widest uppercase">{t('vision_page.about.role')}</p>
                 </div>

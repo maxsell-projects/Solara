@@ -145,8 +145,8 @@ const VisionConnection = () => {
                 <img
                   src={signatureCamila}
                   alt="Camila Montenegro signature"
-                  className="h-32 w-auto opacity-100 -ml-2"
-                  style={{ filter: 'invert(19%) sepia(51%) saturate(2250%) hue-rotate(319deg) brightness(95%) contrast(94%)' }}
+                  className="h-44 md:h-52 w-auto opacity-100 -ml-2"
+                  style={{ filter: 'invert(14%) sepia(85%) saturate(3072%) hue-rotate(333deg) brightness(85%) contrast(97%)' }}
                 />
                 <p className="text-sm text-muted-foreground font-light mt-2 uppercase tracking-widest">
                   {t('about.manifesto.role')}
