@@ -62,6 +62,10 @@ const Header = () => {
               {t('header.services')}
             </Link>
 
+            <Link to="/services/real-estate#markets" className={`text-sm font-light transition-colors ${navLinkHoverClass}`}>
+              {t('header.real_estate')}
+            </Link>
+
             <Link to="/about" className={`text-sm font-light transition-colors ${navLinkHoverClass}`}>
               {t('header.about')}
             </Link>

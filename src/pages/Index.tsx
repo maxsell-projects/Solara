@@ -5,7 +5,6 @@ import Hero from "@/components/Hero";
 import Services from "@/components/Services";
 import About from "@/components/About";
 import VisionConnection from "@/components/VisionConnection";
-import FeaturedProperties from "@/components/FeaturedProperties";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
@@ -43,10 +42,6 @@ const Index = () => {
 
         <div id="vision">
           <VisionConnection />
-        </div>
-
-        <div id="properties-showcase">
-          <FeaturedProperties />
         </div>
       </main>
 

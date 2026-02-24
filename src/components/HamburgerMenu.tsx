@@ -10,10 +10,10 @@ interface HamburgerMenuProps {
 const HamburgerMenu = ({ brand = "solara" }: HamburgerMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
-  
+
   const isVisionSection = location.pathname.startsWith('/vision');
   const currentBrand = isVisionSection ? "vision" : "solara";
-  
+
   const iconColor = currentBrand === "solara" ? "hsl(356, 69%, 22%)" : "hsl(100, 22%, 13%)";
   const accentColor = currentBrand === "solara" ? "hsl(23, 86%, 70%)" : "hsl(100, 19%, 74%)";
 
@@ -45,18 +45,17 @@ const HamburgerMenu = ({ brand = "solara" }: HamburgerMenuProps) => {
 
       {/* Side Menu */}
       <div
-        className={`fixed top-0 right-0 h-full bg-white z-[56] transition-transform duration-300 ease-out md:hidden ${
-          isOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+        className={`fixed top-0 right-0 h-full bg-white z-[56] transition-transform duration-300 ease-out md:hidden ${isOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         style={{ width: "100%", maxWidth: "400px" }}
       >
         <div className="flex flex-col h-full p-8 pt-20">
           {/* Header */}
           <div className="mb-12">
             <Link to="/" onClick={closeMenu}>
-              <img 
-                src={logoSolara} 
-                alt="Solara Project" 
+              <img
+                src={logoSolara}
+                alt="Solara Project"
                 className="h-10 w-auto mb-4"
               />
             </Link>
@@ -78,7 +77,7 @@ const HamburgerMenu = ({ brand = "solara" }: HamburgerMenuProps) => {
               className="text-2xl font-normal text-[#1E1E1E] hover:opacity-70 transition-opacity relative group"
             >
               Home
-              <span 
+              <span
                 className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
                 style={{ backgroundColor: accentColor }}
               />
@@ -89,7 +88,18 @@ const HamburgerMenu = ({ brand = "solara" }: HamburgerMenuProps) => {
               className="text-2xl font-normal text-[#1E1E1E] hover:opacity-70 transition-opacity relative group"
             >
               Serviços
-              <span 
+              <span
+                className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
+                style={{ backgroundColor: accentColor }}
+              />
+            </Link>
+            <Link
+              to="/services/real-estate#markets"
+              onClick={closeMenu}
+              className="text-2xl font-normal text-[#1E1E1E] hover:opacity-70 transition-opacity relative group"
+            >
+              Imóveis
+              <span
                 className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
                 style={{ backgroundColor: accentColor }}
               />
@@ -100,7 +110,7 @@ const HamburgerMenu = ({ brand = "solara" }: HamburgerMenuProps) => {
               className="text-2xl font-normal text-[#1E1E1E] hover:opacity-70 transition-opacity relative group"
             >
               Sobre
-              <span 
+              <span
                 className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
                 style={{ backgroundColor: accentColor }}
               />
@@ -111,7 +121,7 @@ const HamburgerMenu = ({ brand = "solara" }: HamburgerMenuProps) => {
               className="text-2xl font-normal text-[#1E1E1E] hover:opacity-70 transition-opacity relative group"
             >
               Artigos
-              <span 
+              <span
                 className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
                 style={{ backgroundColor: accentColor }}
               />
@@ -122,7 +132,7 @@ const HamburgerMenu = ({ brand = "solara" }: HamburgerMenuProps) => {
               className="text-2xl font-normal text-[#1E1E1E] hover:opacity-70 transition-opacity relative group"
             >
               Contacto
-              <span 
+              <span
                 className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300"
                 style={{ backgroundColor: accentColor }}
               />

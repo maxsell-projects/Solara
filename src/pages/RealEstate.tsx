@@ -59,6 +59,15 @@ const RealEstate = () => {
       .finally(() => setIsLoading(false));
   }, []);
 
+  // Handle URL hash for direct navigation to markets
+  useEffect(() => {
+    if (!isLoading && window.location.hash === '#markets') {
+      setTimeout(() => {
+        scrollToMarkets();
+      }, 100);
+    }
+  }, [isLoading]);
+
   return (
     <div className="min-h-screen font-sans bg-neutral-50 text-neutral-900">
       <Header />
@@ -152,7 +161,7 @@ const RealEstate = () => {
       </section>
 
       {/* --- MARKETS LISTING --- */}
-      <section ref={marketsSectionRef} className="py-24 bg-white scroll-mt-20">
+      <section ref={marketsSectionRef} id="markets" className="py-24 bg-white scroll-mt-20">
         <div className="container mx-auto px-6 lg:px-8">
 
           <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
