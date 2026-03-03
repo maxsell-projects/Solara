@@ -1,11 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input"; // <--- NOVO
+import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Plus, Trash2, Image as ImageIcon, X, UploadCloud, MapPin, Calendar, TrendingUp } from "lucide-react";
+import { Loader2, Plus, Trash2, Image as ImageIcon, X, UploadCloud, MapPin, Calendar, TrendingUp, Pencil, Save } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -20,8 +20,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"; // <--- NOVO
-import { Badge } from "@/components/ui/badge"; // <--- NOVO (Para visualização)
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -34,6 +34,7 @@ enum PropertyStatus {
 
 interface Property {
   id: number;
+  title?: string;
   description: string;
   images: string[];
   location?: string;
@@ -54,16 +55,22 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
 
+  // --- ESTADO DE EDIÇÃO ---
+  const [editingProperty, setEditingProperty] = useState<Property | null>(null);
+
   // --- ESTADOS DO FORMULÁRIO ---
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
   const [typology, setTypology] = useState("");
   const [status, setStatus] = useState<string>(PropertyStatus.PLANTA);
   const [profitability, setProfitability] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
-  
+
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+  // URLs das imagens já existentes (para edição)
+  const [existingImages, setExistingImages] = useState<string[]>([]);
 
   const fetchProperties = useCallback(async () => {
     try {
@@ -98,8 +105,13 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
     setPreviewUrls((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const removeExistingImage = (index: number) => {
+    setExistingImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
   // Função para limpar o form
   const resetForm = () => {
+    setTitle("");
     setDescription("");
     setLocation("");
     setTypology("");
@@ -108,61 +120,102 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
     setDeliveryDate("");
     setSelectedFiles([]);
     setPreviewUrls([]);
+    setExistingImages([]);
+    setEditingProperty(null);
     setIsDialogOpen(false);
+  };
+
+  // Função para abrir o dialog em modo edição
+  const openEditDialog = (property: Property) => {
+    setEditingProperty(property);
+    setTitle(property.title || "");
+    setDescription(property.description || "");
+    setLocation(property.location || "");
+    setTypology(property.typology || "");
+    setStatus(property.status || PropertyStatus.PLANTA);
+    setProfitability(property.estimatedProfitability || "");
+    setDeliveryDate(property.deliveryDate ? property.deliveryDate.split("T")[0] : "");
+    setExistingImages(property.images || []);
+    setSelectedFiles([]);
+    setPreviewUrls([]);
+    setIsDialogOpen(true);
+  };
+
+  // Função para abrir o dialog em modo criação
+  const openCreateDialog = () => {
+    resetForm();
+    setIsDialogOpen(true);
   };
 
   const handleSave = async () => {
     if (!description) return toast({ title: "Atenção", description: "Adicione uma descrição.", variant: "destructive" });
-    if (selectedFiles.length === 0) return toast({ title: "Atenção", description: "Adicione pelo menos uma imagem.", variant: "destructive" });
+    if (selectedFiles.length === 0 && existingImages.length === 0) return toast({ title: "Atenção", description: "Adicione pelo menos uma imagem.", variant: "destructive" });
 
     const token = localStorage.getItem('solara_token');
     if (!token) return toast({ title: "Erro", description: "Sessão expirada. Faça login novamente.", variant: "destructive" });
 
     setIsSaving(true);
     try {
-      // 1. Upload das Imagens
-      const uploadPromises = selectedFiles.map(async (file) => {
-        const formData = new FormData();
-        formData.append("file", file);
+      // 1. Upload das novas imagens
+      let uploadedUrls: string[] = [];
+      if (selectedFiles.length > 0) {
+        const uploadPromises = selectedFiles.map(async (file) => {
+          const formData = new FormData();
+          formData.append("file", file);
 
-        const res = await fetch(`${API_URL}/uploads`, {
-          method: "POST",
-          body: formData,
+          const res = await fetch(`${API_URL}/uploads`, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!res.ok) throw new Error("Falha no upload");
+          const data = await res.json();
+          return data.url;
         });
-        
-        if (!res.ok) throw new Error("Falha no upload");
-        const data = await res.json();
-        return data.url; 
-      });
 
-      const uploadedUrls = await Promise.all(uploadPromises);
+        uploadedUrls = await Promise.all(uploadPromises);
+      }
 
-      // 2. Payload Completo
+      // 2. Combinar imagens existentes + novas
+      const allImages = [...existingImages, ...uploadedUrls];
+
+      // 3. Payload Completo
       const payload = {
+        title,
         description,
-        images: uploadedUrls,
+        images: allImages,
         location,
         typology,
         status,
         estimatedProfitability: profitability,
-        deliveryDate: deliveryDate ? new Date(deliveryDate) : null, // Envia como Date object ou null
+        deliveryDate: deliveryDate ? new Date(deliveryDate) : null,
       };
 
-      const res = await fetch(`${API_URL}/markets/${marketId}/properties`, {
-        method: "POST",
-        headers: { 
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}` 
+      // 4. Decide entre POST (criar) e PUT (editar)
+      const isEditing = !!editingProperty;
+      const url = isEditing
+        ? `${API_URL}/markets/properties/${editingProperty!.id}`
+        : `${API_URL}/markets/${marketId}/properties`;
+      const method = isEditing ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(payload),
       });
 
       if (res.ok) {
-        toast({ title: "Sucesso!", description: "Imóvel adicionado com sucesso." });
-        resetForm(); // Limpa tudo e fecha
+        toast({
+          title: "Sucesso!",
+          description: isEditing ? "Imóvel atualizado com sucesso." : "Imóvel adicionado com sucesso."
+        });
+        resetForm();
         fetchProperties();
       } else {
-        throw new Error("Falha ao salvar imóvel");
+        throw new Error(isEditing ? "Falha ao atualizar imóvel" : "Falha ao salvar imóvel");
       }
     } catch (error) {
       console.error(error);
@@ -199,6 +252,8 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
     return `${API_URL}${path}`;
   };
 
+  const isEditing = !!editingProperty;
+
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
@@ -206,8 +261,8 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
           <h3 className="text-lg font-medium">Imóveis Disponíveis</h3>
           <p className="text-sm text-gray-500">Gerencie as oportunidades de investimento.</p>
         </div>
-        
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+
+        <Dialog open={isDialogOpen} onOpenChange={(open) => { if (!open) resetForm(); else openCreateDialog(); }}>
           <DialogTrigger asChild>
             <Button className="bg-solara-vinho hover:bg-solara-vinho/90">
               <Plus className="w-4 h-4 mr-2" /> Adicionar Imóvel
@@ -215,22 +270,34 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
           </DialogTrigger>
           <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Novo Imóvel no Mercado</DialogTitle>
+              <DialogTitle>{isEditing ? "Editar Imóvel" : "Novo Imóvel no Mercado"}</DialogTitle>
               <DialogDescription>
-                Preencha todos os dados técnicos para atrair investidores qualificados.
+                {isEditing
+                  ? "Atualize os dados do imóvel. Pode remover ou adicionar novas imagens."
+                  : "Preencha todos os dados técnicos para atrair investidores qualificados."}
               </DialogDescription>
             </DialogHeader>
-            
+
             <div className="space-y-6 py-4">
-              
+
+              {/* --- TÍTULO --- */}
+              <div className="space-y-2">
+                <Label>Título do Imóvel</Label>
+                <Input
+                  placeholder="Ex: ISLANDS, VILLA TOSCANA..."
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+              </div>
+
               {/* --- BLOCO DE INFORMAÇÕES TÉCNICAS --- */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label>Localização (Bairro/Região)</Label>
                   <div className="relative">
                     <MapPin className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
-                    <Input 
-                      placeholder="Ex: Business Bay, Dubai" 
+                    <Input
+                      placeholder="Ex: Business Bay, Dubai"
                       className="pl-9"
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
@@ -240,8 +307,8 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
 
                 <div className="space-y-2">
                   <Label>Tipologia</Label>
-                  <Input 
-                    placeholder="Ex: Studio, 1 Bedroom, Penthouse..." 
+                  <Input
+                    placeholder="Ex: Studio, 1 Bedroom, Penthouse..."
                     value={typology}
                     onChange={(e) => setTypology(e.target.value)}
                   />
@@ -265,7 +332,7 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
                   <Label>Previsão de Entrega</Label>
                   <div className="relative">
                     <Calendar className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
-                    <Input 
+                    <Input
                       type="date"
                       className="pl-9"
                       value={deliveryDate}
@@ -278,8 +345,8 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
                   <Label>Rentabilidade Estimada (ROI/Yield)</Label>
                   <div className="relative">
                     <TrendingUp className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" />
-                    <Input 
-                      placeholder="Ex: 8% a.a. garantido por 3 anos" 
+                    <Input
+                      placeholder="Ex: 8% a.a. garantido por 3 anos"
                       className="pl-9"
                       value={profitability}
                       onChange={(e) => setProfitability(e.target.value)}
@@ -291,11 +358,11 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
               {/* --- BLOCO DE DESCRIÇÃO --- */}
               <div className="space-y-2">
                 <Label>Descrição Detalhada</Label>
-                <Textarea 
-                  value={description} 
-                  onChange={(e) => setDescription(e.target.value)} 
-                  placeholder="Descreva os diferenciais do projeto..." 
-                  rows={4} 
+                <Textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="Descreva os diferenciais do projeto..."
+                  rows={4}
                 />
               </div>
 
@@ -308,9 +375,27 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
                     <span className="text-xs text-gray-500 font-medium">Carregar</span>
                     <input type="file" multiple accept="image/*" className="hidden" onChange={handleFileSelect} />
                   </label>
+
+                  {/* Imagens já existentes (edição) */}
+                  {existingImages.map((imgPath, idx) => (
+                    <div key={`existing-${idx}`} className="relative aspect-square rounded-lg overflow-hidden border group">
+                      <img src={getFullImageUrl(imgPath)} alt="Existente" className="w-full h-full object-cover" />
+                      <div className="absolute bottom-0 left-0 right-0 bg-blue-600/80 text-white text-[10px] text-center py-0.5">
+                        Salva
+                      </div>
+                      <button onClick={() => removeExistingImage(idx)} className="absolute top-1 right-1 bg-black/50 hover:bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                        <X className="w-3 h-3" />
+                      </button>
+                    </div>
+                  ))}
+
+                  {/* Novas imagens (preview) */}
                   {previewUrls.map((url, idx) => (
-                    <div key={idx} className="relative aspect-square rounded-lg overflow-hidden border group">
+                    <div key={`new-${idx}`} className="relative aspect-square rounded-lg overflow-hidden border group">
                       <img src={url} alt="Preview" className="w-full h-full object-cover" />
+                      <div className="absolute bottom-0 left-0 right-0 bg-emerald-600/80 text-white text-[10px] text-center py-0.5">
+                        Nova
+                      </div>
                       <button onClick={() => removeFile(idx)} className="absolute top-1 right-1 bg-black/50 hover:bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
                         <X className="w-3 h-3" />
                       </button>
@@ -320,8 +405,8 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
               </div>
 
               <Button onClick={handleSave} disabled={isSaving} className="w-full bg-emerald-600 hover:bg-emerald-700 text-white">
-                {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Plus className="w-4 h-4 mr-2" />}
-                Salvar Imóvel
+                {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : isEditing ? <Save className="w-4 h-4 mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
+                {isEditing ? "Atualizar Imóvel" : "Salvar Imóvel"}
               </Button>
             </div>
           </DialogContent>
@@ -345,35 +430,50 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
                 ) : (
                   <div className="flex items-center justify-center h-full text-gray-400"><ImageIcon /></div>
                 )}
-                
+
                 {/* Badges Flutuantes */}
                 <div className="absolute top-2 left-2 flex flex-col gap-1">
                   {prop.status && <Badge className="bg-black/70 backdrop-blur-sm text-xs hover:bg-black/90">{prop.status}</Badge>}
                   {prop.typology && <Badge variant="secondary" className="backdrop-blur-sm opacity-90 text-xs">{prop.typology}</Badge>}
                 </div>
 
-                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Button variant="destructive" size="icon" className="h-8 w-8 shadow-lg" onClick={() => handleDelete(prop.id)}><Trash2 className="w-4 h-4" /></Button>
+                {/* Botões de Ação (Editar + Deletar) */}
+                <div className="absolute top-2 right-2 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    className="h-8 w-8 shadow-lg bg-white/90 hover:bg-white text-gray-700"
+                    onClick={() => openEditDialog(prop)}
+                  >
+                    <Pencil className="w-4 h-4" />
+                  </Button>
+                  <Button variant="destructive" size="icon" className="h-8 w-8 shadow-lg" onClick={() => handleDelete(prop.id)}>
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
               <CardContent className="p-4 flex-1 flex flex-col">
+                {/* Título do Imóvel */}
+                {prop.title && (
+                  <h4 className="font-medium text-base mb-1 text-gray-900">{prop.title}</h4>
+                )}
                 <div className="flex items-center text-xs text-solara-gold font-semibold mb-2 uppercase tracking-wide">
                   <MapPin className="w-3 h-3 mr-1" />
                   {prop.location || "Localização não inf."}
                 </div>
-                
+
                 <p className="text-sm text-gray-600 line-clamp-2 font-light flex-1 mb-4">{prop.description}</p>
-                
+
                 <div className="mt-auto pt-3 border-t grid grid-cols-2 gap-2 text-xs text-gray-500">
                   <div className="flex flex-col">
-                     <span className="text-gray-400">Entrega</span>
-                     <span className="font-medium text-gray-700">
-                        {prop.deliveryDate ? new Date(prop.deliveryDate).toLocaleDateString() : '-'}
-                     </span>
+                    <span className="text-gray-400">Entrega</span>
+                    <span className="font-medium text-gray-700">
+                      {prop.deliveryDate ? new Date(prop.deliveryDate).toLocaleDateString() : '-'}
+                    </span>
                   </div>
                   <div className="flex flex-col text-right">
-                     <span className="text-gray-400">Yield Est.</span>
-                     <span className="font-medium text-emerald-600">{prop.estimatedProfitability || '-'}</span>
+                    <span className="text-gray-400">Yield Est.</span>
+                    <span className="font-medium text-emerald-600">{prop.estimatedProfitability || '-'}</span>
                   </div>
                 </div>
               </CardContent>
