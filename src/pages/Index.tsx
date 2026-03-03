@@ -8,6 +8,7 @@ import VisionConnection from "@/components/VisionConnection";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
+import LatestProperties from "@/components/LatestProperties";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import retanguloImg from "@/assets/Retangulo.jpeg";
 
@@ -30,6 +31,9 @@ const Index = () => {
         >
           <Hero />
         </div>
+
+        {/* Últimos Imóveis em Destaque */}
+        <LatestProperties />
 
         {/* Services com fundo próprio (SEM a imagem) */}
         <div id="services">

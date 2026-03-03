@@ -39,17 +39,19 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-        ? "bg-white border-b border-gray-100 shadow-md py-2" // Fundo sólido e sombra mais forte
-        : "bg-transparent border-transparent py-4"
-        }`}
+      className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 shadow-md py-2"
     >
       <div className="container mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20 transition-all duration-300">
 
           {/* LÓGICA DO LOGO: Muda a imagem e o link dependendo da secção */}
-          {/* LÓGICA DO LOGO: REMOVIDO CONFORME SOLICITADO */}
-          <div></div>
+          <Link to={homeLink} className="relative flex items-center overflow-visible">
+            <img
+              src={isVisionSection ? logoVision : logoSolara}
+              alt={isVisionSection ? "Vision Press" : "Solara"}
+              className="h-36 w-auto object-contain drop-shadow-md"
+            />
+          </Link>
 
           <nav className="hidden md:flex items-center gap-8">
             {/* LINK HOME DINÂMICO */}

@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { LeadForm } from "@/components/LeadForm";
 import { HeroBackground } from "@/components/HeroBackground";
+import solaraBg from "@/assets/solara.png";
 
 // --- IMPORTAÇÃO DE ASSETS ---
 import logoVision from "@/assets/logo-vision.png";
@@ -38,28 +39,22 @@ const Vision = () => {
   const [recentPosts, setRecentPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // --- ESTADOS PARA O EFEITO HERO 3D ---
+  // --- EFEITO PARALLAX DO FUNDO ---
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHoveringLogo, setIsHoveringLogo] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       const { innerWidth, innerHeight } = window;
       const x = (event.clientX - innerWidth / 2) / (innerWidth / 2);
       const y = (event.clientY - innerHeight / 2) / (innerHeight / 2);
-
       requestAnimationFrame(() => {
         setMousePosition({ x, y });
       });
     };
-
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  const logoTiltX = isHoveringLogo ? 0 : mousePosition.y * -15;
-  const logoTiltY = isHoveringLogo ? 0 : mousePosition.x * 15;
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -92,51 +87,35 @@ const Vision = () => {
 
       {/* --- HERO SECTION CLEAN --- */}
       <section
-        ref={containerRef}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white perspective-1000 pt-20"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
       >
-        <HeroBackground brand="vision" />
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={solaraBg}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-white/70" />
+        </div>
 
         <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-10">
           <div className="max-w-5xl mx-auto space-y-12">
 
-            {/* ÁREA DA LOGO (Sem o "Em parceria com") */}
+            {/* ÁREA DA LOGO - segue o mouse */}
             <div className="flex flex-col items-center gap-8 mb-8">
-              <div className="block perspective-container relative group">
-                <div
-                  className="flex items-center justify-center transition-all duration-500 ease-out will-change-transform relative"
-                  onMouseEnter={() => setIsHoveringLogo(true)}
-                  onMouseLeave={() => setIsHoveringLogo(false)}
-                  style={{
-                    transform: `perspective(1000px) rotateX(${logoTiltX}deg) rotateY(${logoTiltY}deg) scale3d(${isHoveringLogo ? 1.02 : 1}, ${isHoveringLogo ? 1.02 : 1}, 1)`,
-                  }}
-                >
-                  <div
-                    className={`absolute inset-0 bg-emerald-500 rounded-full blur-[80px] transition-all duration-500 ${isHoveringLogo ? 'opacity-25 scale-125' : 'opacity-0 scale-50'}`}
-                    style={{ zIndex: -1 }}
-                  />
-
-                  <img
-                    src={logoVision}
-                    alt="Vision Press"
-                    className="h-40 md:h-56 w-auto object-contain transition-all duration-300 relative z-10"
-                    style={{
-                      filter: isHoveringLogo
-                        ? `drop-shadow(0 0 30px rgba(16, 185, 129, 0.4))`
-                        : `drop-shadow(${mousePosition.x * -10}px ${mousePosition.y * 10}px 15px rgba(0,0,0,0.05))`
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* REMOVIDO: Bloco "em parceria com Solara" */}
+              <img
+                src={logoVision}
+                alt="Vision Press"
+                className="h-40 md:h-56 w-auto object-contain transition-transform duration-200 ease-out"
+                style={{
+                  transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
+                }}
+              />
             </div>
 
-            {/* Título Magnético */}
-            <div style={{
-              transform: `translate(${mousePosition.x * 5}px, ${mousePosition.y * 5}px)`,
-              transition: 'transform 0.2s ease-out'
-            }}>
+            {/* Título */}
+            <div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-neutral-900 tracking-tight">
                 {t('vision_page.hero.title_main')}
                 <br />
