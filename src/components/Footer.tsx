@@ -116,7 +116,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-xs font-light opacity-50">
 
             <p className="order-2 md:order-1">
-              © {currentYear} Solara Project®. {t('footer.copyright')}
+              © {currentYear} Solara Project®. {t('footer.copyright')} · NIF 508418534
             </p>
 
             <div className="flex gap-6 order-1 md:order-2">
