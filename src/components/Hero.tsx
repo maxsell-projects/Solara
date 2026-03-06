@@ -35,13 +35,13 @@ const Hero = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-start justify-center overflow-hidden perspective-1000 pt-32"
+      className="relative min-h-[142vh] flex items-start justify-center overflow-hidden perspective-1000 pt-10 md:pt-12 pb-24"
     >
       <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center">
         <div className="max-w-5xl mx-auto space-y-2">
 
           {/* Logo Section - AUMENTADA E MAIS ALTA */}
-          <div className="flex flex-col items-center gap-8">
+          <div className="flex flex-col items-center gap-4">
             <div className="block perspective-container relative group">
               <div
                 className="flex items-center justify-center transition-all duration-500 ease-out will-change-transform relative"
@@ -60,7 +60,7 @@ const Hero = () => {
                 <img
                   src={logoSolara}
                   alt="Solara Project"
-                  className="h-64 md:h-80 lg:h-96 w-auto object-contain transition-all duration-300 relative z-10"
+                  className="h-56 md:h-72 lg:h-80 w-auto object-contain transition-all duration-300 relative z-10"
                   style={{
                     filter: isHoveringLogo
                       ? `drop-shadow(0 0 30px rgba(92, 6, 30, 0.4))`
@@ -72,7 +72,7 @@ const Hero = () => {
           </div>
 
           {/* ESTD */}
-          <p className="text-xs uppercase tracking-[0.3em] text-solara-vinho font-bold">
+          <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-solara-vinho font-bold -mt-2">
             {t('hero.estd')}
           </p>
 
@@ -98,6 +98,21 @@ const Hero = () => {
           </div>
 
         </div>
+      </div>
+
+      {/* Torn Paper Effect at the bottom */}
+      <div className="absolute bottom-0 w-full left-0 z-40 overflow-hidden leading-none transform translate-y-[1px]">
+        <svg
+          className="w-[calc(100%+1.3px)] h-[30px] md:h-[50px] lg:h-[70px] block"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V120H0Z"
+            fill="#fafafa" /* Assuming the next section is neutral-50 from LatestProperties */
+          />
+        </svg>
       </div>
     </section>
   );

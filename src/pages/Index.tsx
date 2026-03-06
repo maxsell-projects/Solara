@@ -10,6 +10,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
 import LatestProperties from "@/components/LatestProperties";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
+import FeaturedProperties from "@/components/FeaturedProperties";
 import retanguloImg from "@/assets/Retangulo.jpeg";
 
 const Index = () => {
@@ -47,6 +48,9 @@ const Index = () => {
         <div id="vision">
           <VisionConnection />
         </div>
+
+        {/* Imóveis em Destaque (FeaturedProperties) */}
+        <FeaturedProperties />
       </main>
 
       <Footer />
