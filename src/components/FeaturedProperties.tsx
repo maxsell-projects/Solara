@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 
 import logoNovaSolara from "@/assets/logo-nova-solara.png";
-import retanguloImg from "@/assets/Retangulo.jpeg";
-import fundoImovel from "@/assets/fundoimo.jpeg";
+import retanguloImg from "@/assets/Retangulo.webp";
+import fundoImovel from "@/assets/fundoimo.webp";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 

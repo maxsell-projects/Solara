@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { LeadForm } from "@/components/LeadForm";
 import { HeroBackground } from "@/components/HeroBackground";
-import solaraBg from "@/assets/solara.png";
+import solaraBg from "@/assets/solara.webp";
 
 // --- IMPORTAÇÃO DE ASSETS ---
 import logoVision from "@/assets/logo-vision.png";

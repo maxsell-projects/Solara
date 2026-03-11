@@ -9,8 +9,8 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ArrowRight, Loader2, Building2, TrendingUp, ShieldCheck, Globe, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/hero-premium-property.jpg";
-import retanguloImg from "@/assets/Retangulo.jpeg";
+import heroImage from "@/assets/hero-premium-property.webp";
+import retanguloImg from "@/assets/Retangulo.webp";
 // Note: Removi o import não usado 'visionImage' para limpar o código, 
 // a menos que queiras usar noutro sítio.
 import { useTranslation } from "react-i18next"; // <--- Import i18n

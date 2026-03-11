@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Globe, FileText, MapPin, Briefcase, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import consultingHero from "@/assets/service-consulting-premium.jpg";
+import consultingHero from "@/assets/service-consulting-premium.webp";
 import { useTranslation } from "react-i18next"; // <--- Import i18n
 
 const Consultancy = () => {

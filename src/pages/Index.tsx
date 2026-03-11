@@ -10,7 +10,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import FeaturedProperties from "@/components/FeaturedProperties";
-import retanguloImg from "@/assets/Retangulo.jpeg";
+import retanguloImg from "@/assets/Retangulo.webp";
 
 const Index = () => {
   const { t } = useTranslation();
