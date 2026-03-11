@@ -165,7 +165,7 @@ export function PropertyModal({ property, isOpen, onClose, marketName }: Propert
                                <img 
                                  src={getFullImageUrl(img)} 
                                  alt={`Foto ${idx + 1}`} 
-                                 className="w-full h-full object-contain"
+                                 className="w-full h-full object-cover"
                                />
                                {/* Ícone de ampliar no hover */}
                                <div className="absolute top-4 right-4 bg-black/40 backdrop-blur-md rounded-full p-3 opacity-0 group-hover/img:opacity-100 transition-opacity border border-white/20">
