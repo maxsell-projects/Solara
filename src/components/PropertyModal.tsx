@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { 
   Dialog, 
   DialogContent, 
@@ -335,7 +336,7 @@ export function PropertyModal({ property, isOpen, onClose, marketName }: Propert
     </Dialog>
 
     {/* ── LIGHTBOX FULLSCREEN COM ZOOM ── */}
-    {lightboxOpen && (
+    {lightboxOpen && createPortal(
       <div 
         className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-2xl flex flex-col animate-in fade-in duration-200"
         onClick={(e) => { if (e.target === e.currentTarget) setLightboxOpen(false); }}
@@ -446,7 +447,7 @@ export function PropertyModal({ property, isOpen, onClose, marketName }: Propert
           </div>
         )}
       </div>
-    )}
+    , document.body)}
     </>
   );
 }
