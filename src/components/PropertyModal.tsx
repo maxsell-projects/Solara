@@ -120,7 +120,7 @@ export function PropertyModal({ property, isOpen, onClose, marketName }: Propert
         <div className="flex flex-col lg:flex-row w-full h-full pt-16 lg:pt-0">
           
           {/* Esquerda: Mídia (Galeria / Planta / Vídeo) */}
-          <div className="w-full lg:w-[65%] h-[45%] lg:h-full bg-neutral-900 relative flex flex-col">
+          <div className="w-full lg:w-[65%] h-[55%] lg:h-full bg-neutral-900 relative flex flex-col overflow-hidden">
             
             {/* Abas de Navegação de Mídia */}
             <div className="absolute top-4 lg:top-8 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 bg-black/40 backdrop-blur-xl p-1.5 rounded-full border border-white/10">
@@ -149,7 +149,7 @@ export function PropertyModal({ property, isOpen, onClose, marketName }: Propert
             </div>
 
             {/* Conteúdo da Mídia */}
-            <div className="flex-1 w-full relative">
+            <div className="flex-1 w-full h-full relative overflow-hidden">
               
               {/* === FOTOS === */}
               {activeTab === 'photos' && (
@@ -157,9 +157,9 @@ export function PropertyModal({ property, isOpen, onClose, marketName }: Propert
                     <Carousel className="w-full h-full group">
                       <CarouselContent className="h-full">
                         {property.images.map((img, idx) => (
-                          <CarouselItem key={idx} className="h-full flex items-center justify-center">
+                          <CarouselItem key={idx} className="h-full">
                             <div 
-                              className="w-full h-full relative flex items-center justify-center p-0 lg:p-4 cursor-pointer group/img"
+                              className="w-full h-full relative cursor-pointer group/img overflow-hidden"
                               onClick={() => openLightbox(getFullImageUrl(img), idx)}
                             >
                                <img 
@@ -337,85 +337,105 @@ export function PropertyModal({ property, isOpen, onClose, marketName }: Propert
     {/* ── LIGHTBOX FULLSCREEN COM ZOOM ── */}
     {lightboxOpen && (
       <div 
-        className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center animate-in fade-in duration-200"
-        onClick={() => setLightboxOpen(false)}
+        className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-2xl flex flex-col animate-in fade-in duration-200"
+        onClick={(e) => { if (e.target === e.currentTarget) setLightboxOpen(false); }}
+        onKeyDown={(e) => {
+          if (e.key === 'Escape') setLightboxOpen(false);
+          if (e.key === 'ArrowRight' && hasPhotos && property.images.length > 1) lightboxNext();
+          if (e.key === 'ArrowLeft' && hasPhotos && property.images.length > 1) lightboxPrev();
+        }}
+        tabIndex={0}
+        ref={(el) => el?.focus()}
       >
         {/* Barra Superior */}
-        <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-4 md:p-6">
+        <div className="flex items-center justify-between p-4 md:p-6 z-50 shrink-0">
           {/* Controles de Zoom */}
-          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md rounded-full p-1.5 border border-white/20" onClick={(e) => e.stopPropagation()}>
+          <div className="flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-full p-1.5 border border-white/20">
             <button 
-              onClick={() => setZoomLevel(prev => Math.max(0.25, prev - 0.25))} 
-              className="p-2 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+              onClick={(e) => { e.stopPropagation(); setZoomLevel(prev => Math.max(0.25, prev - 0.25)); }}
+              className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
               title="Diminuir"
             >
               <ZoomOut className="w-5 h-5" />
             </button>
             <span className="text-white/80 text-xs font-mono min-w-[3rem] text-center">{Math.round(zoomLevel * 100)}%</span>
             <button 
-              onClick={() => setZoomLevel(prev => Math.min(4, prev + 0.25))} 
-              className="p-2 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+              onClick={(e) => { e.stopPropagation(); setZoomLevel(prev => Math.min(4, prev + 0.25)); }}
+              className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
               title="Aumentar"
             >
               <ZoomIn className="w-5 h-5" />
             </button>
             <button 
-              onClick={() => setZoomLevel(1)} 
-              className="p-2 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
+              onClick={(e) => { e.stopPropagation(); setZoomLevel(1); }}
+              className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
               title="Redefinir"
             >
               <RotateCcw className="w-4 h-4" />
             </button>
           </div>
 
-          {/* Botão Fechar */}
-          <button
-            className="w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all border border-white/20 hover:scale-110"
-            onClick={(e) => { e.stopPropagation(); setLightboxOpen(false); }}
-          >
-            <X className="w-6 h-6" />
-          </button>
+          {/* Contador + Fechar */}
+          <div className="flex items-center gap-3">
+            {hasPhotos && property.images.length > 1 && activeTab === 'photos' && (
+              <span className="text-white/60 text-sm font-mono">{lightboxIndex + 1} / {property.images.length}</span>
+            )}
+            <button
+              className="w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all border border-white/20 hover:scale-110"
+              onClick={(e) => { e.stopPropagation(); setLightboxOpen(false); }}
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
         </div>
 
-        {/* Navegação entre fotos */}
-        {hasPhotos && property.images.length > 1 && activeTab === 'photos' && (
-          <>
+        {/* Área da Imagem + Setas */}
+        <div className="flex-1 relative flex items-center justify-center min-h-0">
+          
+          {/* Seta Esquerda */}
+          {hasPhotos && property.images.length > 1 && activeTab === 'photos' && (
             <button 
-              className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-50 p-4 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-white transition-all border border-white/20"
+              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-50 w-12 h-12 md:w-14 md:h-14 bg-white/15 hover:bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all border border-white/20 hover:scale-110"
               onClick={(e) => { e.stopPropagation(); lightboxPrev(); }}
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-6 h-6 md:w-7 md:h-7" />
             </button>
+          )}
+
+          {/* Imagem */}
+          <div 
+            className="flex-1 flex items-center justify-center overflow-auto h-full px-16 md:px-24 py-4"
+            onClick={(e) => { if (e.target === e.currentTarget) setLightboxOpen(false); }}
+          >
+            <img 
+              src={lightboxImage} 
+              alt="Visualização em tela cheia" 
+              className="max-w-full max-h-full transition-transform duration-300 ease-out rounded-lg shadow-2xl cursor-grab active:cursor-grabbing select-none"
+              style={{ transform: `scale(${zoomLevel})` }}
+              draggable={false}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+
+          {/* Seta Direita */}
+          {hasPhotos && property.images.length > 1 && activeTab === 'photos' && (
             <button 
-              className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-50 p-4 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full text-white transition-all border border-white/20"
+              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-50 w-12 h-12 md:w-14 md:h-14 bg-white/15 hover:bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all border border-white/20 hover:scale-110"
               onClick={(e) => { e.stopPropagation(); lightboxNext(); }}
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-6 h-6 md:w-7 md:h-7" />
             </button>
-          </>
-        )}
-
-        {/* Imagem */}
-        <div 
-          className="flex-1 flex items-center justify-center overflow-auto w-full p-4 md:p-16 pt-20"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <img 
-            src={lightboxImage} 
-            alt="Visualização em tela cheia" 
-            className="max-w-none transition-transform duration-300 ease-out rounded-lg shadow-2xl cursor-grab active:cursor-grabbing select-none"
-            style={{ transform: `scale(${zoomLevel})` }}
-            draggable={false}
-          />
+          )}
         </div>
 
-        {/* Indicador de fotos */}
+        {/* Indicador de fotos (dots) */}
         {hasPhotos && property.images.length > 1 && activeTab === 'photos' && (
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-50 flex gap-2" onClick={(e) => e.stopPropagation()}>
+          <div className="flex justify-center gap-2 pb-6 shrink-0">
             {property.images.map((img, idx) => (
               <button
                 key={idx}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   setLightboxIndex(idx);
                   setLightboxImage(getFullImageUrl(img));
                   setZoomLevel(1);
