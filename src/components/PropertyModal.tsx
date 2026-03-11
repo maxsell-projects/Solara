@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { createPortal } from "react-dom";
 import { 
   Dialog, 
   DialogContent, 
@@ -18,8 +17,7 @@ import {
 } from "@/components/ui/carousel";
 import { 
   X, MapPin, TrendingUp, Calendar, Home, Info, Download, 
-  Maximize2, Play, Image as ImageIcon, ZoomIn, ZoomOut, RotateCcw,
-  ChevronLeft, ChevronRight
+  Maximize2, Play, Image as ImageIcon
 } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
@@ -52,15 +50,9 @@ interface PropertyModalProps {
 
 export function PropertyModal({ property, isOpen, onClose, marketName }: PropertyModalProps) {
   const [activeTab, setActiveTab] = useState<'photos' | 'floorPlan' | 'video'>('photos');
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxImage, setLightboxImage] = useState<string>('');
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [zoomLevel, setZoomLevel] = useState(1);
 
   useEffect(() => {
     setActiveTab('photos');
-    setLightboxOpen(false);
-    setZoomLevel(1);
   }, [property]);
 
   if (!property) return null;
@@ -69,27 +61,151 @@ export function PropertyModal({ property, isOpen, onClose, marketName }: Propert
   const hasFloorPlan = !!property.floorPlan;
   const hasVideo = !!property.videoUrl;
 
-  const openLightbox = (imageSrc: string, index: number = 0) => {
-    setLightboxImage(imageSrc);
-    setLightboxIndex(index);
-    setZoomLevel(1);
-    setLightboxOpen(true);
-  };
+  // ── LIGHTBOX 100% VANILLA JS ──
+  const openLightbox = (imageSrc: string, startIndex: number = 0) => {
+    let currentIndex = startIndex;
+    let currentZoom = 1;
+    const images = property.images?.map(img => getFullImageUrl(img)) || [imageSrc];
 
-  const lightboxNext = () => {
-    if (!hasPhotos) return;
-    const nextIndex = (lightboxIndex + 1) % property.images.length;
-    setLightboxIndex(nextIndex);
-    setLightboxImage(getFullImageUrl(property.images[nextIndex]));
-    setZoomLevel(1);
-  };
+    // Cria overlay
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.95);display:flex;flex-direction:column;animation:fadeIn .2s ease';
 
-  const lightboxPrev = () => {
-    if (!hasPhotos) return;
-    const prevIndex = (lightboxIndex - 1 + property.images.length) % property.images.length;
-    setLightboxIndex(prevIndex);
-    setLightboxImage(getFullImageUrl(property.images[prevIndex]));
-    setZoomLevel(1);
+    // Função para destruir
+    const destroy = () => { 
+      document.removeEventListener('keydown', onKey); 
+      overlay.remove(); 
+    };
+
+    // ── TOP BAR ──
+    const topBar = document.createElement('div');
+    topBar.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:16px 24px;flex-shrink:0';
+
+    // Zoom controls
+    const zoomGroup = document.createElement('div');
+    zoomGroup.style.cssText = 'display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.1);border-radius:999px;padding:6px;border:1px solid rgba(255,255,255,0.2)';
+
+    const makeBtn = (text: string, onClick: () => void, extra: string = '') => {
+      const btn = document.createElement('button');
+      btn.innerHTML = text;
+      btn.style.cssText = `padding:10px;border-radius:999px;border:none;background:transparent;color:rgba(255,255,255,0.7);cursor:pointer;display:flex;align-items:center;font-size:18px;${extra}`;
+      btn.onmouseenter = () => { btn.style.color = '#fff'; btn.style.background = 'rgba(255,255,255,0.1)'; };
+      btn.onmouseleave = () => { btn.style.color = 'rgba(255,255,255,0.7)'; btn.style.background = 'transparent'; };
+      btn.onclick = (e) => { e.stopPropagation(); onClick(); };
+      return btn;
+    };
+
+    const zoomLabel = document.createElement('span');
+    zoomLabel.style.cssText = 'color:rgba(255,255,255,0.8);font-size:12px;font-family:monospace;min-width:3rem;text-align:center';
+    const updateZoomLabel = () => { zoomLabel.textContent = Math.round(currentZoom * 100) + '%'; };
+    updateZoomLabel();
+
+    zoomGroup.append(
+      makeBtn('−', () => { currentZoom = Math.max(0.25, currentZoom - 0.25); updateImg(); }),
+      zoomLabel,
+      makeBtn('+', () => { currentZoom = Math.min(4, currentZoom + 0.25); updateImg(); }),
+      makeBtn('↺', () => { currentZoom = 1; updateImg(); })
+    );
+
+    // Counter + Close
+    const rightGroup = document.createElement('div');
+    rightGroup.style.cssText = 'display:flex;align-items:center;gap:12px';
+
+    const counter = document.createElement('span');
+    counter.style.cssText = 'color:rgba(255,255,255,0.6);font-size:14px;font-family:monospace';
+    const updateCounter = () => { counter.textContent = `${currentIndex + 1} / ${images.length}`; };
+    if (images.length > 1) { updateCounter(); rightGroup.append(counter); }
+
+    const closeBtn = makeBtn('✕', destroy, 'width:48px;height:48px;justify-content:center;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);font-size:20px');
+    rightGroup.append(closeBtn);
+
+    topBar.append(zoomGroup, rightGroup);
+
+    // ── IMAGE AREA ──
+    const imgArea = document.createElement('div');
+    imgArea.style.cssText = 'flex:1;display:flex;align-items:center;justify-content:center;position:relative;min-height:0;overflow:auto';
+    imgArea.onclick = (e) => { if (e.target === imgArea) destroy(); };
+
+    const img = document.createElement('img');
+    img.style.cssText = 'max-width:90%;max-height:90%;transition:transform .3s ease;border-radius:8px;box-shadow:0 25px 50px rgba(0,0,0,0.5);user-select:none';
+    img.draggable = false;
+    img.onclick = (e) => e.stopPropagation();
+
+    const updateImg = () => {
+      img.src = images[currentIndex];
+      img.style.transform = `scale(${currentZoom})`;
+      updateZoomLabel();
+      if (images.length > 1) updateCounter();
+    };
+    updateImg();
+    imgArea.append(img);
+
+    // ── ARROWS ──
+    if (images.length > 1) {
+      const makeArrow = (isLeft: boolean, onClick: () => void) => {
+        const arrow = document.createElement('button');
+        arrow.innerHTML = isLeft ? '‹' : '›';
+        arrow.style.cssText = `position:absolute;${isLeft ? 'left:12px' : 'right:12px'};top:50%;transform:translateY(-50%);z-index:10;width:56px;height:56px;border-radius:999px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.15);color:white;font-size:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s`;
+        arrow.onmouseenter = () => { arrow.style.background = 'rgba(255,255,255,0.3)'; arrow.style.transform = 'translateY(-50%) scale(1.1)'; };
+        arrow.onmouseleave = () => { arrow.style.background = 'rgba(255,255,255,0.15)'; arrow.style.transform = 'translateY(-50%) scale(1)'; };
+        arrow.onclick = (e) => { e.stopPropagation(); onClick(); };
+        return arrow;
+      };
+
+      imgArea.append(
+        makeArrow(true, () => { currentIndex = (currentIndex - 1 + images.length) % images.length; currentZoom = 1; updateImg(); }),
+        makeArrow(false, () => { currentIndex = (currentIndex + 1) % images.length; currentZoom = 1; updateImg(); })
+      );
+    }
+
+    // ── DOTS ──
+    if (images.length > 1) {
+      const dotsContainer = document.createElement('div');
+      dotsContainer.style.cssText = 'display:flex;justify-content:center;gap:8px;padding-bottom:24px;flex-shrink:0';
+
+      const dots: HTMLButtonElement[] = [];
+      images.forEach((_, idx) => {
+        const dot = document.createElement('button');
+        dot.style.cssText = `height:8px;border-radius:999px;border:none;cursor:pointer;transition:all .3s;${idx === currentIndex ? 'width:32px;background:white' : 'width:8px;background:rgba(255,255,255,0.4)'}`;
+        dot.onclick = (e) => { e.stopPropagation(); currentIndex = idx; currentZoom = 1; updateImg(); updateDots(); };
+        dots.push(dot);
+        dotsContainer.append(dot);
+      });
+
+      const updateDots = () => {
+        dots.forEach((d, i) => {
+          d.style.width = i === currentIndex ? '32px' : '8px';
+          d.style.background = i === currentIndex ? 'white' : 'rgba(255,255,255,0.4)';
+        });
+      };
+
+      // Patch updateImg to also update dots
+      const origUpdateImg = updateImg;
+      const patchedUpdate = () => { origUpdateImg(); updateDots(); };
+      img.parentElement?.querySelectorAll('button').forEach(b => {
+        const origClick = b.onclick;
+        if (origClick) b.onclick = (e) => { (origClick as any)(e); updateDots(); };
+      });
+
+      overlay.append(topBar, imgArea, dotsContainer);
+    } else {
+      overlay.append(topBar, imgArea);
+    }
+
+    // ── KEYBOARD ──
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') destroy();
+      if (e.key === 'ArrowRight' && images.length > 1) { currentIndex = (currentIndex + 1) % images.length; currentZoom = 1; updateImg(); }
+      if (e.key === 'ArrowLeft' && images.length > 1) { currentIndex = (currentIndex - 1 + images.length) % images.length; currentZoom = 1; updateImg(); }
+    };
+    document.addEventListener('keydown', onKey);
+
+    // Add fade animation
+    const style = document.createElement('style');
+    style.textContent = '@keyframes fadeIn{from{opacity:0}to{opacity:1}}';
+    overlay.append(style);
+
+    document.body.append(overlay);
   };
 
   return (
@@ -335,119 +451,6 @@ export function PropertyModal({ property, isOpen, onClose, marketName }: Propert
       </DialogContent>
     </Dialog>
 
-    {/* ── LIGHTBOX FULLSCREEN COM ZOOM ── */}
-    {lightboxOpen && createPortal(
-      <div 
-        className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-2xl flex flex-col animate-in fade-in duration-200"
-        onClick={(e) => { if (e.target === e.currentTarget) setLightboxOpen(false); }}
-        onKeyDown={(e) => {
-          if (e.key === 'Escape') setLightboxOpen(false);
-          if (e.key === 'ArrowRight' && hasPhotos && property.images.length > 1) lightboxNext();
-          if (e.key === 'ArrowLeft' && hasPhotos && property.images.length > 1) lightboxPrev();
-        }}
-        tabIndex={0}
-        ref={(el) => el?.focus()}
-      >
-        {/* Barra Superior */}
-        <div className="flex items-center justify-between p-4 md:p-6 z-50 shrink-0">
-          {/* Controles de Zoom */}
-          <div className="flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-full p-1.5 border border-white/20">
-            <button 
-              onClick={(e) => { e.stopPropagation(); setZoomLevel(prev => Math.max(0.25, prev - 0.25)); }}
-              className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
-              title="Diminuir"
-            >
-              <ZoomOut className="w-5 h-5" />
-            </button>
-            <span className="text-white/80 text-xs font-mono min-w-[3rem] text-center">{Math.round(zoomLevel * 100)}%</span>
-            <button 
-              onClick={(e) => { e.stopPropagation(); setZoomLevel(prev => Math.min(4, prev + 0.25)); }}
-              className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
-              title="Aumentar"
-            >
-              <ZoomIn className="w-5 h-5" />
-            </button>
-            <button 
-              onClick={(e) => { e.stopPropagation(); setZoomLevel(1); }}
-              className="p-2.5 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all"
-              title="Redefinir"
-            >
-              <RotateCcw className="w-4 h-4" />
-            </button>
-          </div>
-
-          {/* Contador + Fechar */}
-          <div className="flex items-center gap-3">
-            {hasPhotos && property.images.length > 1 && activeTab === 'photos' && (
-              <span className="text-white/60 text-sm font-mono">{lightboxIndex + 1} / {property.images.length}</span>
-            )}
-            <button
-              className="w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all border border-white/20 hover:scale-110"
-              onClick={(e) => { e.stopPropagation(); setLightboxOpen(false); }}
-            >
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-        </div>
-
-        {/* Área da Imagem + Setas */}
-        <div className="flex-1 relative flex items-center justify-center min-h-0">
-          
-          {/* Seta Esquerda */}
-          {hasPhotos && property.images.length > 1 && activeTab === 'photos' && (
-            <button 
-              className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-50 w-12 h-12 md:w-14 md:h-14 bg-white/15 hover:bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all border border-white/20 hover:scale-110"
-              onClick={(e) => { e.stopPropagation(); lightboxPrev(); }}
-            >
-              <ChevronLeft className="w-6 h-6 md:w-7 md:h-7" />
-            </button>
-          )}
-
-          {/* Imagem */}
-          <div 
-            className="flex-1 flex items-center justify-center overflow-auto h-full px-16 md:px-24 py-4"
-            onClick={(e) => { if (e.target === e.currentTarget) setLightboxOpen(false); }}
-          >
-            <img 
-              src={lightboxImage} 
-              alt="Visualização em tela cheia" 
-              className="max-w-full max-h-full transition-transform duration-300 ease-out rounded-lg shadow-2xl cursor-grab active:cursor-grabbing select-none"
-              style={{ transform: `scale(${zoomLevel})` }}
-              draggable={false}
-              onClick={(e) => e.stopPropagation()}
-            />
-          </div>
-
-          {/* Seta Direita */}
-          {hasPhotos && property.images.length > 1 && activeTab === 'photos' && (
-            <button 
-              className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-50 w-12 h-12 md:w-14 md:h-14 bg-white/15 hover:bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all border border-white/20 hover:scale-110"
-              onClick={(e) => { e.stopPropagation(); lightboxNext(); }}
-            >
-              <ChevronRight className="w-6 h-6 md:w-7 md:h-7" />
-            </button>
-          )}
-        </div>
-
-        {/* Indicador de fotos (dots) */}
-        {hasPhotos && property.images.length > 1 && activeTab === 'photos' && (
-          <div className="flex justify-center gap-2 pb-6 shrink-0">
-            {property.images.map((img, idx) => (
-              <button
-                key={idx}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setLightboxIndex(idx);
-                  setLightboxImage(getFullImageUrl(img));
-                  setZoomLevel(1);
-                }}
-                className={`h-2 rounded-full transition-all duration-300 ${lightboxIndex === idx ? 'w-8 bg-white' : 'w-2 bg-white/40 hover:bg-white/60'}`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    , document.body)}
     </>
   );
 }
