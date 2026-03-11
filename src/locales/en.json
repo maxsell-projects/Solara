@@ -470,6 +470,17 @@
     },
     "whatsapp_msg": "Hello, I would like to know more about Vision Press verticals."
   },
+  "featured_properties": {
+    "global_location": "Global Location",
+    "about_property": "About the Property",
+    "view_details": "View All Details",
+    "floor_plan": "Floor Plan",
+    "floor_plan_unavailable": "Floor Plan Unavailable",
+    "floor_plan_contact": "Contact us to request the detailed floor plan for this property.",
+    "photos": "Photos",
+    "next_property": "Next Property",
+    "fullscreen_view": "Fullscreen view"
+  },
   "index_page": {
     "whatsapp_msg": "Hello! I would like to know more about Solara."
   },

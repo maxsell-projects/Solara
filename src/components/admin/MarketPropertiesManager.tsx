@@ -42,6 +42,8 @@ interface Property {
   status?: string;
   estimatedProfitability?: string;
   deliveryDate?: string;
+  floorPlan?: string;
+  videoUrl?: string;
 }
 
 interface MarketPropertiesManagerProps {
@@ -72,6 +74,16 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
   // URLs das imagens já existentes (para edição)
   const [existingImages, setExistingImages] = useState<string[]>([]);
 
+  // --- PLANTA BAIXA ---
+  const [floorPlanFile, setFloorPlanFile] = useState<File | null>(null);
+  const [previewFloorPlanUrl, setPreviewFloorPlanUrl] = useState<string | null>(null);
+  const [existingFloorPlan, setExistingFloorPlan] = useState<string>("");
+
+  // --- VÍDEO ---
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [previewVideoUrl, setPreviewVideoUrl] = useState<string | null>(null);
+  const [existingVideo, setExistingVideo] = useState<string>("");
+
   const fetchProperties = useCallback(async () => {
     try {
       const res = await fetch(`${API_URL}/markets/id/${marketId}`);
@@ -100,6 +112,24 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
     }
   };
 
+  const handleFloorPlanSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setFloorPlanFile(file);
+      setPreviewFloorPlanUrl(URL.createObjectURL(file));
+      setExistingFloorPlan(""); // clean existing when new selected
+    }
+  };
+
+  const handleVideoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setVideoFile(file);
+      setPreviewVideoUrl(URL.createObjectURL(file));
+      setExistingVideo(""); // clean existing when new selected
+    }
+  };
+
   const removeFile = (index: number) => {
     setSelectedFiles((prev) => prev.filter((_, i) => i !== index));
     setPreviewUrls((prev) => prev.filter((_, i) => i !== index));
@@ -121,6 +151,12 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
     setSelectedFiles([]);
     setPreviewUrls([]);
     setExistingImages([]);
+    setFloorPlanFile(null);
+    setPreviewFloorPlanUrl(null);
+    setExistingFloorPlan("");
+    setVideoFile(null);
+    setPreviewVideoUrl(null);
+    setExistingVideo("");
     setEditingProperty(null);
     setIsDialogOpen(false);
   };
@@ -138,6 +174,12 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
     setExistingImages(property.images || []);
     setSelectedFiles([]);
     setPreviewUrls([]);
+    setExistingFloorPlan(property.floorPlan || "");
+    setFloorPlanFile(null);
+    setPreviewFloorPlanUrl(null);
+    setExistingVideo(property.videoUrl || "");
+    setVideoFile(null);
+    setPreviewVideoUrl(null);
     setIsDialogOpen(true);
   };
 
@@ -179,6 +221,38 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
       // 2. Combinar imagens existentes + novas
       const allImages = [...existingImages, ...uploadedUrls];
 
+      // Upload Planta Baixa
+      let floorPlanUrl: string = existingFloorPlan;
+      if (floorPlanFile) {
+        const formData = new FormData();
+        formData.append("file", floorPlanFile);
+
+        const res = await fetch(`${API_URL}/uploads`, {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!res.ok) throw new Error("Falha no upload da planta");
+        const data = await res.json();
+        floorPlanUrl = data.url;
+      }
+
+      // Upload Vídeo
+      let finalVideoUrl: string = existingVideo;
+      if (videoFile) {
+        const formData = new FormData();
+        formData.append("file", videoFile);
+
+        const res = await fetch(`${API_URL}/uploads`, {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!res.ok) throw new Error("Falha no upload do vídeo");
+        const data = await res.json();
+        finalVideoUrl = data.url;
+      }
+
       // 3. Payload Completo
       const payload = {
         title,
@@ -189,6 +263,8 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
         status,
         estimatedProfitability: profitability,
         deliveryDate: deliveryDate ? new Date(deliveryDate) : null,
+        floorPlan: floorPlanUrl || null,
+        videoUrl: finalVideoUrl || null,
       };
 
       // 4. Decide entre POST (criar) e PUT (editar)
@@ -401,6 +477,77 @@ export function MarketPropertiesManager({ marketId }: MarketPropertiesManagerPro
                       </button>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              {/* --- BLOCO PLANTA & VÍDEO --- */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* --- PLANTA BAIXA --- */}
+                <div className="space-y-2">
+                  <Label>Planta Baixa</Label>
+                  <div className="flex items-center gap-4">
+                    <label className="border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center w-32 h-32 cursor-pointer hover:bg-gray-50 transition-colors shrink-0">
+                      <UploadCloud className="w-8 h-8 text-gray-400 mb-2" />
+                      <span className="text-xs text-gray-500 font-medium text-center px-2">Subir Planta</span>
+                      <input type="file" accept="image/*" className="hidden" onChange={handleFloorPlanSelect} />
+                    </label>
+
+                    {/* Preview da Planta Baixa */}
+                    {(previewFloorPlanUrl || existingFloorPlan) && (
+                      <div className="relative w-32 h-32 rounded-lg overflow-hidden border group bg-gray-50 flex items-center justify-center">
+                        <img src={previewFloorPlanUrl || getFullImageUrl(existingFloorPlan)} alt="Planta Baixa" className="w-full h-full object-contain" />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[10px] text-center py-0.5">
+                          {previewFloorPlanUrl ? "Nova Planta" : "Planta Atual"}
+                        </div>
+                        <button 
+                          onClick={() => {
+                            setFloorPlanFile(null);
+                            setPreviewFloorPlanUrl(null);
+                            setExistingFloorPlan("");
+                          }} 
+                          className="absolute top-1 right-1 bg-black/50 hover:bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* --- VÍDEO --- */}
+                <div className="space-y-2">
+                  <Label>Vídeo do Imóvel</Label>
+                  <div className="flex items-center gap-4">
+                    <label className="border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center w-32 h-32 cursor-pointer hover:bg-gray-50 transition-colors shrink-0">
+                      <UploadCloud className="w-8 h-8 text-gray-400 mb-2" />
+                      <span className="text-xs text-gray-500 font-medium text-center px-2">Subir Vídeo</span>
+                      <input type="file" accept="video/*" className="hidden" onChange={handleVideoSelect} />
+                    </label>
+
+                    {/* Preview do Vídeo */}
+                    {(previewVideoUrl || existingVideo) && (
+                      <div className="relative w-32 h-32 rounded-lg overflow-hidden border group bg-black flex items-center justify-center">
+                        <video 
+                          src={previewVideoUrl || getFullImageUrl(existingVideo)} 
+                          className="w-full h-full object-cover" 
+                          muted 
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[10px] text-center py-0.5">
+                          {previewVideoUrl ? "Novo Vídeo" : "Vídeo Atual"}
+                        </div>
+                        <button 
+                          onClick={() => {
+                            setVideoFile(null);
+                            setPreviewVideoUrl(null);
+                            setExistingVideo("");
+                          }} 
+                          className="absolute top-1 right-1 bg-black/50 hover:bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 

@@ -18,7 +18,7 @@ import solaraBg from "@/assets/solara.png";
 // --- IMPORTAÇÃO DE ASSETS ---
 import logoVision from "@/assets/logo-vision.png";
 // REMOVIDO: import logoSolara from "@/assets/logo-solara-full.png"; (Não vamos mais usar aqui)
-import camilaImg from "@/assets/camila.png";
+// REMOVIDO: import camilaImg from "@/assets/camila.png";
 import signatureCamila from "@/assets/signature-camila.png";
 
 interface Post {
@@ -87,7 +87,7 @@ const Vision = () => {
 
       {/* --- HERO SECTION CLEAN --- */}
       <section
-        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
+        className="relative min-h-screen flex items-start justify-center overflow-hidden perspective-1000 pt-10 md:pt-12 pb-24"
       >
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
@@ -99,43 +99,32 @@ const Vision = () => {
           <div className="absolute inset-0 bg-white/70" />
         </div>
 
-        <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center pt-10">
-          <div className="max-w-5xl mx-auto space-y-12">
+        <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center">
+          <div className="max-w-5xl mx-auto space-y-2">
 
-            {/* ÁREA DA LOGO - segue o mouse */}
-            <div className="flex flex-col items-center gap-8 mb-8">
+            {/* ÁREA DA LOGO - segue o mouse (MESMA CONFIG DA HOME) */}
+            <div className="flex flex-col items-center gap-4">
               <img
                 src={logoVision}
                 alt="Vision Press"
-                className="h-40 md:h-56 w-auto object-contain transition-transform duration-200 ease-out"
+                className="h-56 md:h-72 lg:h-80 w-auto object-contain transition-transform duration-200 ease-out"
                 style={{
                   transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
                 }}
               />
             </div>
 
-            {/* Título */}
-            <div>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] text-neutral-900 tracking-tight">
-                {t('vision_page.hero.title_main')}
-                <br />
-                <span className="text-emerald-700 font-medium relative inline-block">
-                  {t('vision_page.hero.title_highlight')}
-                </span>
-              </h1>
-            </div>
-
-            <p className="text-lg md:text-xl font-light text-neutral-600 max-w-2xl mx-auto leading-relaxed">
-              {t('vision_page.hero.description')}
+            {/* ESTD */}
+            <p className="text-[10px] md:text-xs uppercase tracking-[0.3em] text-emerald-700 font-bold -mt-2">
+              {t('hero.estd')}
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-5 justify-center pt-8">
-              {/* SERVIÇOS PRIMEIRO */}
+            {/* BOTÕES - MESMA CONFIG DA HOME */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-0">
               <Link to="/vision/services">
                 <Button
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full text-base border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold"
+                  size="sm"
+                  className="rounded-full text-xs bg-white text-emerald-800 border-2 border-emerald-600 hover:bg-emerald-600 hover:text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-6 py-3 uppercase tracking-widest font-bold"
                 >
                   {t('vision_page.hero.btn_services')}
                 </Button>
@@ -143,8 +132,8 @@ const Vision = () => {
 
               <Link to="/vision/articles">
                 <Button
-                  size="lg"
-                  className="rounded-full text-base bg-emerald-800 hover:bg-emerald-900 text-white border-none shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-10 py-7 uppercase tracking-widest text-xs font-bold"
+                  size="sm"
+                  className="rounded-full text-xs bg-emerald-800 hover:bg-emerald-900 text-white border-2 border-emerald-800 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-6 py-3 uppercase tracking-widest font-bold"
                 >
                   {t('vision_page.hero.btn_articles')}
                 </Button>
@@ -240,12 +229,15 @@ const Vision = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
 
             <div className="relative order-2 lg:order-1">
-              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl max-w-md mx-auto group">
-                <img
-                  src={camilaImg}
-                  alt="Camila Montenegro"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
-                />
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl max-w-md mx-auto group bg-black">
+                <video 
+                  className="w-full h-full object-cover"
+                  controls
+                  poster="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600&auto=format&fit=crop"
+                >
+                  <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </div>
 

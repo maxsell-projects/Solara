@@ -37,6 +37,9 @@ const Index = () => {
           <Services />
         </div>
 
+        {/* Imóveis em Destaque (FeaturedProperties) */}
+        <FeaturedProperties />
+
         <div id="about">
           <About />
         </div>
@@ -44,9 +47,6 @@ const Index = () => {
         <div id="vision">
           <VisionConnection />
         </div>
-
-        {/* Imóveis em Destaque (FeaturedProperties) */}
-        <FeaturedProperties />
       </main>
 
       <Footer />

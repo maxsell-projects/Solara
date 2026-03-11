@@ -469,6 +469,17 @@
     },
     "whatsapp_msg": "Hola, me gustaría saber más sobre las verticales de Vision Press."
   },
+  "featured_properties": {
+    "global_location": "Ubicación Global",
+    "about_property": "Sobre el Inmueble",
+    "view_details": "Ver Todos los Detalles",
+    "floor_plan": "Plano de Planta",
+    "floor_plan_unavailable": "Plano No Disponible",
+    "floor_plan_contact": "Contáctenos para solicitar el plano detallado de este inmueble.",
+    "photos": "Fotos",
+    "next_property": "Siguiente Inmueble",
+    "fullscreen_view": "Vista en pantalla completa"
+  },
   "index_page": {
     "whatsapp_msg": "¡Hola! Me gustaría saber más sobre Solara."
   },

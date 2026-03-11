@@ -1,9 +1,50 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import realEstateImg from "@/assets/service-real-estate.jpg";
-import financialImg from "@/assets/service-financial.jpg";
-import consultingImg from "@/assets/service-consulting-premium.jpg";
 import { useTranslation } from "react-i18next";
+import { useState, useEffect, useRef, useCallback } from "react";
+
+// Assets conceituais da cliente
+import realEstateImg from "@/assets/realestate.jpeg";
+import financialGif from "@/assets/financial.gif";
+import consultingImg from "@/assets/investiments.jpeg";
+
+// Componente para GIF com hover-to-play
+function AnimatedCard({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [staticFrame, setStaticFrame] = useState<string>("");
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Captura o primeiro frame do GIF como imagem estática
+  useEffect(() => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0);
+        setStaticFrame(canvas.toDataURL("image/jpeg", 0.95));
+      }
+    };
+    img.src = src;
+  }, [src]);
+
+  return (
+    <div
+      className="w-full h-full"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img
+        src={isHovered ? src : (staticFrame || src)}
+        alt={alt}
+        className={className}
+      />
+    </div>
+  );
+}
 
 const Services = () => {
   const { t } = useTranslation();
@@ -13,19 +54,22 @@ const Services = () => {
       title: t('services.cards.real_estate_title'),
       description: t('services.cards.real_estate_desc'),
       image: realEstateImg,
-      link: "/services/real-estate"
+      link: "/services/real-estate",
+      animated: false,
     },
     {
       title: t('services.cards.financial_title'),
       description: t('services.cards.financial_desc'),
-      image: financialImg,
-      link: "/services/financial"
+      image: financialGif,
+      link: "/services/financial",
+      animated: true,
     },
     {
       title: t('services.cards.consulting_title'),
       description: t('services.cards.consulting_desc'),
       image: consultingImg,
-      link: "/services/consultancy"
+      link: "/services/consultancy",
+      animated: false,
     },
   ];
 
@@ -56,11 +100,19 @@ const Services = () => {
                 className="border-0 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:bg-solara-vinho h-full flex flex-col"
               >
                 <div className="aspect-[3/2] overflow-hidden">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
+                  {service.animated ? (
+                    <AnimatedCard
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  ) : (
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  )}
                 </div>
                 <CardContent className="p-8 flex flex-col flex-grow">
                   <h3 className="text-2xl font-light mb-4 text-neutral-900 group-hover:text-white transition-colors duration-300">

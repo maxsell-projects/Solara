@@ -6,20 +6,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogDescription 
-} from "@/components/ui/dialog";
-import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselNext, 
-  CarouselPrevious 
-} from "@/components/ui/carousel";
+import { PropertyModal } from "@/components/PropertyModal";
 import { ArrowLeft, MapPin, Loader2, Home, Download, X, Calendar, TrendingUp, Info } from "lucide-react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -314,148 +301,13 @@ const RealEstateDetail = () => {
         )}
       </div>
 
-      {/* --- MODAL DE DETALHES --- */}
-      <Dialog open={!!selectedProperty} onOpenChange={(open) => !open && setSelectedProperty(null)}>
-        <DialogContent className="max-w-5xl p-0 overflow-hidden bg-white border-none shadow-2xl [&>button]:hidden">
-          <DialogHeader className="sr-only">
-            <DialogTitle>Detalhes do Imóvel</DialogTitle>
-            <DialogDescription>
-                Galeria de fotos e ficha técnica detalhada.
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="grid lg:grid-cols-2 h-[90vh] lg:h-[700px]">
-            
-            {/* Esquerda: Galeria */}
-            <div className="bg-neutral-900 flex items-center justify-center relative">
-              {selectedProperty?.images && selectedProperty.images.length > 0 ? (
-                <Carousel className="w-full h-full">
-                  <CarouselContent className="h-full">
-                    {selectedProperty.images.map((img, idx) => (
-                      <CarouselItem key={idx} className="h-full flex items-center justify-center pt-0">
-                        <div className="w-full h-full relative">
-                           <img 
-                             src={getFullImageUrl(img)} 
-                             alt={`Foto ${idx + 1}`} 
-                             className="w-full h-full object-contain"
-                           />
-                           {/* Overlay Degradê na base da imagem para leitura */}
-                           <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/60 to-transparent pointer-events-none lg:hidden" />
-                        </div>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  
-                  {selectedProperty.images.length > 1 && (
-                    <>
-                      <CarouselPrevious className="left-4 bg-white/10 hover:bg-white/20 border-none text-white h-10 w-10" />
-                      <CarouselNext className="right-4 bg-white/10 hover:bg-white/20 border-none text-white h-10 w-10" />
-                    </>
-                  )}
-                </Carousel>
-              ) : (
-                <div className="text-white/50 flex flex-col items-center">
-                  <Home className="w-16 h-16 mb-2" />
-                  <span className="text-sm">Sem imagens disponíveis</span>
-                </div>
-              )}
-            </div>
-
-            {/* Direita: Info Completa */}
-            <div className="p-8 lg:p-10 overflow-y-auto bg-white flex flex-col relative custom-scrollbar">
-              <button 
-                onClick={() => setSelectedProperty(null)}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 transition-colors z-10"
-              >
-                <X className="w-6 h-6 text-gray-500" />
-              </button>
-
-              <div className="flex-grow space-y-6">
-                <div>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                        <Badge variant="outline" className="border-solara-vinho text-solara-vinho px-3 py-1">
-                            Oportunidade
-                        </Badge>
-                        {selectedProperty?.status && (
-                            <Badge className="bg-gray-900 text-white font-normal">
-                                {selectedProperty.status}
-                            </Badge>
-                        )}
-                    </div>
-                  
-                  <h3 className="text-3xl font-light text-gray-900 tracking-tight leading-tight">
-                    {selectedProperty?.typology ? `${selectedProperty.typology} em ` : 'Imóvel em '}
-                    <span className="text-gray-500">{selectedProperty?.location || market.name}</span>
-                  </h3>
-                </div>
-                
-                {/* GRID DE FICHA TÉCNICA */}
-                <div className="bg-gray-50 p-5 rounded-lg border border-gray-100 grid grid-cols-2 gap-y-4 gap-x-8">
-                    {selectedProperty?.estimatedProfitability && (
-                        <div className="space-y-1">
-                            <span className="text-xs uppercase text-gray-400 font-bold flex items-center gap-1">
-                                <TrendingUp className="w-3 h-3" /> Rentabilidade
-                            </span>
-                            <p className="text-lg font-medium text-emerald-600">{selectedProperty.estimatedProfitability}</p>
-                        </div>
-                    )}
-                    
-                    {selectedProperty?.deliveryDate && (
-                        <div className="space-y-1">
-                            <span className="text-xs uppercase text-gray-400 font-bold flex items-center gap-1">
-                                <Calendar className="w-3 h-3" /> Previsão Entrega
-                            </span>
-                            <p className="text-lg font-medium text-gray-800">
-                                {new Date(selectedProperty.deliveryDate).toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}
-                            </p>
-                        </div>
-                    )}
-
-                    {selectedProperty?.typology && (
-                        <div className="space-y-1">
-                            <span className="text-xs uppercase text-gray-400 font-bold flex items-center gap-1">
-                                <Home className="w-3 h-3" /> Tipologia
-                            </span>
-                            <p className="text-base text-gray-700">{selectedProperty.typology}</p>
-                        </div>
-                    )}
-
-                    <div className="space-y-1">
-                        <span className="text-xs uppercase text-gray-400 font-bold flex items-center gap-1">
-                            <Info className="w-3 h-3" /> Referência
-                        </span>
-                        <p className="text-base text-gray-700">#{selectedProperty?.id}</p>
-                    </div>
-                </div>
-
-                <div className="space-y-2">
-                    <h4 className="text-sm font-bold uppercase text-gray-400 tracking-wider">Sobre o Imóvel</h4>
-                    <div className="prose prose-sm text-gray-600 font-light leading-relaxed whitespace-pre-wrap text-justify">
-                    {selectedProperty?.description}
-                    </div>
-                </div>
-              </div>
-
-              <div className="pt-6 border-t mt-8 space-y-4 bg-white sticky bottom-0">
-                <Button 
-                  className="w-full bg-solara-vinho hover:bg-solara-vinho/90 h-14 text-lg font-light shadow-lg hover:shadow-xl transition-all"
-                  onClick={() => {
-                    if (selectedProperty?.images?.[0]) {
-                      window.open(getFullImageUrl(selectedProperty.images[0]), '_blank');
-                    }
-                  }}
-                >
-                  <Download className="w-5 h-5 mr-3" />
-                  Baixar Apresentação PDF
-                </Button>
-                <p className="text-xs text-center text-gray-400 px-4">
-                  Interessado? Nossa equipe de especialistas pode agendar uma visita virtual ou presencial.
-                </p>
-              </div>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      {/* --- MODAL DE DETALHES NOVO --- */}
+      <PropertyModal 
+        property={selectedProperty} 
+        isOpen={!!selectedProperty} 
+        onClose={() => setSelectedProperty(null)} 
+        marketName={market.name}
+      />
 
       <Footer />
       <WhatsAppButton 

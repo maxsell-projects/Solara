@@ -154,15 +154,17 @@ const VisionConnection = () => {
               </div>
             </div>
 
-            {/* Coluna Direita: Foto Humanizada */}
+            {/* Coluna Direita: Vídeo Institucional */}
             <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
-              <div className="relative aspect-[4/5] w-full max-w-md rounded-2xl overflow-hidden shadow-2xl group">
-                <img
-                  src={camilaImg}
-                  alt="Camila Montenegro"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
-                />
-                <div className="absolute inset-0 bg-solara-vinho/10 mix-blend-multiply group-hover:bg-transparent transition-all duration-1000"></div>
+              <div className="relative aspect-[4/5] w-full max-w-md rounded-2xl overflow-hidden shadow-2xl group bg-black">
+                <video 
+                  className="w-full h-full object-cover"
+                  controls
+                  poster="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600&auto=format&fit=crop"
+                >
+                  <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </div>
 

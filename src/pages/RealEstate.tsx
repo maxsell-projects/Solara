@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { ArrowRight, Loader2, Building2, TrendingUp, ShieldCheck, Globe, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-premium-property.jpg";
+import retanguloImg from "@/assets/Retangulo.jpeg";
 // Note: Removi o import não usado 'visionImage' para limpar o código, 
 // a menos que queiras usar noutro sítio.
 import { useTranslation } from "react-i18next"; // <--- Import i18n
@@ -108,7 +109,7 @@ const RealEstate = () => {
 
             <div className="relative h-[550px] w-full animate-in fade-in zoom-in duration-1000 delay-200">
               <div className="absolute top-0 right-0 w-full h-full overflow-hidden rounded-tr-[100px] rounded-bl-[100px] shadow-2xl">
-                <img src={heroImage} alt="Luxury Architecture" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000" />
+                <img src={retanguloImg} alt="Luxury Architecture" className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-1000" />
               </div>
             </div>
           </div>
