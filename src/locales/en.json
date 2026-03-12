@@ -479,7 +479,21 @@
     "floor_plan_contact": "Contact us to request the detailed floor plan for this property.",
     "photos": "Photos",
     "next_property": "Next Property",
-    "fullscreen_view": "Fullscreen view"
+    "fullscreen_view": "Fullscreen view",
+    "plan_label": "FLOOR PLAN 1",
+    "plan_feature_1": "Living for 5 rooms",
+    "plan_feature_2": "24m linear with",
+    "plan_feature_2b": "floor-to-ceiling windows",
+    "plan_feature_3": "City view",
+    "plan_description": "Standard plan with home theater + Open kitchen",
+    "plan_suites": "3 suites",
+    "plan_area": "232m²",
+    "plan_highlight_prefix": "Living with",
+    "plan_highlight_bold": "24m linear",
+    "quote_architect_intro": "Camila Montenegro delivers the floor plan with the best performance in the segment.",
+    "quote_text": "The environments were\ndesigned to offer spaces\nequal to or even larger\nthan in 300, 400m²\napartments",
+    "quote_author_name": "Camila Montenegro",
+    "quote_author_role": "CEO & Founder"
   },
   "index_page": {
     "whatsapp_msg": "Hello! I would like to know more about Solara."

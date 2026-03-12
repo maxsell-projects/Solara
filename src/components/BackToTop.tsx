@@ -35,7 +35,7 @@ const BackToTop = () => {
       onClick={scrollToTop}
       size="lg"
       variant="outline"
-      className="fixed bottom-6 left-6 z-50 rounded-full w-14 h-14 shadow-lg hover:scale-110 transition-transform bg-background"
+      className="fixed bottom-24 right-6 z-50 rounded-full w-14 h-14 shadow-lg hover:scale-110 transition-transform bg-background"
       aria-label="Voltar ao topo"
     >
       <ArrowUp className="w-6 h-6" />

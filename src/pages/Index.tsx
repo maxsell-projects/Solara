@@ -10,7 +10,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import BackToTop from "@/components/BackToTop";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 import FeaturedProperties from "@/components/FeaturedProperties";
-import retanguloImg from "@/assets/Retangulo.webp";
+import heroCamilaVideo from "@/assets/hero-camila.mp4";
 
 const Index = () => {
   const { t } = useTranslation();
@@ -24,12 +24,20 @@ const Index = () => {
       <Header />
 
       <main className="flex-grow">
-        {/* Hero com imagem de fundo */}
-        <div
-          className="relative w-full bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${retanguloImg})` }}
-        >
-          <Hero />
+        {/* Hero com vídeo de fundo */}
+        <div className="relative w-full overflow-hidden">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            src={heroCamilaVideo}
+          />
+          <div className="absolute inset-0 bg-white/30 z-10" />
+          <div className="relative z-20">
+            <Hero />
+          </div>
         </div>
 
         {/* Services com fundo próprio (SEM a imagem) */}
@@ -37,12 +45,13 @@ const Index = () => {
           <Services />
         </div>
 
-        {/* Imóveis em Destaque (FeaturedProperties) */}
-        <FeaturedProperties />
-
+        {/* Quem Somos (About) - acima dos imóveis */}
         <div id="about">
           <About />
         </div>
+
+        {/* Imóveis em Destaque (FeaturedProperties) */}
+        <FeaturedProperties />
 
         <div id="vision">
           <VisionConnection />

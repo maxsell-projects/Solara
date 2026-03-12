@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 // Adicionei ArrowRight aos imports
 import { Building2, TrendingUp, Users, Briefcase, ChartLine, Shield, ArrowRight } from "lucide-react";
-import realEstateImg from "@/assets/service-real-estate.jpg";
-import financialImg from "@/assets/service-financial.jpg";
+import realEstateImg from "@/assets/realestate.jpeg";
+import financialImg from "@/assets/financial.gif";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { LeadModal } from "@/components/LeadModal"; // <--- Import do Modal

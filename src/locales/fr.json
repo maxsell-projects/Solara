@@ -478,7 +478,21 @@
     "floor_plan_contact": "Contactez-nous pour demander le plan détaillé de ce bien.",
     "photos": "Photos",
     "next_property": "Bien Suivant",
-    "fullscreen_view": "Vue en plein écran"
+    "fullscreen_view": "Vue en plein écran",
+    "plan_label": "PLAN FINAL 1",
+    "plan_feature_1": "Séjour pour 5 pièces",
+    "plan_feature_2": "24m linéaires avec",
+    "plan_feature_2b": "baies vitrées du sol au plafond",
+    "plan_feature_3": "Vue sur la ville",
+    "plan_description": "Plan type avec home cinéma + Cuisine ouverte",
+    "plan_suites": "3 suites",
+    "plan_area": "232m²",
+    "plan_highlight_prefix": "Séjour avec",
+    "plan_highlight_bold": "24m linéaires",
+    "quote_architect_intro": "Camila Montenegro livre le plan avec la meilleure performance du segment.",
+    "quote_text": "Les espaces ont été conçus\npour offrir des surfaces\négales ou même supérieures\nà celles d'appartements\nde 300, 400m²",
+    "quote_author_name": "Camila Montenegro",
+    "quote_author_role": "PDG & Fondatrice"
   },
   "index_page": {
     "whatsapp_msg": "Bonjour ! J'aimerais en savoir plus sur Solara."

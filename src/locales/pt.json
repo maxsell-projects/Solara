@@ -479,7 +479,21 @@
     "floor_plan_contact": "Entre em contato para solicitar a planta detalhada deste imóvel.",
     "photos": "Fotos",
     "next_property": "Próximo Imóvel",
-    "fullscreen_view": "Visualização em tela cheia"
+    "fullscreen_view": "Visualização em tela cheia",
+    "plan_label": "PLANTA FINAL 1",
+    "plan_feature_1": "Living para 5 ambientes",
+    "plan_feature_2": "24m lineares com",
+    "plan_feature_2b": "janelas de piso ao teto",
+    "plan_feature_3": "Vista para a cidade",
+    "plan_description": "Planta tipo com home theater + Cozinha aberta",
+    "plan_suites": "3 suítes",
+    "plan_area": "232m²",
+    "plan_highlight_prefix": "Living com",
+    "plan_highlight_bold": "24m lineares",
+    "quote_architect_intro": "Camila Montenegro entrega a planta com a melhor performance do segmento.",
+    "quote_text": "Os ambientes foram\ndesenhados  para oferecer\nespaços iguais ou até\nmaiores do que em\napartamentos de 300, 400m²",
+    "quote_author_name": "Camila Montenegro",
+    "quote_author_role": "CEO & Founder"
   },
   "index_page": {
     "whatsapp_msg": "Olá! Gostaria de saber mais sobre a Solara."
