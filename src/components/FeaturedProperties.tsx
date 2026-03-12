@@ -70,7 +70,7 @@ const FeaturedProperties = () => {
 
         if (Array.isArray(data) && data.length > 0) {
           // Limitar a 2 propriedades
-          const limitedData = data.slice(0, 2);
+          const limitedData = data.slice(0, 1);
           const realProperties = limitedData.map((p: any) => ({
             id: p.id,
             title: p.title || p.market?.name || "IMÓVEL EXCLUSIVO",
@@ -85,10 +85,10 @@ const FeaturedProperties = () => {
           }));
           setProperties(realProperties);
         } else {
-          setProperties(MOCK_PROPERTIES.slice(0, 2));
+          setProperties(MOCK_PROPERTIES.slice(0, 1));
         }
       } catch (error) {
-        setProperties(MOCK_PROPERTIES.slice(0, 2));
+        setProperties(MOCK_PROPERTIES.slice(0, 1));
       }
     };
 
