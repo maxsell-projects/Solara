@@ -14,6 +14,7 @@ import signatureCamila from "@/assets/signature-camila.png";
 import logoVision from "@/assets/logo-vision.png";
 import visionImg from "@/assets/vision-editorial.jpg";
 import camilaImg from "@/assets/camila.png";
+import heroCamilaVideo from "@/assets/hero-camila.mp4";
 
 const About = () => {
   const { t } = useTranslation();
@@ -81,14 +82,17 @@ const About = () => {
             {/* Coluna Direita: Foto da Camila + Card Vertentes */}
             <div className="space-y-8 flex flex-col">
 
-              {/* 1. Foto Humanizada */}
+              {/* 1. Vídeo Humanizado */}
               <div className="relative aspect-[4/5] w-full max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl group">
-                <img
-                  src={camilaImg}
-                  alt="Camila Montenegro"
+                <video 
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  src={heroCamilaVideo}
                 />
-                <div className="absolute inset-0 bg-solara-vinho/10 mix-blend-multiply group-hover:bg-transparent transition-all duration-1000"></div>
+                <div className="absolute inset-0 bg-solara-vinho/10 mix-blend-multiply group-hover:bg-transparent transition-all duration-1000 pointer-events-none"></div>
               </div>
 
               {/* 2. Card Vertentes (Logo abaixo da foto) */}

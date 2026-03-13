@@ -11,6 +11,7 @@ import visionImg from "@/assets/vision-editorial.jpg";
 // Novos assets da Camila (mesmos do About)
 import signatureCamila from "@/assets/signature-camila.png";
 import camilaImg from "@/assets/camila.png";
+import heroCamilaVideo from "@/assets/hero-camila.mp4";
 
 interface Post {
   id: number;
@@ -158,13 +159,13 @@ const VisionConnection = () => {
             <div className="order-1 lg:order-2 flex justify-center lg:justify-end">
               <div className="relative aspect-[4/5] w-full max-w-md rounded-2xl overflow-hidden shadow-2xl group bg-black">
                 <video 
-                  className="w-full h-full object-cover"
-                  controls
-                  poster="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600&auto=format&fit=crop"
-                >
-                  <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  src={heroCamilaVideo}
+                />
               </div>
             </div>
 

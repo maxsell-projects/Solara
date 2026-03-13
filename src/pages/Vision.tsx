@@ -21,45 +21,9 @@ import signatureCamila from "@/assets/signature-camila.png";
 
 // Novos assets do Hero e Serviços
 import heroCamilaVideo from "@/assets/hero-camila.mp4";
-import realEstateImg from "@/assets/realestate.jpeg";
-import financialGif from "@/assets/financial.gif";
-import consultingImg from "@/assets/investiments.jpeg";
-
-function AnimatedCard({ src, alt, className }: { src: string; alt: string; className?: string }) {
-  const [isHovered, setIsHovered] = useState(false);
-  const [staticFrame, setStaticFrame] = useState<string>("");
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const img = new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        ctx.drawImage(img, 0, 0);
-        setStaticFrame(canvas.toDataURL("image/jpeg", 0.95));
-      }
-    };
-    img.src = src;
-  }, [src]);
-
-  return (
-    <div
-      className="w-full h-full"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <img
-        src={isHovered ? src : (staticFrame || src)}
-        alt={alt}
-        className={className}
-      />
-    </div>
-  );
-}
+import creativeImg from "@/assets/vision-creative.png";
+import talentImg from "@/assets/vision-talent.png";
+import builderImg from "@/assets/vision-builder.png";
 
 interface Post {
   id: number;
@@ -229,7 +193,7 @@ const Vision = () => {
             <Link to="/vision/services" className="block h-full transform hover:-translate-y-2 transition-transform duration-500">
               <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:bg-emerald-800 h-full flex flex-col">
                 <div className="aspect-[3/2] overflow-hidden">
-                  <img src={realEstateImg} alt={t('vision_services.vertentes.creative.title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img src={creativeImg} alt={t('vision_services.vertentes.creative.title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
                 <CardContent className="p-8 flex flex-col flex-grow bg-white group-hover:bg-emerald-800 transition-colors duration-500">
                   <h3 className="text-2xl font-light mb-4 text-neutral-900 group-hover:text-white transition-colors duration-300">
@@ -249,7 +213,7 @@ const Vision = () => {
             <Link to="/vision/services" className="block h-full transform hover:-translate-y-2 transition-transform duration-500">
               <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:bg-emerald-800 h-full flex flex-col">
                 <div className="aspect-[3/2] overflow-hidden">
-                  <AnimatedCard src={financialGif} alt={t('vision_services.vertentes.talent.title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img src={talentImg} alt={t('vision_services.vertentes.talent.title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
                 <CardContent className="p-8 flex flex-col flex-grow bg-white group-hover:bg-emerald-800 transition-colors duration-500">
                   <h3 className="text-2xl font-light mb-4 text-neutral-900 group-hover:text-white transition-colors duration-300">
@@ -269,7 +233,7 @@ const Vision = () => {
             <Link to="/vision/services" className="block h-full transform hover:-translate-y-2 transition-transform duration-500">
               <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:bg-emerald-800 h-full flex flex-col">
                 <div className="aspect-[3/2] overflow-hidden">
-                  <img src={consultingImg} alt={t('vision_services.vertentes.builder.title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img src={builderImg} alt={t('vision_services.vertentes.builder.title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 </div>
                 <CardContent className="p-8 flex flex-col flex-grow bg-white group-hover:bg-emerald-800 transition-colors duration-500">
                   <h3 className="text-2xl font-light mb-4 text-neutral-900 group-hover:text-white transition-colors duration-300">
@@ -376,13 +340,13 @@ const Vision = () => {
             <div className="relative order-2 lg:order-1">
               <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl max-w-md mx-auto group bg-black">
                 <video 
-                  className="w-full h-full object-cover"
-                  controls
-                  poster="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=1600&auto=format&fit=crop"
-                >
-                  <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  src={heroCamilaVideo}
+                />
               </div>
             </div>
 
