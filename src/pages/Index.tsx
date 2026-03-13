@@ -34,7 +34,6 @@ const Index = () => {
             className="absolute inset-0 w-full h-full object-cover z-0"
             src={heroCamilaVideo}
           />
-          <div className="absolute inset-0 bg-white/30 z-10" />
           <div className="relative z-20">
             <Hero />
           </div>

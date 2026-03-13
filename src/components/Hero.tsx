@@ -78,14 +78,20 @@ const Hero = () => {
 
           {/* BOTÕES - MAIS PRÓXIMOS M E FINOS */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center pt-0">
-            <Link to="/services">
+            <a
+              href="#services"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               <Button
                 size="sm"
                 className="rounded-full text-xs bg-white text-solara-vinho border-2 border-solara-vinho hover:bg-solara-vinho hover:text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-6 py-3 uppercase tracking-widest font-bold"
               >
                 {t('hero.btn_services')}
               </Button>
-            </Link>
+            </a>
 
             <Link to="/vision">
               <Button

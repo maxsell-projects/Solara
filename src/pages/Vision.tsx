@@ -17,9 +17,49 @@ import solaraBg from "@/assets/solara.webp";
 
 // --- IMPORTAÇÃO DE ASSETS ---
 import logoVision from "@/assets/logo-vision.png";
-// REMOVIDO: import logoSolara from "@/assets/logo-solara-full.png"; (Não vamos mais usar aqui)
-// REMOVIDO: import camilaImg from "@/assets/camila.png";
 import signatureCamila from "@/assets/signature-camila.png";
+
+// Novos assets do Hero e Serviços
+import heroCamilaVideo from "@/assets/hero-camila.mp4";
+import realEstateImg from "@/assets/realestate.jpeg";
+import financialGif from "@/assets/financial.gif";
+import consultingImg from "@/assets/investiments.jpeg";
+
+function AnimatedCard({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [staticFrame, setStaticFrame] = useState<string>("");
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0);
+        setStaticFrame(canvas.toDataURL("image/jpeg", 0.95));
+      }
+    };
+    img.src = src;
+  }, [src]);
+
+  return (
+    <div
+      className="w-full h-full"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img
+        src={isHovered ? src : (staticFrame || src)}
+        alt={alt}
+        className={className}
+      />
+    </div>
+  );
+}
 
 interface Post {
   id: number;
@@ -89,14 +129,16 @@ const Vision = () => {
       <section
         className="relative min-h-screen flex items-start justify-center overflow-hidden perspective-1000 pt-10 md:pt-12 pb-24"
       >
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src={solaraBg}
-            alt=""
-            className="w-full h-full object-cover"
+        {/* Background Video */}
+        <div className="absolute inset-0 w-full overflow-hidden z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            src={heroCamilaVideo}
           />
-          <div className="absolute inset-0 bg-white/70" />
         </div>
 
         <div className="container mx-auto px-6 lg:px-8 relative z-30 text-center">
@@ -104,14 +146,20 @@ const Vision = () => {
 
             {/* ÁREA DA LOGO - segue o mouse (MESMA CONFIG DA HOME) */}
             <div className="flex flex-col items-center gap-4">
-              <img
-                src={logoVision}
-                alt="Vision Press"
-                className="h-56 md:h-72 lg:h-80 w-auto object-contain transition-transform duration-200 ease-out"
-                style={{
-                  transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
-                }}
-              />
+              <div className="block perspective-container relative group">
+                <div
+                  className="flex items-center justify-center transition-all duration-500 ease-out will-change-transform relative"
+                  style={{
+                    transform: `translate(${mousePosition.x * 10}px, ${mousePosition.y * 10}px)`,
+                  }}
+                >
+                  <img
+                    src={logoVision}
+                    alt="Vision Press"
+                    className="h-56 md:h-72 lg:h-80 w-auto object-contain transition-transform duration-200 ease-out relative z-10"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* ESTD */}
@@ -121,14 +169,20 @@ const Vision = () => {
 
             {/* BOTÕES - MESMA CONFIG DA HOME */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-0">
-              <Link to="/vision/services">
+              <a
+                href="#services"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 <Button
                   size="sm"
                   className="rounded-full text-xs bg-white text-emerald-800 border-2 border-emerald-600 hover:bg-emerald-600 hover:text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 px-6 py-3 uppercase tracking-widest font-bold"
                 >
                   {t('vision_page.hero.btn_services')}
                 </Button>
-              </Link>
+              </a>
 
               <Link to="/vision/articles">
                 <Button
@@ -139,6 +193,97 @@ const Vision = () => {
                 </Button>
               </Link>
             </div>
+          </div>
+        </div>
+
+        {/* Torn Paper Effect at the bottom */}
+        <div className="absolute bottom-0 w-full left-0 z-40 overflow-hidden leading-none transform translate-y-[1px]">
+          <svg
+            className="w-[calc(100%+1.3px)] h-[30px] md:h-[50px] lg:h-[70px] block"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V120H0Z"
+              fill="#ffffff" /* Adapts to next section bg-white */
+            />
+          </svg>
+        </div>
+      </section>
+
+      <section id="services" className="relative py-24 lg:py-32">
+        <div className="container mx-auto px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-4xl mx-auto mb-20 space-y-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-neutral-900">
+              {t('vision_services.vertentes.title')}
+            </h2>
+            <p className="text-lg md:text-xl font-light text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+              {t('hero.description')}
+            </p>
+            <div className="w-24 h-1 bg-emerald-800/20 mx-auto rounded-full mt-8" />
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Creative Communication */}
+            <Link to="/vision/services" className="block h-full transform hover:-translate-y-2 transition-transform duration-500">
+              <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:bg-emerald-800 h-full flex flex-col">
+                <div className="aspect-[3/2] overflow-hidden">
+                  <img src={realEstateImg} alt={t('vision_services.vertentes.creative.title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                </div>
+                <CardContent className="p-8 flex flex-col flex-grow bg-white group-hover:bg-emerald-800 transition-colors duration-500">
+                  <h3 className="text-2xl font-light mb-4 text-neutral-900 group-hover:text-white transition-colors duration-300">
+                    {t('vision_services.vertentes.creative.title')}
+                  </h3>
+                  <p className="text-neutral-500 font-light leading-relaxed group-hover:text-white/90 transition-colors duration-300 flex-grow">
+                    {t('vision_services.vertentes.creative.description')}
+                  </p>
+                  <span className="text-sm uppercase tracking-widest mt-6 text-emerald-800 font-medium group-hover:text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 flex items-center gap-2">
+                    {t('services.discover_more')}
+                  </span>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Talent Agency */}
+            <Link to="/vision/services" className="block h-full transform hover:-translate-y-2 transition-transform duration-500">
+              <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:bg-emerald-800 h-full flex flex-col">
+                <div className="aspect-[3/2] overflow-hidden">
+                  <AnimatedCard src={financialGif} alt={t('vision_services.vertentes.talent.title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                </div>
+                <CardContent className="p-8 flex flex-col flex-grow bg-white group-hover:bg-emerald-800 transition-colors duration-500">
+                  <h3 className="text-2xl font-light mb-4 text-neutral-900 group-hover:text-white transition-colors duration-300">
+                    {t('vision_services.vertentes.talent.title')}
+                  </h3>
+                  <p className="text-neutral-500 font-light leading-relaxed group-hover:text-white/90 transition-colors duration-300 flex-grow">
+                    {t('vision_services.vertentes.talent.description')}
+                  </p>
+                  <span className="text-sm uppercase tracking-widest mt-6 text-emerald-800 font-medium group-hover:text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 flex items-center gap-2">
+                    {t('services.discover_more')}
+                  </span>
+                </CardContent>
+              </Card>
+            </Link>
+
+            {/* Field Builder */}
+            <Link to="/vision/services" className="block h-full transform hover:-translate-y-2 transition-transform duration-500">
+              <Card className="border-0 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-500 hover:bg-emerald-800 h-full flex flex-col">
+                <div className="aspect-[3/2] overflow-hidden">
+                  <img src={consultingImg} alt={t('vision_services.vertentes.builder.title')} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                </div>
+                <CardContent className="p-8 flex flex-col flex-grow bg-white group-hover:bg-emerald-800 transition-colors duration-500">
+                  <h3 className="text-2xl font-light mb-4 text-neutral-900 group-hover:text-white transition-colors duration-300">
+                    {t('vision_services.vertentes.builder.title')}
+                  </h3>
+                  <p className="text-neutral-500 font-light leading-relaxed group-hover:text-white/90 transition-colors duration-300 flex-grow">
+                    {t('vision_services.vertentes.builder.description')}
+                  </p>
+                  <span className="text-sm uppercase tracking-widest mt-6 text-emerald-800 font-medium group-hover:text-white opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 flex items-center gap-2">
+                    {t('services.discover_more')}
+                  </span>
+                </CardContent>
+              </Card>
+            </Link>
           </div>
         </div>
       </section>
